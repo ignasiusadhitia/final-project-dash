@@ -1,0 +1,29 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@icons": "./src/assets/icons/index.js",
+          "@images": "./src/assets/images/index.js",
+          "@components": "./src/components/index.js",
+          "@hooks": "./src/hooks",
+          "@layouts": "./src/layouts",
+          "@pages": "./src/pages/index.js",
+          "@store": "./src/store",
+          "@services": "./src/services",
+          "@utils": "./src/utils"
+        }
+      }
+    ]
+  ]
+}

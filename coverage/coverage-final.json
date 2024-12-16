@@ -1,0 +1,671 @@
+{
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\App.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\App.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 22, "column": 15 },
+        "end": { "line": 79, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 81, "column": 12 },
+        "end": { "line": 95, "column": 1 }
+      },
+      "2": {
+        "start": { "line": 82, "column": 2 },
+        "end": { "line": 94, "column": 4 }
+      },
+      "3": {
+        "start": { "line": 88, "column": 12 },
+        "end": { "line": 88, "column": 62 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 81, "column": 12 },
+          "end": { "line": 81, "column": 13 }
+        },
+        "loc": {
+          "start": { "line": 81, "column": 18 },
+          "end": { "line": 95, "column": 1 }
+        },
+        "line": 81
+      },
+      "1": {
+        "name": "(anonymous_1)",
+        "decl": {
+          "start": { "line": 87, "column": 22 },
+          "end": { "line": 87, "column": 23 }
+        },
+        "loc": {
+          "start": { "line": 88, "column": 12 },
+          "end": { "line": 88, "column": 62 }
+        },
+        "line": 88
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 1, "2": 1, "3": 14 },
+    "f": { "0": 1, "1": 14 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "8c2bc363a483168451e0409138951b57f7d4f35f"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Confirmation.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Confirmation.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 21 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 33 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 21 },
+          "end": { "line": 3, "column": 22 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 27 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 2, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "b93143afb3e4bac408f4446dc91c881527f39d94"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Footer.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Footer.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 15 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 27 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 15 },
+          "end": { "line": 3, "column": 16 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 21 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 2, "1": 1 },
+    "f": { "0": 1 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "fb418365599478f3a2aa6388192f7d0cd71d8452"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Navbar.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Navbar.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 15 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 27 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 15 },
+          "end": { "line": 3, "column": 16 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 21 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 2, "1": 2 },
+    "f": { "0": 2 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "4bc48b04a17dd560fbef42c90f97f27f06749098"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Skeleteon.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\Skeleteon.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 18 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 30 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 18 },
+          "end": { "line": 3, "column": 19 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 24 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 2, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "2bcc1543f4fa68274a65aaf312a1899a0b36bd28"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\index.js": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\components\\index.js",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "95d89e95b936ac77f7abcf37203239eb67edac17"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\About.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\About.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 14 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 26 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 14 },
+          "end": { "line": 3, "column": 15 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 20 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "08025eca5d39689148e205c2a05f8396b0de0387"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Account.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Account.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 16 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 28 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 16 },
+          "end": { "line": 3, "column": 17 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 22 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "065b95c2072b8e7f877248e2fe5a0315365b7fce"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\AllProducts.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\AllProducts.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 20 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 32 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 20 },
+          "end": { "line": 3, "column": 21 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 26 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "c162c36a56975c683bbd1f81e3f4f6ac99a78410"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\BestSelling.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\BestSelling.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 20 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 32 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 20 },
+          "end": { "line": 3, "column": 21 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 26 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "e303185de4012ff9c99ddedbee3ec1480646a505"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Cart.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Cart.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 13 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 25 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 13 },
+          "end": { "line": 3, "column": 14 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 19 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "2da45731184ffa012e96da0a0669ef19df55e1cc"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Checkout.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Checkout.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 29 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 17 },
+          "end": { "line": 3, "column": 18 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 23 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "9118497326088335f94f68301e414d7d03157326"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Contact.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Contact.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 16 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 28 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 16 },
+          "end": { "line": 3, "column": 17 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 22 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "661ab292329a0e054b32b229af4d9835eb85a82e"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Home.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Home.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 13 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 25 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 13 },
+          "end": { "line": 3, "column": 14 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 19 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 1 },
+    "f": { "0": 1 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "0cfee3b8258f1301d6fe85d2b83e392a3b24957a"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Login.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Login.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 14 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 26 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 14 },
+          "end": { "line": 3, "column": 15 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 20 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "9049723d7a15bff3e2df0dee5f3f97289bcb3038"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\NotFound.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\NotFound.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 29 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 17 },
+          "end": { "line": 3, "column": 18 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 23 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "5608591e61b8a6e6bfb3e2053d51eb6b58818921"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Product.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Product.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 16 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 28 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 16 },
+          "end": { "line": 3, "column": 17 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 22 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "5feacdfa1a540061e8063293a4389d35b2f0df67"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Register.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Register.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 29 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 17 },
+          "end": { "line": 3, "column": 18 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 23 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "811f1a66c9a8bc9f868608107defb2e91c9124cc"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\ThankYou.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\ThankYou.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 29 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 17 },
+          "end": { "line": 3, "column": 18 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 23 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "906302cbcd19414ccf669f9961b6959344ac631a"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Whislist.jsx": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\Whislist.jsx",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 5, "column": 1 }
+      },
+      "1": {
+        "start": { "line": 4, "column": 2 },
+        "end": { "line": 4, "column": 29 }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": { "line": 3, "column": 17 },
+          "end": { "line": 3, "column": 18 }
+        },
+        "loc": {
+          "start": { "line": 3, "column": 23 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 0 },
+    "f": { "0": 0 },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "18b33ace1464438d70060cf7263381b5c6e47dfe"
+  },
+  "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\index.js": {
+    "path": "C:\\Users\\ignas\\Documents\\Code\\react\\js\\src\\pages\\index.js",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "0ff1d0852fa26980f9d16e4d0bf606160a2085ff"
+  }
+}
