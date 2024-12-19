@@ -10,7 +10,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
       <p className="text-sm text-type-text-light mt-[5px]">
         How do i get started lorem ipsum dolor at?
       </p>
-      <form className="mt-5 w-[434px]" onSubmit={onSubmitHandler}>
+      <form className="mt-5 w-full md:w-[330px]" onSubmit={onSubmitHandler}>
         <div>
           <label className="text-sm" htmlFor="email text-type">
             Email
