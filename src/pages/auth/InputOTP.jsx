@@ -43,6 +43,7 @@ const InputOTP = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('submitted OTP', otp.join(''));
+    setOtp(Array(length).fill(''));
   };
 
   return (

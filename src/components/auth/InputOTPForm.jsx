@@ -41,7 +41,7 @@ const InputOTPForm = ({
         ))}
       </div>
       <button
-        className="w-full mt-7 py-[14px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
+        className="w-full mt-7 pt-3 pb-[15px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
         type="submit"
       >
         Send OTP
