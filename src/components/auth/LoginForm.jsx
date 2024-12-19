@@ -60,7 +60,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
 
       {/* Sign Up Navigation */}
       <div className="mt-[25px] flex justify-center gap-4">
-        <p className="">Dont’t have an account.</p>
+        <p className="text-type-text-light">Dont’t have an account.</p>
         <Link
           className="block text-primary hover:text-primary-dark"
           to="/sign-up"
