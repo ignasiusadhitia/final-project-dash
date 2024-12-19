@@ -21,7 +21,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
             placeholder="Enter your email"
             type="email"
             value={formData?.email}
-            onChange={(event) => onInputChangeHandler(event.target.value)}
+            onChange={onInputChangeHandler}
           />
         </div>
 
@@ -35,7 +35,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
             placeholder=". . . . . . . . . . . . ."
             type="password"
             value={formData?.password}
-            onChange={(event) => onInputChangeHandler(event.target.value)}
+            onChange={onInputChangeHandler}
           />
         </div>
 
