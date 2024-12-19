@@ -45,7 +45,7 @@ const InputOTPForm = ({
 };
 
 InputOTPForm.propTypes = {
-  otp: PropTypes.string,
+  otp: PropTypes.arrayOf(PropTypes.string),
   inputsRef: PropTypes.shape({
     current: PropTypes.arrayOf(PropTypes.instanceOf(Element)),
   }),
