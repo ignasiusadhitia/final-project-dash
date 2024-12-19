@@ -40,7 +40,8 @@ const InputOTP = () => {
     inputs.current[nextIndex].focus();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     console.log('submitted OTP', otp.join(''));
   };
 
@@ -62,7 +63,10 @@ const InputOTP = () => {
             onSubmitHandler={handleSubmit}
           />
 
-          <Link className="text-sm mt-6 text-primary" to="/">
+          <Link
+            className="text-sm mt-6 text-primary hover:text-primary-dark"
+            to="/"
+          >
             Back to login
           </Link>
         </div>

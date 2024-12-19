@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         primary: '#DB4444',
+        'primary-dark': '#AF3636',
         'type-text': '#030406',
         'type-text-light': '#89868D',
         'type-text-disable': '#B4B2B7',

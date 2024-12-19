@@ -25,7 +25,7 @@ const InputOTPForm = ({
           <input
             key={index}
             ref={(el) => (inputsRef.current[index] = el)}
-            className="border-[1px] border-surface-border bg-surface-background py-[13px] rounded-lg text-center"
+            className="border-[1px] border-surface-border bg-surface-background py-[13px] rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-primary"
             maxLength="1"
             type="text"
             value={value}
@@ -41,7 +41,7 @@ const InputOTPForm = ({
         ))}
       </div>
       <button
-        className="w-full mt-7 py-[14px] bg-primary rounded-lg text-surface-neutral text-base font-medium"
+        className="w-full mt-7 py-[14px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
         type="submit"
       >
         Send OTP
