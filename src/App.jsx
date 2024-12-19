@@ -1,12 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import { Footer, Navbar } from '@components';
+import ProtectedLayout from '@layouts/ProtectedLayout';
+
 import {
   AddProduct,
   Banner,
   Category,
   EditProduct,
   ForgotPassword,
+  Home,
   InputOTP,
   Login,
   NotFound,
@@ -37,63 +39,72 @@ const routes = [
     element: <InputOTP />,
   },
   {
-    path: '/products',
+    path: '*',
+    element: <NotFound />,
+  },
+];
+
+const protectedRoutes = [
+  {
+    path: 'products',
     element: <Product />,
   },
   {
-    path: '/products/:id',
+    path: 'products/:id',
     element: <ProductDetail />,
   },
   {
-    path: '/products/add',
+    path: 'products/add',
     element: <AddProduct />,
   },
   {
-    path: '/products/edit/:id',
+    path: 'products/edit/:id',
     element: <EditProduct />,
   },
   {
-    path: '/banners',
+    path: 'banners',
     element: <Banner />,
   },
   {
-    path: '/categories',
+    path: 'categories',
     element: <Category />,
   },
   {
-    path: '/orders',
+    path: 'orders',
     element: <Orders />,
   },
   {
-    path: '/promotions',
+    path: 'promotions',
     element: <Promotion />,
   },
   {
-    path: '/ratings',
+    path: 'ratings',
     element: <Rating />,
   },
   {
-    path: '/stocks',
+    path: 'stocks',
     element: <Stock />,
-  },
-  {
-    path: '*',
-    element: <NotFound />,
   },
 ];
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <div>
+      <div className="min-h-screen">
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} element={element} path={path} />
           ))}
+
+          <Route element={<ProtectedLayout />} path="/dashboard">
+            <Route index element={<Home />} />
+
+            {protectedRoutes.map(({ path, element }) => (
+              <Route key={path} element={element} path={path} />
+            ))}
+          </Route>
         </Routes>
       </div>
-      <Footer />
     </Router>
   );
 };
