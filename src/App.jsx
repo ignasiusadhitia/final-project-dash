@@ -6,7 +6,8 @@ import {
   Banner,
   Category,
   EditProduct,
-  Home,
+  ForgotPassword,
+  InputOTP,
   Login,
   NotFound,
   Orders,
@@ -14,23 +15,26 @@ import {
   ProductDetail,
   Promotion,
   Rating,
-  Register,
+  SignUp,
   Stock,
 } from '@pages';
 
 const routes = [
   {
     path: '/',
-    element: <Home />,
-  },
-
-  {
-    path: '/login',
     element: <Login />,
   },
   {
-    path: '/register',
-    element: <Register />,
+    path: '/sign-up',
+    element: <SignUp />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/input-otp',
+    element: <InputOTP />,
   },
   {
     path: '/products',
