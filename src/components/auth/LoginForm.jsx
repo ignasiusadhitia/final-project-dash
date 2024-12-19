@@ -11,6 +11,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
         How do i get started lorem ipsum dolor at?
       </p>
       <form className="mt-5 w-full md:w-[330px]" onSubmit={onSubmitHandler}>
+        {/* Email Input */}
         <div>
           <label className="text-sm" htmlFor="email text-type">
             Email
@@ -25,6 +26,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
           />
         </div>
 
+        {/* Password Input */}
         <div className="mt-5">
           <label className="text-sm" htmlFor="email text-type">
             Password
@@ -39,6 +41,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
           />
         </div>
 
+        {/* Forgot Password Navigation */}
         <Link
           className="block mt-5 text-right text-primary hover:text-primary-dark"
           to="/forgot-password"
@@ -46,6 +49,7 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
           Forgot password
         </Link>
 
+        {/* Login Button */}
         <button
           className="w-full mt-5 pt-3 pb-[15px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
           type="submit"
@@ -53,6 +57,8 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
           Sign In
         </button>
       </form>
+
+      {/* Sign Up Navigation */}
       <div className="mt-[25px] flex justify-center gap-4">
         <p className="">Dont’t have an account.</p>
         <Link
