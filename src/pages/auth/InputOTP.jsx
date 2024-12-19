@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { InputOTPForm } from '@components';
 
 const InputOTP = () => {
-  const length = 6; // OTP length
+  const length = 4; // OTP length
   const [otp, setOtp] = useState(Array(length).fill(''));
   const inputs = useRef([]);
 
@@ -43,16 +45,28 @@ const InputOTP = () => {
   };
 
   return (
-    <div>
-      <InputOTPForm
-        inputsRef={inputs}
-        length={length}
-        otp={otp}
-        onBackspaceHandler={handleBackspace}
-        onInputChangeHandler={handleInputChange}
-        onPasteHandler={handlePaste}
-        onSubmitHandler={handleSubmit}
-      />
+    <div className="flex items-center h-screen">
+      <div className=" w-full md:max-w-[45.625rem] mx-4 md:mx-auto bg-white rounded-[30px] py-12 md:py-[7.75rem] px-6 md:px-[12.5rem] shadow-md">
+        <div className="w-full flex flex-col items-center">
+          <h1 className="font-bold text-[1.625rem]">Input OTP</h1>
+          <p className="text-sm text-type-text-light text-center mt-3">
+            we send you one time password (OTP) on the email
+          </p>
+          <InputOTPForm
+            inputsRef={inputs}
+            length={length}
+            otp={otp}
+            onBackspaceHandler={handleBackspace}
+            onInputChangeHandler={handleInputChange}
+            onPasteHandler={handlePaste}
+            onSubmitHandler={handleSubmit}
+          />
+
+          <Link className="text-sm mt-6 text-primary" to="/">
+            Back to login
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

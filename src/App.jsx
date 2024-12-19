@@ -90,7 +90,7 @@ const protectedRoutes = [
 const App = () => {
   return (
     <Router>
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-surface-background">
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} element={element} path={path} />

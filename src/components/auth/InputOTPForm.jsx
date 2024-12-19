@@ -19,12 +19,13 @@ const InputOTPForm = ({
   };
 
   return (
-    <form className="max-w-[20.625rem mx-auto]" onSubmit={onSubmitHandler}>
-      <div className="grid grid-cols-6">
+    <form className="mt-11" onSubmit={onSubmitHandler}>
+      <div className="grid grid-cols-4 gap-2 mx-[10px]">
         {otp.map((value, index) => (
           <input
             key={index}
             ref={(el) => (inputsRef.current[index] = el)}
+            className="border-[1px] border-surface-border bg-surface-background py-[13px] rounded-lg text-center"
             maxLength="1"
             type="text"
             value={value}
@@ -39,7 +40,12 @@ const InputOTPForm = ({
           />
         ))}
       </div>
-      <button type="submit">Send OTP</button>
+      <button
+        className="w-full mt-7 py-[14px] bg-primary rounded-lg text-surface-neutral text-base font-medium"
+        type="submit"
+      >
+        Send OTP
+      </button>
     </form>
   );
 };
