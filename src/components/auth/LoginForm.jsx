@@ -39,8 +39,15 @@ const LoginForm = ({ formData, onInputChangeHandler, onSubmitHandler }) => {
           />
         </div>
 
+        <Link
+          className="block mt-5 text-right text-primary hover:text-primary-dark"
+          to="/forgot-password"
+        >
+          Forgot password
+        </Link>
+
         <button
-          className="w-full mt-7 pt-3 pb-[15px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
+          className="w-full mt-5 pt-3 pb-[15px] bg-primary hover:bg-primary-dark rounded-lg text-surface-neutral text-base font-medium"
           type="submit"
         >
           Sign In
