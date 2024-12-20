@@ -4,6 +4,7 @@ export { default as Hamburger } from './hamburger.svg?react';
 export { default as Moon } from './moon.svg?react';
 export { default as Home } from './home.svg?react';
 export { default as Sun } from './sun.svg?react';
+// Sidebar Icons
 export { default as Product } from './product.svg?react';
 export { default as Category } from './category.svg?react';
 export { default as Orders } from './orders.svg?react';
@@ -21,3 +22,7 @@ export { default as PromotionActive } from './promotion-active.svg?react';
 export { default as BannerActive } from './banner-active.svg?react';
 export { default as RatingActive } from './rating-active.svg?react';
 export { default as StockActive } from './stock-active.svg?react';
+// Auth Page Icons
+export { default as HidePassword } from './hide-password.svg?react';
+export { default as VerticalLine } from './vertical-line.svg?react';
+export { default as HorizontalLine } from './horizontal-line.svg?react';

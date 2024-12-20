@@ -2,11 +2,17 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { Footer, Navbar } from '@components';
+
 const ProtectedLayout = () => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <>
+      <Navbar />
+      <div className="min-h-screen">
+        <Outlet />
+      </div>
+      <Footer />
+    </>
   );
 };
 
