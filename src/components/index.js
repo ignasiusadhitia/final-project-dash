@@ -8,3 +8,5 @@ export { default as ForgotPasswordForm } from './auth/ForgotPasswordForm';
 export { default as InputOTPForm } from './auth/InputOTPForm';
 export { default as LoginForm } from './auth/LoginForm';
 export { default as SignUpForm } from './auth/SignUpForm';
+// Home Components
+export { default as Card } from './home/Card';

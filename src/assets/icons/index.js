@@ -26,3 +26,9 @@ export { default as StockActive } from './stock-active.svg?react';
 export { default as HidePassword } from './hide-password.svg?react';
 export { default as VerticalLine } from './vertical-line.svg?react';
 export { default as HorizontalLine } from './horizontal-line.svg?react';
+// Home Page Icons
+export { default as Users } from './users.svg?react';
+export { default as Items } from './items.svg?react';
+export { default as Sales } from './sales.svg?react';
+export { default as Clicks } from './clicks.svg?react';
+export { default as Next } from './next.svg?react';
