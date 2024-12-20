@@ -1,8 +1,8 @@
-import { Sidebar } from '@components';
 import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { Sidebar } from '@components';
 
 const ProtectedLayout = () => {
   return (
