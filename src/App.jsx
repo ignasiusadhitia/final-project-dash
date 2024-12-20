@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import { Footer, Navbar } from '@components';
+import { Sidebar } from '@components';
 import {
   AddProduct,
   Banner,
@@ -81,15 +81,16 @@ const routes = [
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <div>
-        <Routes>
-          {routes.map(({ path, element }) => (
-            <Route key={path} element={element} path={path} />
-          ))}
-        </Routes>
+      <div className='flex'>
+        <Sidebar />
+        <div>
+          <Routes>
+            {routes.map(({ path, element }) => (
+              <Route key={path} element={element} path={path} />
+            ))}
+          </Routes>
+        </div>
       </div>
-      <Footer />
     </Router>
   );
 };

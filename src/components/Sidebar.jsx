@@ -1,0 +1,57 @@
+import React from 'react';
+import { 
+  Home, Product, Category, Orders, Promotion, Banner, Rating, Stock, 
+  Side, SideTransparant, 
+  HomeActive, ProductActive, CategoryActive, OrdersActive, PromotionActive, BannerActive, RatingActive, StockActive 
+} from '@icons';
+import { Link, useLocation } from 'react-router-dom';
+
+const Sidebar = () => {
+  const location = useLocation().pathname;
+
+  const menuItems = [
+    { path: '/', label: 'Home', icon: <Home />, activeIcon: <HomeActive /> },
+    { path: '/products', label: 'Product', icon: <Product />, activeIcon: <ProductActive /> },
+    { path: '/categories', label: 'Category', icon: <Category />, activeIcon: <CategoryActive /> },
+    { path: '/orders', label: 'Orders', icon: <Orders />, activeIcon: <OrdersActive /> },
+    { path: '/promotions', label: 'Promotion', icon: <Promotion />, activeIcon: <PromotionActive /> },
+    { path: '/banners', label: 'Banner Management', icon: <Banner />, activeIcon: <BannerActive /> },
+    { path: '/ratings', label: 'Rating', icon: <Rating />, activeIcon: <RatingActive /> },
+    { path: '/stocks', label: 'Stock', icon: <Stock />, activeIcon: <StockActive /> },
+  ];
+
+  return (
+    <aside className='w-[218px] text-white'>
+      <header className='bg-type-text flex gap-4 px-7 items-center h-[66px]'>
+        <img src="https://picsum.photos/200/300" alt="user" className='w-[28px] h-[28px] rounded-full' />
+        <div>
+          <h1 className='text-[12.64px] font-normal'>Anita Cruz</h1>
+          <p className='text-[10px] font-normal'>anita@commerce.com</p>
+        </div>
+      </header>
+
+      <div className='py-6'>
+        <ul className='flex flex-col gap-5'>
+          {menuItems.map(({ path, label, icon, activeIcon }) => {
+            const isActive = location === path;
+
+            return (
+              <li key={path} className={"relative flex items-center gap-7"}>
+                {isActive ? <Side /> : <SideTransparant />}
+                <Link 
+                  to={path} 
+                  className={`text-[14.22px] flex gap-3 ${isActive ? 'text-primary' : 'text-type-text'}`}
+                >
+                  {isActive ? activeIcon : icon}
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </aside>
+  );
+};
+
+export default Sidebar;
