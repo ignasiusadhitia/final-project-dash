@@ -91,7 +91,6 @@ const App = () => {
   return (
     <Router>
       <div className="min-h-screen bg-surface-background">
-        <Sidebar />
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} element={element} path={path} />
