@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 import { Card } from '@components';
-import { Items, Orders, Sales, Users, Next } from '@icons';
+import { Items, Clicks, Sales, Users, Next } from '@icons';
 
 const Home = () => {
   const summaryData = [
@@ -22,7 +22,7 @@ const Home = () => {
       value: '35k',
     },
     {
-      icon: <Orders />,
+      icon: <Clicks />,
       title: 'Orders',
       value: '40',
     },
@@ -111,7 +111,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="grid lg:grid-cols-[1fr,270px] gap-10 p-5 ml-52">
+    <main className="grid lg:grid-cols-[1fr,270px] gap-10 p-5 container">
       {/* SUMMARY */}
       <section>
         <Card className="grid lg:grid-cols-4 gap-3">
