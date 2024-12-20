@@ -21,7 +21,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className='w-[218px] text-white'>
+    <aside className='w-[218px] text-white h-screen'>
       <header className='bg-type-text flex gap-4 px-7 items-center h-[66px]'>
         <img src="https://picsum.photos/200/300" alt="user" className='w-[28px] h-[28px] rounded-full' />
         <div>
