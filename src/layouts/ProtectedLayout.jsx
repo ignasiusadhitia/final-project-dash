@@ -1,17 +1,16 @@
+import { Sidebar } from '@components';
 import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { Footer, Navbar } from '@components';
 
 const ProtectedLayout = () => {
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen">
+      <div className="min-h-screen flex">
+        <Sidebar />
         <Outlet />
       </div>
-      <Footer />
     </>
   );
 };

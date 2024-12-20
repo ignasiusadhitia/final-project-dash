@@ -1,8 +1,7 @@
 // Commons Components
 export { default as Confirmation } from './commons/Confirmation';
-export { default as Footer } from './commons/Footer';
-export { default as Navbar } from './commons/Navbar';
 export { default as Skeleton } from './commons/Skeleteon';
+export { default as Sidebar } from './commons/Sidebar';
 // Auth Components
 export { default as AuthBanner } from './auth/AuthBanner';
 export { default as ForgotPasswordForm } from './auth/ForgotPasswordForm';
