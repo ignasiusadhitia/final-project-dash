@@ -32,3 +32,7 @@ export { default as Items } from './items.svg?react';
 export { default as Sales } from './sales.svg?react';
 export { default as Clicks } from './clicks.svg?react';
 export { default as Next } from './next.svg?react';
+// Category Page Icons
+export { default as Pencil } from './pencil.svg?react';
+export { default as Trash } from './trash.svg?react';
+export { default as Chevron } from './chevron.svg?react';

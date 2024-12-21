@@ -10,3 +10,6 @@ export { default as LoginForm } from './auth/LoginForm';
 export { default as SignUpForm } from './auth/SignUpForm';
 // Home Components
 export { default as Card } from './home/Card';
+// Category Components
+export { default as Table } from './category/Table';
+export { default as TableCell } from './category/TableCell';
