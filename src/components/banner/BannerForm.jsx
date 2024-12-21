@@ -48,12 +48,12 @@ const BannerForm = () => {
         </div>
       </div>
 
-      <div className="py-6 flex flex-col gap-6 border-t border-[#DBDCDE]">
+      <div className="py-6 flex flex-col gap-6 border-t border-surface-border">
         <div className="flex w-full gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="name">Banner Name</label>
             <input
-              className="bg-[#F4F5F9] placeholder:text-type-text-light border rounded-lg border-[#DBDCDE] px-4 py-3 text-[14.22px] outline-none"
+              className="bg-surface-background placeholder:text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               type="text"
               id="name"
               placeholder="Enter Banner Name"
@@ -65,7 +65,7 @@ const BannerForm = () => {
             <label className="text-[14.22px]" htmlFor="release-date" >Release Date</label>
             <DatePicker
               placeholder="Select Release Date"
-              className="bg-[#F4F5F9] hover:border-[#DBDCDE] active:[#DBDCDE] focus:[#DBDCDE] focus:ring-0 text-type-text-light border rounded-lg border-[#DBDCDE] px-4 py-3 text-[14.22px] outline-none"
+              className="bg-surface-background hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               type="date"
               id="release-date"
               style={{
@@ -85,7 +85,7 @@ const BannerForm = () => {
             <label className="text-[14.22px]" htmlFor="end-date" >End Date</label>
             <DatePicker
               placeholder="Select End Date"
-              className="bg-[#F4F5F9] hover:border-[#DBDCDE] active:[#DBDCDE] focus:[#DBDCDE] focus:ring-0 text-type-text-light border rounded-lg border-[#DBDCDE] px-4 py-3 text-[14.22px] outline-none"
+              className="bg-surface-background hover:border-surface-border active-suborder-surface-border focus-suborder-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               type="date"
               id="end-date"
               style={{
@@ -102,7 +102,7 @@ const BannerForm = () => {
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="target-url">Target URL</label>
             <input
-              className="bg-[#F4F5F9] placeholder:text-type-text-light text-type-text-light border rounded-lg border-[#DBDCDE] px-4 py-3 text-[14.22px] outline-none"
+              className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               type="text"
               id="target-url"
               placeholder="Enter Target URL"
@@ -118,7 +118,7 @@ const BannerForm = () => {
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
                 defaultValue=""
-                className="bg-[#F4F5F9] text-type-text-light border rounded-lg border-[#DBDCDE] px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
+                className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 name="type"
                 id="type"
                 disabled={isDetailPage}
@@ -133,7 +133,7 @@ const BannerForm = () => {
 
           <div className="flex gap-4 cursor-pointer flex-col w-full">
             {page !== "detail" && (
-              <div className="bg-[#F4F5F9] border border-[#DBDCDE] flex flex-col gap-3 p-5 px-10 mb-4 rounded-xl">
+              <div className="bg-surface-background border border-surface-border flex flex-col gap-3 p-5 px-10 mb-4 rounded-xl">
                 <label className="text-[14.22px]">
                   Banner Photo
                 </label>
@@ -170,7 +170,7 @@ const BannerForm = () => {
 
       <div className="flex justify-end">
         <div className="flex gap-5">
-          <Link to="/dashboard/banners" className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? "bg-[#89868D] text-white" : "border-primary text-primary"}`}>{isDetailPage ? "Close" : "Cancle"}</Link>
+          <Link to="/dashboard/banners" className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? "bg-type-text-light text-white" : "border-primary text-primary"}`}>{isDetailPage ? "Close" : "Cancle"}</Link>
           {!isDetailPage && (
              <button className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white">{id ? "Save" : "Add Banner"}</button>
           )}
