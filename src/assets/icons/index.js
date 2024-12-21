@@ -37,3 +37,4 @@ export { default as Pencil } from './pencil.svg?react';
 export { default as Trash } from './trash.svg?react';
 export { default as Chevron } from './chevron.svg?react';
 export { default as Download } from './download.svg?react';
+export { default as Image } from './image.svg?react';

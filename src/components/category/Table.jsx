@@ -51,7 +51,7 @@ const Table = ({ tableHeader, tableData, actions, publish, sort }) => {
                 )
             )}
             <td className="py-2 border-b">
-              <div className="flex gap-2">
+              <div className="flex gap-2 text-black/50">
                 {actions.map((action, index) => (
                   <action.icon
                     key={index}
