@@ -13,3 +13,4 @@ export { default as Card } from './home/Card';
 // Category Components
 export { default as Table } from './category/Table';
 export { default as TableCell } from './category/TableCell';
+export { default as FormCategory } from './category/Form';

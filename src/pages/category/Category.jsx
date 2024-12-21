@@ -1,8 +1,11 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useRef, useEffect } from 'react';
 
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
-import { Card, Table } from '@components';
+import { Card, Table, FormCategory } from '@components';
 import { Trash, Pencil, Chevron } from '@icons';
 
 const Category = () => {
@@ -57,20 +60,16 @@ const Category = () => {
   ];
 
   const handleAddCategory = () => {
-    Swal.fire({
-      html: `
-        You can use <b>bold text</b>,
-        <a href="#" autofocus>links</a>,
-        and other HTML tags
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Add',
+    MySwal.fire({
+      html: <FormCategory />,
+      showConfirmButton: false,
     });
   };
 
   return (
-    <main className="border w-full p-5">
+    <main className="border w-full p-5 overflow-hidden">
       <Card className="rounded-3xl h-auto">
+        {/* HEADER */}
         <div className="flex justify-between mb-10">
           <header>
             <h1 className="font-bold text-2xl">Category</h1>
@@ -83,6 +82,7 @@ const Category = () => {
             Add New Category
           </button>
         </div>
+        {/* TABLE */}
         <div className="overflow-auto">
           <Table
             actions={actions}
@@ -92,12 +92,13 @@ const Category = () => {
             tableHeader={tableHeader}
           />
         </div>
-        <div className="flex justify-between text-black/50 font-bold mt-5 text-sm px-5">
+        {/* PAGINATION */}
+        <div className="flex flex-col items-center md:flex-row md:justify-between text-black/50 font-bold mt-5 text-sm px-5">
           <p>1-20 of 27</p>
-          <div className="flex gap-5">
+          <div className="flex justify-between items-center">
             <div>
               <label htmlFor="rows">Rows per page:</label>
-              <select id="rows" name="">
+              <select id="rows" name="rows">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>

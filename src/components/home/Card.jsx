@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { twMerge } from 'tailwind-merge';
 
 const Card = ({ children, className }) => {
-  console.log(className);
   return (
     <div
       className={twMerge(
