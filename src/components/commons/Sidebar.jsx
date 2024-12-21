@@ -78,7 +78,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-[218px] text-white h-screen bg-[#FFFFFF]">
+    <aside className="w-[218px] flex-shrink-0 text-white h-screen bg-[#FFFFFF]">
       <header className="bg-type-text flex gap-4 px-7 items-center h-[66px]">
         <img
           alt="user"
@@ -94,7 +94,9 @@ const Sidebar = () => {
       <div className="py-6 w-full">
         <ul className="flex flex-col gap-5">
           {menuItems.map(({ path, label, icon, activeIcon }) => {
-            const isActive = location === path;
+            const isActive = path === '/dashboard'
+            ? location === path
+            : location.startsWith(path);
 
             return (
               <li key={path} className={'relative flex items-center gap-7'}>
