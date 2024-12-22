@@ -36,7 +36,7 @@ const Dropzone = ({ name, value, handleChange }) => {
   }, [value]);
 
   const handelCancelImage = () => {
-    setImages('');
+    setImages([]);
     hiddenInputRef.current.value = '';
   };
 
