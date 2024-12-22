@@ -47,3 +47,7 @@ export { default as RedTrash } from './red-trash.svg?react';
 export { default as ArrowSorting } from './arrow-sorting.svg?react';
 export { default as Date } from './date.svg?react';
 export { default as ArrowDownGray } from './arrow-down-gray.svg?react';
+// Order's Page Icons
+export { default as AcceptOrder } from './accept.svg?react';
+export { default as CancelOrder } from './cancel.svg?react';
+export { default as ExclamationCircle } from './exclamation-circle.svg?react';
