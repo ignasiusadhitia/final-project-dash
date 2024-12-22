@@ -19,6 +19,7 @@ import {
   Rating,
   SignUp,
   Stock,
+  UpdateBanner,
 } from '@pages';
 
 const routes = [
@@ -64,6 +65,18 @@ const protectedRoutes = [
   {
     path: 'banners',
     element: <Banner />,
+  },
+  {
+    path: 'banners/add',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/detail/:id',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/edit/:id',
+    element: <UpdateBanner />,
   },
   {
     path: 'categories',
