@@ -1,13 +1,17 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
-import { Card, Table, FormCategory } from '@components';
+import { Card, Table, FormCategory, Confirm, Success } from '@components';
 import { Trash, Pencil, Chevron } from '@icons';
 
 const Category = () => {
+  const navigate = useNavigate();
+
+  // PROPS TABLE HEADER & DATA
   const tableHeader = ['Category Name', 'Category Icon', 'Published', 'Action'];
   const tableData = [
     {
@@ -23,26 +27,121 @@ const Category = () => {
       published: false,
     },
   ];
-  const handleDelete = (id) => {
-    alert(`Delete ${id}`);
+
+  // ADD CATEGORY
+  const handleAddCategory = (e) => {
+    e.preventDefault();
+    MySwal.fire({
+      html: <Success message="This category was successfully added" />,
+      customClass: {
+        popup: 'rounded-md w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
   };
+  const handleOpenAddCategory = () => {
+    MySwal.fire({
+      html: <FormCategory action={handleAddCategory} />,
+      showConfirmButton: false,
+    });
+  };
+
+  // TABLE ACTIONS (Edit & Delete)
+  // Edit
+  const handleEditCategory = (e) => {
+    e.preventDefault();
+    MySwal.fire({
+      html: <Success message="This category was successfully edited" />,
+      customClass: {
+        popup: 'rounded-md w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  // Toggle modal for Edit
+  const handleOpenEditCategory = (data) => {
+    MySwal.fire({
+      html: <FormCategory action={handleEditCategory} data={data} />,
+      showConfirmButton: false,
+    });
+  };
+
+  // Delete
+  const handleDelete = (data) => {
+    MySwal.fire({
+      html: (
+        <Success message={`Data with id:${data.id} successfully deleted`} />
+      ),
+      customClass: {
+        popup: 'rounded-md w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  // Toggle modal for delete
+  const handleOpenDeleteModal = (data = []) => {
+    MySwal.fire({
+      html: (
+        <Confirm
+          action={() => handleDelete(data)}
+          desc="Are you sure want to delete this category?"
+          publish={false}
+          title="Delete Category?"
+        />
+      ),
+      showConfirmButton: false,
+    });
+  };
+
+  // PROPS TABLE ACTIONS (Insert action icon and its paired function as props)
   const actions = [
     {
       icon: Pencil,
-      action: (id) => alert(`Edit ${id}`),
+      action: (data) => handleOpenEditCategory(data),
     },
     {
       icon: Trash,
-      action: (id) => handleDelete(id),
+      action: (id) => handleOpenDeleteModal(id),
     },
   ];
-  const handlePublish = (data) => {
+
+  // PROPS PUBLISH CATEGORY (Publish or unpublish category function)
+  const handleUnpublish = (data) => {
+    // Pending: Process backend
+    MySwal.fire({
+      html: (
+        <Success
+          message={`Successfuly Unpublish Category with id = ${data.id}`}
+        />
+      ),
+      customClass: {
+        popup: 'rounded-md w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handleOpenPublishModal = (data) => {
     if (data.published) {
-      alert(`Unpublish ${data.id}`);
+      MySwal.fire({
+        html: (
+          <Confirm
+            action={() => handleUnpublish(data)}
+            desc="Are you sure want to unpublish this category?"
+            publish={true}
+          />
+        ),
+        showConfirmButton: false,
+      });
     } else {
       alert(`Publish ${data.id}`);
     }
   };
+
+  // PROPS SORT CATEGORY
   const sort = [
     {
       asc: () => alert('sort asc by name'),
@@ -58,25 +157,27 @@ const Category = () => {
     },
   ];
 
-  const handleAddCategory = () => {
-    MySwal.fire({
-      html: <FormCategory />,
-      showConfirmButton: false,
-    });
-  };
-
   return (
     <main className="border w-full p-5 overflow-hidden">
       <Card className="rounded-3xl h-auto">
         {/* HEADER */}
         <div className="flex justify-between mb-10">
-          <header>
+          <header className="space-y-1">
             <h1 className="font-bold text-2xl">Category</h1>
-            <p>Home - Category </p>
+            <p className="flex gap-1 items-center">
+              <span
+                className="text-primary cursor-pointer text-xs"
+                onClick={() => navigate('/dashboard')}
+              >
+                Home
+              </span>
+              <Chevron className="w-3 h-3" />
+              <span className="text-primary text-xs">Category</span>
+            </p>
           </header>
           <button
             className="p-2 self-start text-white text-xs rounded-md bg-primary"
-            onClick={handleAddCategory}
+            onClick={handleOpenAddCategory}
           >
             Add New Category
           </button>
@@ -85,7 +186,7 @@ const Category = () => {
         <div className="overflow-auto">
           <Table
             actions={actions}
-            publish={handlePublish}
+            publish={handleOpenPublishModal}
             sort={sort}
             tableData={tableData}
             tableHeader={tableHeader}

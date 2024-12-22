@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
 import { Dropzone } from '@components';
 
-const Form = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Form disiapkan! Kirimkan ke endpoint setelah diketahui.');
+const Form = ({ data, action }) => {
+  console.log(data);
+
+  const [formData, setFormData] = useState({
+    categoryName: data?.category || '',
+    icon: data?.icon || '',
+    published: data?.published || false,
+  });
+
+  const handelChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className="max-w-[529px] mt-5 flex flex-col">
-      <h2 className="text-lg font-bold mb-10 self-start">Add Category</h2>
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <h2 className="text-lg font-bold mb-10 self-start">
+        {data?.id ? 'Edit Category' : 'Add Category'}
+      </h2>
+      <form className="flex flex-col gap-5" onSubmit={action}>
         {/* CATEGORY NAME */}
         <div className="flex flex-col gap-2">
           <label className="text-sm self-start" htmlFor="category-name">
@@ -24,9 +33,11 @@ const Form = () => {
             required
             className="border rounded-md py-3 px-4 text-sm bg-surface-background"
             id="category-name"
-            name="category-name"
+            name="categoryName"
             placeholder="Enter Category Name"
             type="text"
+            value={formData.categoryName}
+            onChange={handelChange}
           />
           <p className="text-[#f93131] text-xs text-left hidden">
             Category name must be unique
@@ -49,7 +60,7 @@ const Form = () => {
             className="border px-5 py-1 rounded-md bg-primary text-white"
             type="submit"
           >
-            Add Category
+            {data?.id ? 'Save' : 'Add'}
           </button>
         </div>
       </form>
@@ -58,6 +69,7 @@ const Form = () => {
 };
 
 Form.propTypes = {
-  handleSubmit: PropTypes.func,
+  data: PropTypes.object,
+  action: PropTypes.func,
 };
 export default Form;

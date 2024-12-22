@@ -38,3 +38,6 @@ export { default as Trash } from './trash.svg?react';
 export { default as Chevron } from './chevron.svg?react';
 export { default as Download } from './download.svg?react';
 export { default as Image } from './image.svg?react';
+export { default as ModalCheck } from './modal-check.svg?react';
+export { default as ModalTrash } from './modal-trash.svg?react';
+export { default as ModalExclamation } from './modal-exclamation.svg?react';

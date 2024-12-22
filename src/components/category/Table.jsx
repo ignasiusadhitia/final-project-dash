@@ -56,7 +56,7 @@ const Table = ({ tableHeader, tableData, actions, publish, sort }) => {
                   <action.icon
                     key={index}
                     className="cursor-pointer"
-                    onClick={() => action.action(item.id)}
+                    onClick={() => action.action(item)}
                   />
                 ))}
               </div>
