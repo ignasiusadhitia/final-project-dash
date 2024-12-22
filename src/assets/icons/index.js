@@ -4,6 +4,7 @@ export { default as Hamburger } from './hamburger.svg?react';
 export { default as Moon } from './moon.svg?react';
 export { default as Home } from './home.svg?react';
 export { default as Sun } from './sun.svg?react';
+export { default as ArrowDown } from './arrow-down.svg?react';
 // Sidebar Icons
 export { default as Product } from './product.svg?react';
 export { default as Category } from './category.svg?react';
@@ -32,9 +33,22 @@ export { default as Items } from './items.svg?react';
 export { default as Sales } from './sales.svg?react';
 export { default as Clicks } from './clicks.svg?react';
 export { default as Next } from './next.svg?react';
+// Banner Page Icons
+export { default as Published } from './published.svg?react';
+export { default as NotPublished } from './not-published.svg?react';
+export { default as Eyes } from './eyes.svg?react';
+export { default as Pen } from './pen.svg?react';
+export { default as Trash } from './trash.svg?react';
+export { default as ArrowLeft } from './arrow-left.svg?react';
+export { default as ArrowRightSmall } from './arrow-right-small.svg?react';
+export { default as Upload } from './upload.svg?react';
+export { default as Picture } from './picture.svg?react';
+export { default as RedTrash } from './red-trash.svg?react';
+export { default as ArrowSorting } from './arrow-sorting.svg?react';
+export { default as Date } from './date.svg?react';
+export { default as ArrowDownGray } from './arrow-down-gray.svg?react';
 // Category Page Icons
 export { default as Pencil } from './pencil.svg?react';
-export { default as Trash } from './trash.svg?react';
 export { default as Chevron } from './chevron.svg?react';
 export { default as Download } from './download.svg?react';
 export { default as Image } from './image.svg?react';
