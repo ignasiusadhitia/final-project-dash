@@ -11,6 +11,7 @@ export { default as ProductDetail } from './product/ProductDetail';
 export { default as EditProduct } from './product/EditProduct';
 // Banner Pages
 export { default as Banner } from './banner/Banner';
+export { default as UpdateBanner } from './banner/AddBanner';
 // Category Pages
 export { default as Category } from './category/Category';
 // Order Pages
