@@ -6,16 +6,18 @@ import Swal from 'sweetalert2';
 import { Dropzone } from '@components';
 
 const Form = ({ data, action }) => {
-  console.log(data);
-
   const [formData, setFormData] = useState({
     categoryName: data?.category || '',
-    icon: data?.icon || '',
+    icon: data?.icon || null,
     published: data?.published || false,
   });
 
-  const handelChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { type, value, name, files } = e.target;
+    setFormData((prevValues) => ({
+      ...prevValues,
+      [name]: type === 'file' ? files[0] : value,
+    }));
   };
 
   return (
@@ -37,7 +39,7 @@ const Form = ({ data, action }) => {
             placeholder="Enter Category Name"
             type="text"
             value={formData.categoryName}
-            onChange={handelChange}
+            onChange={handleChange}
           />
           <p className="text-[#f93131] text-xs text-left hidden">
             Category name must be unique
@@ -45,7 +47,11 @@ const Form = ({ data, action }) => {
         </div>
 
         {/* CATEGORY ICON */}
-        <Dropzone required name="category-icon" />
+        <Dropzone
+          handleChange={handleChange}
+          name="icon"
+          value={formData.icon}
+        />
 
         {/* FORM BUTTON */}
         <div className="self-end flex gap-2 mt-5 text-xs">

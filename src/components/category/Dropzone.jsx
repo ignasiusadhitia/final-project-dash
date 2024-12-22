@@ -5,8 +5,8 @@ import { useDropzone } from 'react-dropzone';
 
 import { Download, Trash, Image } from '@icons';
 
-const Dropzone = ({ required, name }) => {
-  const [images, setImages] = useState('');
+const Dropzone = ({ name, value, handleChange }) => {
+  const [images, setImages] = useState([]);
   const hiddenInputRef = useRef(null);
 
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
@@ -24,22 +24,27 @@ const Dropzone = ({ required, name }) => {
   });
 
   useEffect(() => {
-    setImages(acceptedFiles[0]?.path) || '';
+    setImages([acceptedFiles[0]?.path]) || [];
   }, [acceptedFiles]);
+
+  useEffect(() => {
+    if (value && !undefined && !null) {
+      setImages([value]);
+    } else {
+      setImages([]);
+    }
+  }, [value]);
 
   const handelCancelImage = () => {
     setImages('');
     hiddenInputRef.current.value = '';
   };
 
-  const files = acceptedFiles.map((file) => (
-    <li
-      key={file.path}
-      className="flex items-center justify-between text-primary"
-    >
+  const files = images.map((fileName, index) => (
+    <li key={index} className="flex items-center justify-between text-primary">
       <div className="flex items-center gap-2">
         <Image />
-        {images}
+        {fileName}
       </div>
       <Trash className="cursor-pointer" onClick={() => handelCancelImage()} />
     </li>
@@ -59,8 +64,9 @@ const Dropzone = ({ required, name }) => {
             ref={hiddenInputRef}
             className="opacity-0"
             name={name}
-            required={required}
+            required={images.length <= 0}
             type="file"
+            onChange={handleChange}
           />
           <input {...getInputProps()} />
           <div>
@@ -76,7 +82,7 @@ const Dropzone = ({ required, name }) => {
           </div>
         </div>
       </div>
-      {images && (
+      {images.length > 0 && (
         <div className={`p-3 mt-3 border rounded-md border-primary`}>
           <ul>{files}</ul>
         </div>
@@ -87,7 +93,8 @@ const Dropzone = ({ required, name }) => {
 
 Dropzone.propTypes = {
   name: PropTypes.string,
-  required: PropTypes.bool,
+  value: PropTypes.string,
+  handleChange: PropTypes.func,
 };
 
 export default Dropzone;
