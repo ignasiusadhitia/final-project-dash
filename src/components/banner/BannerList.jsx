@@ -19,7 +19,7 @@ const BannerList = () => {
   const [data, setData] = useState(dummyData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortConfig, setSortConfig] = useState({ key: "name", direction: "ascending" }); // New state for sorting
+  const [sortConfig, setSortConfig] = useState({ key: "name", direction: "ascending" });
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const sortData = (key) => {
@@ -69,7 +69,7 @@ const BannerList = () => {
           <div className="flex items-center gap-2 mt-2 pb-3">
             <Link className="text-primary text-xs font-normal" to={"/dashboard"}>Home</Link>
             <ArrowRightSmall />
-            <Link className="text-primary text-xs font-normal" to={"/banners"}>Banner Management</Link>
+            <Link className="text-primary text-xs font-normal" to={"/dashboard/banners"}>Banner Management</Link>
           </div>
         </div>
 
