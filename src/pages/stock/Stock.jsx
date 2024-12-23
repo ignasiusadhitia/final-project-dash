@@ -134,7 +134,7 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
-        <div className="gap-5 md:flex justify-between items-center">
+        <div className="grid gap-5 md:flex justify-between items-center">
           <div className="grid md:flex flex-wrap gap-5">
             <div>
               <DatePicker

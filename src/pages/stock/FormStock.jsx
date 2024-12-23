@@ -14,6 +14,14 @@ const FormStock = () => {
   const page = location[location.length - 2];
   const { id } = useParams();
 
+  // Dummy data
+  const products = [
+    'Laptop HP',
+    'Laptop Lenovo',
+    'Laptop Logitech',
+    'Laptop Razetr',
+  ];
+
   // HANDLE SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,17 +84,23 @@ const FormStock = () => {
         </header>
         <main className="p-5">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12">
               <div className="flex flex-col gap-5 w-full">
                 <label className="text-[14.22px]" htmlFor="productName">
                   Product
                 </label>
-                <input
-                  className="bg-surface-background placeholder:text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
-                  disabled={page === 'detail'}
+                <select
+                  className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
                   id="productName"
-                  type="text"
-                />
+                  name="productName"
+                >
+                  <option value="">Select Product</option>
+                  {products.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="flex flex-col gap-5 w-full">
                 <label className="text-[14.22px]" htmlFor="currentStock">
@@ -97,6 +111,7 @@ const FormStock = () => {
                   disabled={page === 'detail'}
                   id="currentStock"
                   inputMode="number"
+                  placeholder="Current Stock"
                   type="text"
                 />
               </div>
@@ -109,6 +124,7 @@ const FormStock = () => {
                   disabled={page === 'detail'}
                   id="newStock"
                   inputMode="number"
+                  placeholder="Enter New Stock"
                   type="text"
                 />
               </div>
