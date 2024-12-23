@@ -1,12 +1,15 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import { Footer, Navbar } from '@components';
+import ProtectedLayout from '@layouts/ProtectedLayout';
+
 import {
   AddProduct,
   Banner,
   Category,
   EditProduct,
+  ForgotPassword,
   Home,
+  InputOTP,
   Login,
   NotFound,
   Orders,
@@ -14,63 +17,27 @@ import {
   ProductDetail,
   Promotion,
   Rating,
-  Register,
+  SignUp,
   Stock,
+  UpdateBanner,
 } from '@pages';
 
 const routes = [
   {
     path: '/',
-    element: <Home />,
-  },
-
-  {
-    path: '/login',
     element: <Login />,
   },
   {
-    path: '/register',
-    element: <Register />,
+    path: '/sign-up',
+    element: <SignUp />,
   },
   {
-    path: '/products',
-    element: <Product />,
+    path: '/forgot-password',
+    element: <ForgotPassword />,
   },
   {
-    path: '/products/:id',
-    element: <ProductDetail />,
-  },
-  {
-    path: '/products/add',
-    element: <AddProduct />,
-  },
-  {
-    path: '/products/edit/:id',
-    element: <EditProduct />,
-  },
-  {
-    path: '/banners',
-    element: <Banner />,
-  },
-  {
-    path: '/categories',
-    element: <Category />,
-  },
-  {
-    path: '/orders',
-    element: <Orders />,
-  },
-  {
-    path: '/promotions',
-    element: <Promotion />,
-  },
-  {
-    path: '/ratings',
-    element: <Rating />,
-  },
-  {
-    path: '/stocks',
-    element: <Stock />,
+    path: '/input-otp',
+    element: <InputOTP />,
   },
   {
     path: '*',
@@ -78,18 +45,79 @@ const routes = [
   },
 ];
 
+const protectedRoutes = [
+  {
+    path: 'products',
+    element: <Product />,
+  },
+  {
+    path: 'products/:id',
+    element: <ProductDetail />,
+  },
+  {
+    path: 'products/add',
+    element: <AddProduct />,
+  },
+  {
+    path: 'products/edit/:id',
+    element: <EditProduct />,
+  },
+  {
+    path: 'banners',
+    element: <Banner />,
+  },
+  {
+    path: 'banners/add',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/detail/:id',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/edit/:id',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'categories',
+    element: <Category />,
+  },
+  {
+    path: 'orders',
+    element: <Orders />,
+  },
+  {
+    path: 'promotions',
+    element: <Promotion />,
+  },
+  {
+    path: 'ratings',
+    element: <Rating />,
+  },
+  {
+    path: 'stocks',
+    element: <Stock />,
+  },
+];
+
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <div>
+      <div className="min-h-screen bg-surface-background">
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} element={element} path={path} />
           ))}
+
+          <Route element={<ProtectedLayout />} path="/dashboard">
+            <Route index element={<Home />} />
+
+            {protectedRoutes.map(({ path, element }) => (
+              <Route key={path} element={element} path={path} />
+            ))}
+          </Route>
         </Routes>
       </div>
-      <Footer />
     </Router>
   );
 };
