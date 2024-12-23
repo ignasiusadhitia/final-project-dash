@@ -1,12 +1,22 @@
 import React from 'react';
 
+import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 import { Table, Card, Success, Confirm } from '@components';
-import { Chevron, Pencil, Trash, Eyes, ArrowRightSmall } from '@icons';
+import {
+  Chevron,
+  Pencil,
+  Trash,
+  Eyes,
+  ArrowRightSmall,
+  Calendar,
+  ArrowDown,
+  Search,
+} from '@icons';
 
 const Stock = () => {
   const navigate = useNavigate();
@@ -39,6 +49,20 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const sort = [
+    {
+      asc: () => alert('sort asc by name'),
+      desc: () => alert('sort desc by name'),
+    },
+    {
+      asc: () => alert('sort asc by varian'),
+      desc: () => alert('sort desc by varian'),
+    },
+    {
+      asc: () => alert('sort asc by quantity'),
+      desc: () => alert('sort desc by quantity'),
+    },
+  ];
 
   const handleDelete = (data) => {
     MySwal.fire({
@@ -63,9 +87,6 @@ const Stock = () => {
         />
       ),
       showConfirmButton: false,
-      customClass: {
-        popup: 'rounded-md p-16',
-      },
     });
   };
 
@@ -88,10 +109,12 @@ const Stock = () => {
     <div className="w-full px-5 pt-12 overflow-hidden">
       <Card className="rounded-3xl h-auto">
         {/* HEADER */}
-        <div className="flex justify-between mb-10 items-baseline">
+        <div className="flex justify-between mb-7 items-baseline">
           <header className="space-y-2">
+            {/* Title */}
             <h1 className="text-[25.63px] font-bold">Stock</h1>
-            <p className="flex gap-1 items-center">
+            {/* Breadcrumb */}
+            <p className="flex gap-2 items-center">
               <span
                 className="text-primary cursor-pointer text-xs"
                 onClick={() => navigate('/dashboard')}
@@ -110,12 +133,66 @@ const Stock = () => {
           </button>
         </div>
 
+        {/* FILTER AND SEARCH */}
+        <div className="gap-5 md:flex justify-between items-center">
+          <div className="grid md:flex flex-wrap gap-5">
+            <div>
+              <DatePicker
+                className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+                id="release-date"
+                style={{
+                  border: '1px solid #DBDCDE',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  background: 'white',
+                }}
+                suffixIcon={<Calendar />}
+                type="date"
+                // value={date}
+                // onChange={handleFilterByDate}
+              />
+            </div>
+            <div className="relative">
+              <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+              <select
+                className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                defaultValue=""
+                id="filter"
+                name="filter"
+              >
+                <option disabled value="">
+                  Select Filter
+                </option>
+                <option value="name">Name</option>
+                <option value="release">Release</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                className="bg-white w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
+                id="search"
+                name="search"
+                placeholder="Search"
+                type="text"
+                // value={searchValue}
+                // onChange={handleSearchChange}
+              />
+            </div>
+          </div>
+          <div className="bg-[#EEE4FF] text-primary text-right rounded-md w-[93px] h-[44px] leading-none py-1 px-3 text-nowrap">
+            <p className="text-[21.8px] font-bold">120</p>
+            <p className="text-[14.4px]">Total Stock</p>
+          </div>
+        </div>
+
         {/* TABLE */}
         <div className="overflow-x-auto">
           <Table
             actions={actions}
-            // publish={handleOpenPublishModal}
-            // sort={sort}
+            sort={sort}
             tableData={tableData}
             tableHeader={tableHeader}
           />

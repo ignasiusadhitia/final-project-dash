@@ -17,7 +17,7 @@ const Table = ({
       <thead className="text-sm">
         <tr className="text-nowrap">
           {tableHeader.map((item, index) => (
-            <th key={index} className="text-start p-5">
+            <th key={index} className="text-start px-4 py-6">
               <div className="flex items-center gap-1">
                 {item}
                 <div>
@@ -47,7 +47,7 @@ const Table = ({
                 objectKey !== 'id' && (
                   <td
                     key={subIndex}
-                    className="border-b px-5 py-2 text-xs text-black/60"
+                    className="border-b px-4 py-2 text-xs text-black/60"
                   >
                     <TableCell
                       objectValue={objectValue}
@@ -56,7 +56,7 @@ const Table = ({
                   </td>
                 )
             )}
-            <td className="py-2 px-5 border-b">
+            <td className="py-2 px-4 border-b">
               <div className="flex gap-2 text-black/50">
                 {actions.map((action, index) => (
                   <action.icon

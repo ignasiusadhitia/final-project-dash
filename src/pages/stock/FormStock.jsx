@@ -1,19 +1,48 @@
 import React from 'react';
 
 import { useNavigate, useLocation, useParams, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
-import { Card } from '@components';
+import { Card, Success } from '@components';
 import { ArrowLeft, ArrowRightSmall } from '@icons';
+
 const FormStock = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname.split('/');
   const page = location[location.length - 2];
   const { id } = useParams();
 
+  // HANDLE SUBMIT
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (id) {
+      MySwal.fire({
+        html: <Success message="This category was successfully edited" />,
+        customClass: {
+          popup: 'rounded-md w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      MySwal.fire({
+        html: <Success message="This category was successfully added" />,
+        customClass: {
+          popup: 'rounded-md w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+  };
+
   return (
-    <div className="w-full px-5 p-10">
+    <div className="w-full px-5 pt-12">
       <Card className="rounded-2xl p-5 h-auto overflow-hidden">
         <header>
+          {/* TITLE */}
           <div className="flex items-center gap-5">
             <ArrowLeft
               className="cursor-pointer"
@@ -23,6 +52,7 @@ const FormStock = () => {
               {page === 'detail' ? 'Detail' : id ? 'Edit' : 'Add'} Stock
             </h1>
           </div>
+          {/* BREADCRUMB */}
           <div className="flex items-center gap-2 mt-2 pb-5">
             <Link className="text-primary text-xs font-normal" to="/dashboard">
               Home
@@ -45,7 +75,7 @@ const FormStock = () => {
           </div>
         </header>
         <main className="p-5">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-12">
               <div className="flex flex-col gap-5 w-full">
                 <label className="text-[14.22px]" htmlFor="productName">
@@ -94,7 +124,6 @@ const FormStock = () => {
               <button
                 className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 bg-primary text-white ${page == 'detail' && 'hidden'}`}
                 type="submit"
-                onClick={() => navigate(-1)}
               >
                 {id ? 'Save' : 'Add Stock'}
               </button>
