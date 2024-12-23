@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { LeftChevron, RigthChevron, Delete, Details, Edit } from '@icons';
+import { LeftChevron, RightChevron, Delete, Details, Edit } from '@icons';
 
 const initialProducts = [
   {
