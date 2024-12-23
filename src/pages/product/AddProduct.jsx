@@ -18,6 +18,7 @@ import {
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
+import { AddButton, Delete, PlusButton } from '@icons';
 
 const AddProduct = () => {
   const [productName, setProductName] = useState('');
@@ -28,6 +29,13 @@ const AddProduct = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [photo, setPhoto] = useState(null);
+  const [variants, setVariants] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [variantName, setVariantName] = useState('');
+  const [variantNames, setVariantNames] = useState([]);
+  const [variantValue, setVariantValue] = useState('');
+
+
 
   const onDrop = useCallback((acceptedFiles) => {
     setPhoto(acceptedFiles[0]);
@@ -53,6 +61,33 @@ const AddProduct = () => {
       description,
       photo,
     });
+  };
+
+  const handleAddVariantName = () => {
+    if (variantName.trim()) {
+      setVariantNames([...variantNames, variantName]);
+      setVariantName('');
+    }
+  };
+  
+  const handleDeleteVariantName = (index) => {
+    setVariantNames(variantNames.filter((_, i) => i !== index));
+  };
+  
+  const handleAddVariantValue = (variantName) => {
+    // Handle adding values for specific variant name
+    console.log(`Add value for ${variantName}`);
+  };
+
+  // Add this function to handle adding variants
+  const handleAddVariant = () => {
+    setVariants([...variants, {
+      name: variantName,
+      value: variantValue
+    }]);
+    setVariantName('');
+    setVariantValue('');
+    setIsModalOpen(false);
   };
 
   return (
@@ -168,14 +203,105 @@ const AddProduct = () => {
               <label className="block text-sm md:text-base font-medium mb-1">
                 Product Variant
               </label>
-              <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
-                placeholder="Enter Product Variant"
-                type="text"
-                value={variant}
-                onChange={(e) => setVariant(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                  type="text"
+                  value={variant}
+                  readOnly
+                  onClick={() => setIsModalOpen(true)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
+                >
+                  <AddButton className="w-5 h-5 me-2" />
+                  Add New Product Variant
+                </button>
+              </div>
+              {variants.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  {variants.map((variant, index) => (
+                    <div key={index} className="text-sm text-gray-600">
+                      {variant.name}: {variant.value}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+
+            {/* Add Modal */}
+            {isModalOpen && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white p-6 rounded-lg w-[600px]">
+                  <h3 className="text-lg font-semibold mb-4">Add Variant</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Variant Name</label>
+                      <div className="flex items-center">
+                        <input
+                          type="text"
+                          value={variantName}
+                          onChange={(e) => setVariantName(e.target.value)}
+                          className="border rounded-md w-full p-2 bg-gray-100"
+                          placeholder="e.g. Size, Color"
+                        />
+                        <button
+                          onClick={() => handleAddVariantName}
+                          className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
+                        >
+                          <PlusButton className="w-6 h-6 " />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Variant Names List */}
+                    <div className="space-y-2">
+                      {variantNames.map((vName, index) => (
+                        <div key={index} className="flex items-center justify-between bg-red-50 p-3 rounded">
+                          <span className="font-medium">{vName}</span>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleAddVariantValue(vName)}
+                              className="p-1 hover:rounded-full hover:bg-red-200"
+                            > 
+                              <PlusButton className="w-4 h-4 text-gray-500" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteVariantName(index)}
+                              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
+                            >
+                              <Delete className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsModalOpen(false)}
+                        className="border border-gray-300 px-4 py-2 rounded-md"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleAddVariant}
+                        className="bg-red-500 text-white px-4 py-2 rounded-md"
+                      >
+                        Add Variant
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+
             <div className="mb-4">
               <label className="block text-sm md:text-base font-medium mb-1">
                 Initial Stock
@@ -243,15 +369,16 @@ const AddProduct = () => {
               }}
             />
           </div>
+
+          {/* product photo */}
           <div className="mb-4 w-1/2 bg-gray-100 p-5 rounded-lg">
             <label className="block text-sm md:text-base font-medium mb-1">
               Product Photo
             </label>
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${
-                isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
-              }`}
+              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                }`}
             >
               <input {...getInputProps()} />
               {photo ? (

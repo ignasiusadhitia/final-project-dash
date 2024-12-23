@@ -39,6 +39,8 @@ export { default as Delete } from './delete.svg?react';
 export { default as Details } from './detail.svg?react';
 export { default as LeftChevron } from './left-chevron.svg?react';
 export { default as RightChevron } from './right-chevron.svg?react';
+export { default as AddButton } from './add-button.svg?react';
+export { default as PlusButton } from './plus.svg?react';
 // Banner Page Icons
 export { default as Published } from './published.svg?react';
 export { default as NotPublished } from './not-published.svg?react';
