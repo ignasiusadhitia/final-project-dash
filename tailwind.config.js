@@ -8,7 +8,6 @@ export default {
     extend: {
       colors: {
         primary: '#DB4444',
-        'primary-dark': '#AF3636',
         'type-text': '#030406',
         'type-text-light': '#89868D',
         'type-text-disable': '#B4B2B7',
@@ -22,9 +21,9 @@ export default {
         screens: {
           sm: '100%',
           md: '100%',
-          lg: '1279px',
-          xl: '1279px',
-          '2xl': '1279px',
+          lg: '1170px',
+          xl: '1170px',
+          '2xl': '1170px',
         },
       },
       margin: {},
