@@ -33,6 +33,12 @@ export { default as Items } from './items.svg?react';
 export { default as Sales } from './sales.svg?react';
 export { default as Clicks } from './clicks.svg?react';
 export { default as Next } from './next.svg?react';
+// Product Page Icons
+export { default as Edit } from './edit.svg?react';
+export { default as Delete } from './delete.svg?react';
+export { default as Details } from './detail.svg?react';
+export { default as LeftChevron } from './left-chevron.svg?react';
+export { default as RightChevron } from './right-chevron.svg?react';
 // Banner Page Icons
 export { default as Published } from './published.svg?react';
 export { default as NotPublished } from './not-published.svg?react';
@@ -51,3 +57,11 @@ export { default as ArrowRightWhite } from './arrow-right-white.svg?react';
 // Rating Page Icons
 export { default as Search } from './search.svg?react';
 export { default as Calendar } from './calendar.svg?react';
+// Category Page Icons
+export { default as Pencil } from './pencil.svg?react';
+export { default as Chevron } from './chevron.svg?react';
+export { default as Download } from './download.svg?react';
+export { default as Image } from './image.svg?react';
+export { default as ModalCheck } from './modal-check.svg?react';
+export { default as ModalTrash } from './modal-trash.svg?react';
+export { default as ModalExclamation } from './modal-exclamation.svg?react';
