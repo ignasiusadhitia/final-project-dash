@@ -1,0 +1,109 @@
+import React from 'react';
+
+import { useNavigate, useLocation, useParams, Link } from 'react-router-dom';
+
+import { Card } from '@components';
+import { ArrowLeft, ArrowRightSmall } from '@icons';
+const FormStock = () => {
+  const navigate = useNavigate();
+  const location = useLocation().pathname.split('/');
+  const page = location[location.length - 2];
+  const { id } = useParams();
+
+  return (
+    <div className="w-full px-5 p-10">
+      <Card className="rounded-2xl p-5 h-auto overflow-hidden">
+        <header>
+          <div className="flex items-center gap-5">
+            <ArrowLeft
+              className="cursor-pointer"
+              onClick={() => navigate(-1)}
+            />
+            <h1 className="text-lg font-medium">
+              {page === 'detail' ? 'Detail' : id ? 'Edit' : 'Add'} Stock
+            </h1>
+          </div>
+          <div className="flex items-center gap-2 mt-2 pb-5">
+            <Link className="text-primary text-xs font-normal" to="/dashboard">
+              Home
+            </Link>
+            <ArrowRightSmall />
+            <Link
+              className="text-primary text-xs font-normal"
+              to="/dashboard/stocks"
+            >
+              Stocks
+            </Link>
+            <ArrowRightSmall />
+            <p className="text-primary text-xs font-normal">
+              {page === 'detail'
+                ? 'Detail Stock'
+                : id
+                  ? 'Edit Stock'
+                  : 'Add Stock'}
+            </p>
+          </div>
+        </header>
+        <main className="p-5">
+          <form>
+            <div className="grid grid-cols-2 gap-12">
+              <div className="flex flex-col gap-5 w-full">
+                <label className="text-[14.22px]" htmlFor="productName">
+                  Product
+                </label>
+                <input
+                  className="bg-surface-background placeholder:text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
+                  disabled={page === 'detail'}
+                  id="productName"
+                  type="text"
+                />
+              </div>
+              <div className="flex flex-col gap-5 w-full">
+                <label className="text-[14.22px]" htmlFor="currentStock">
+                  Current Stock
+                </label>
+                <input
+                  className="bg-surface-background placeholder:text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
+                  disabled={page === 'detail'}
+                  id="currentStock"
+                  inputMode="number"
+                  type="text"
+                />
+              </div>
+              <div className="flex flex-col gap-5 w-full">
+                <label className="text-[14.22px]" htmlFor="newStock">
+                  New Stock
+                </label>
+                <input
+                  className="bg-surface-background placeholder:text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
+                  disabled={page === 'detail'}
+                  id="newStock"
+                  inputMode="number"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="mt-10 flex justify-end gap-2">
+              <button
+                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${page == 'detail' ? 'bg-type-text-light text-white' : 'border-primary text-primary'}`}
+                type="button"
+                onClick={() => navigate(-1)}
+              >
+                Close
+              </button>
+              <button
+                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 bg-primary text-white ${page == 'detail' && 'hidden'}`}
+                type="submit"
+                onClick={() => navigate(-1)}
+              >
+                {id ? 'Save' : 'Add Stock'}
+              </button>
+            </div>
+          </form>
+        </main>
+      </Card>
+    </div>
+  );
+};
+
+export default FormStock;
