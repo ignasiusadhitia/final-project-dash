@@ -22,5 +22,6 @@ export { default as Promotion } from './promotion/Promotion';
 export { default as Rating } from './rating/Rating';
 // Stock Pages
 export { default as Stock } from './stock/Stock';
+export { default as FormStock } from './stock/FormStock';
 // Not Found Page
 export { default as NotFound } from './NotFound';

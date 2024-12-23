@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import { TableCell } from '@components';
 import { Chevron } from '@icons';
 
-const Table = ({ tableHeader, tableData, actions, publish, sort }) => {
+const Table = ({
+  tableHeader = [],
+  tableData = [],
+  actions = [],
+  publish,
+  sort = [],
+}) => {
   return (
     <table className="w-full">
       <thead className="text-sm">
@@ -50,7 +56,7 @@ const Table = ({ tableHeader, tableData, actions, publish, sort }) => {
                   </td>
                 )
             )}
-            <td className="py-2 border-b">
+            <td className="py-2 px-5 border-b">
               <div className="flex gap-2 text-black/50">
                 {actions.map((action, index) => (
                   <action.icon

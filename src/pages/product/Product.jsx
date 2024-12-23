@@ -1,7 +1,290 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
+import { LeftChevron, RigthChevron, Delete, Details, Edit } from '@icons';
+
+const initialProducts = [
+  {
+    id: 1,
+    name: 'HP Pavilion 14-DV0514TX',
+    sku: 'HP-LPTP-ZB14-i5-256GB',
+    stock: 12,
+    category: 'Electronic',
+    price: '$960',
+    published: true,
+  },
+  {
+    id: 2,
+    name: 'HP Pavilion 14-DV0514TX',
+    sku: 'HP-LPTP-ZB14-i5-256GB',
+    stock: 10,
+    category: 'Electronic',
+    price: '$960',
+    published: false,
+  },
+  {
+    id: 3,
+    name: 'MacBook Pro M2',
+    sku: 'APL-MBP-M2-512GB',
+    stock: 8,
+    category: 'Electronic',
+    price: '$1299',
+    published: true,
+  },
+  {
+    id: 4,
+    name: 'Dell XPS 13',
+    sku: 'DLL-XPS13-i7-512GB',
+    stock: 15,
+    category: 'Electronic',
+    price: '$1199',
+    published: true,
+  },
+  {
+    id: 5,
+    name: 'Lenovo ThinkPad X1',
+    sku: 'LNV-X1-i7-1TB',
+    stock: 7,
+    category: 'Electronic',
+    price: '$1399',
+    published: false,
+  },
+  {
+    id: 6,
+    name: 'ASUS ROG Strix',
+    sku: 'ASU-ROG-R9-1TB',
+    stock: 5,
+    category: 'Electronic',
+    price: '$1899',
+    published: true,
+  },
+  {
+    id: 7,
+    name: 'Acer Predator',
+    sku: 'ACR-PRD-i9-2TB',
+    stock: 3,
+    category: 'Electronic',
+    price: '$2199',
+    published: true,
+  },
+  {
+    id: 8,
+    name: 'MSI Gaming GS66',
+    sku: 'MSI-GS66-i7-1TB',
+    stock: 9,
+    category: 'Electronic',
+    price: '$1799',
+    published: false,
+  },
+  {
+    id: 9,
+    name: 'Razer Blade 15',
+    sku: 'RZR-BLD-i7-1TB',
+    stock: 6,
+    category: 'Electronic',
+    price: '$1999',
+    published: true,
+  },
+  {
+    id: 10,
+    name: 'Microsoft Surface Laptop',
+    sku: 'MSF-SFL-i5-512GB',
+    stock: 11,
+    category: 'Electronic',
+    price: '$1099',
+    published: true,
+  },
+  {
+    id: 11,
+    name: 'LG Gram 17',
+    sku: 'LG-GRM-i7-512GB',
+    stock: 4,
+    category: 'Electronic',
+    price: '$1499',
+    published: false,
+  },
+  {
+    id: 12,
+    name: 'Samsung Galaxy Book',
+    sku: 'SMS-GLX-i5-512GB',
+    stock: 13,
+    category: 'Electronic',
+    price: '$899',
+    published: true,
+  },
+];
 
 const Product = () => {
-  return <div>Product</div>;
-};
+  const [products, setProducts] = useState(initialProducts);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
+  const handlePublishToggle = (productId) => {
+    setProducts(
+      products.map((product) =>
+        product.id === productId
+          ? { ...product, published: !product.published }
+          : product
+      )
+    );
+  };
+
+  const totalItems = products.length;
+  const totalPages = Math.ceil(totalItems / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = Math.min(startIndex + rowsPerPage, totalItems);
+  const currentProducts = products.slice(startIndex, endIndex);
+
+  return (
+    <div className="bg-gray-100 mx-auto my-10 p-4">
+      <div className="container bg-white p-5 rounded-lg shadow-lg">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-semibold">Product</h1>
+
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Add New Product
+          </button>
+        </div>
+
+        <nav aria-label="Breadcrumb" className="flex mb-5">
+          <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <li className="inline-flex items-center">
+              <Link
+                className="inline-flex items-center text-red-500 hover:text-red-300"
+                to="/"
+              >
+                Home
+              </Link>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg
+                  className="w-6 h-6 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    fillRule="evenodd"
+                  ></path>
+                </svg>
+                <span className="ml-1 text-red-500 md:ml-2">Product</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <div className="overflow-x-auto">
+          <table className="min-w-full leading-normal">
+            <thead>
+              <tr className="text-left mb-20 ">
+                <th className="px-5 py-3 whitespace-nowrap">Product Name</th>
+                <th className="px-5 py-3 whitespace-nowrap">SKU Product</th>
+                <th className="px-5 py-3 whitespace-nowrap">Stock Product</th>
+                <th className="px-5 py-3 whitespace-nowrap">Category</th>
+                <th className="px-5 py-3 whitespace-nowrap">Price</th>
+                <th className="px-5 py-3 whitespace-nowrap">Published</th>
+                <th className="px-5 py-3 whitespace-nowrap">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentProducts.map((product, index) => (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                    {product.name}
+                  </td>
+                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                    {product.sku}
+                  </td>
+                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                    {product.stock}
+                  </td>
+                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                    {product.category}
+                  </td>
+                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                    {product.price}
+                  </td>
+                  <td className="px-5 py-2 border-b border-gray-200">
+                    <div className="flex justify-center items-center">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          checked={product.published}
+                          className="sr-only peer"
+                          type="checkbox"
+                          onChange={() => handlePublishToggle(product.id)}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                      </label>
+                    </div>
+                  </td>
+                  <td className="px-5 py-2 border-b border-gray-200 flex justify-start items-center space-x-4">
+                    <button className="text-blue-500 hover:text-blue-700">
+                      <Details />
+                    </button>
+                    <button className="text-blue-500 hover:text-blue-700">
+                      <Edit />
+                    </button>
+                    <button className="text-red-500 hover:text-red-700">
+                      <Delete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex justify-between items-center px-5 py-3 border-t">
+            <div className="text-sm text-gray-700">
+              {startIndex + 1}-{endIndex} of {totalItems}
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center me-4">
+                <span className="mr-2 text-sm text-gray-700">
+                  Rows per page:
+                </span>
+                <select
+                  className="border rounded px-2 py-1"
+                  value={rowsPerPage}
+                  onChange={(e) => {
+                    setRowsPerPage(Number(e.target.value));
+                    setCurrentPage(1);
+                  }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  className={`px-2 py-1 rounded-lg border ${currentPage === 1 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
+                  disabled={currentPage === 1}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                >
+                  <LeftChevron className="w-4 h-4" />
+                </button>
+                <span className="text-sm text-gray-700">
+                  {currentPage}/{totalPages}
+                </span>
+                <button
+                  className={`px-2 py-1 rounded-lg border ${currentPage === totalPages ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
+                  disabled={currentPage === totalPages}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                >
+                  <RigthChevron className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 export default Product;

@@ -6,7 +6,7 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 import { Card, Table, FormCategory, Confirm, Success } from '@components';
-import { Trash, Pencil, Chevron } from '@icons';
+import { Trash, Pencil, Chevron, ArrowRightSmall } from '@icons';
 
 const Category = () => {
   const navigate = useNavigate();
@@ -158,12 +158,12 @@ const Category = () => {
   ];
 
   return (
-    <main className="border w-full p-5 overflow-hidden">
+    <main className="w-full px-5 pt-12 overflow-hidden">
       <Card className="rounded-3xl h-auto">
         {/* HEADER */}
-        <div className="flex justify-between mb-10">
-          <header className="space-y-1">
-            <h1 className="font-bold text-2xl">Category</h1>
+        <div className="flex justify-between mb-10 items-baseline">
+          <header className="space-y-2">
+            <h1 className="text-[25.63px] font-bold">Category</h1>
             <p className="flex gap-1 items-center">
               <span
                 className="text-primary cursor-pointer text-xs"
@@ -171,13 +171,13 @@ const Category = () => {
               >
                 Home
               </span>
-              <Chevron className="w-3 h-3" />
+              <ArrowRightSmall />
               <span className="text-primary text-xs">Category</span>
             </p>
           </header>
           <button
-            className="p-2 self-start text-white text-xs rounded-md bg-primary"
-            onClick={handleOpenAddCategory}
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[123px] h-[32px]"
+            onClick={() => navigate('/dashboard/stocks/add')}
           >
             Add New Category
           </button>
