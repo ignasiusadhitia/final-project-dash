@@ -13,3 +13,10 @@ export { default as Card } from './home/Card';
 // Banner Components
 export { default as BannerList } from './banner/BannerList';
 export { default as BannerForm } from './banner/BannerForm';
+// Category Components
+export { default as Table } from './category/Table';
+export { default as TableCell } from './category/TableCell';
+export { default as FormCategory } from './category/Form';
+export { default as Dropzone } from './category/Dropzone';
+export { default as Success } from './modals/Success';
+export { default as Confirm } from './modals/Confirm';
