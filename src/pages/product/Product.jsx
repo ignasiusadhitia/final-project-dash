@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { LeftChevron, RigthChevron, Delete, Details, Edit } from '@icons';
+import { LeftChevron, RightChevron, Delete, Details, Edit } from '@icons';
 
 const initialProducts = [
   {
@@ -179,7 +179,7 @@ const Product = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full leading-normal">
             <thead>
-              <tr className="text-left mb-20 ">
+              <tr className="text-left mb-20 text-sm">
                 <th className="px-5 py-3 whitespace-nowrap">Product Name</th>
                 <th className="px-5 py-3 whitespace-nowrap">SKU Product</th>
                 <th className="px-5 py-3 whitespace-nowrap">Stock Product</th>
@@ -277,7 +277,7 @@ const Product = () => {
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                   }
                 >
-                  <RigthChevron className="w-4 h-4" />
+                  <RightChevron className="w-4 h-4" />
                 </button>
               </div>
             </div>

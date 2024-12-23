@@ -13,6 +13,8 @@ export { default as Card } from './home/Card';
 // Banner Components
 export { default as BannerList } from './banner/BannerList';
 export { default as BannerForm } from './banner/BannerForm';
+// Rating Component
+export { default as RatingList } from './rating/RatingList';
 // Category Components
 export { default as Table } from './category/Table';
 export { default as TableCell } from './category/TableCell';

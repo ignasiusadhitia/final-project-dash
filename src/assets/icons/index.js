@@ -38,7 +38,7 @@ export { default as Edit } from './edit.svg?react';
 export { default as Delete } from './delete.svg?react';
 export { default as Details } from './detail.svg?react';
 export { default as LeftChevron } from './left-chevron.svg?react';
-export { default as RigthChevron } from './rigth-chevron.svg?react';
+export { default as RightChevron } from './right-chevron.svg?react';
 // Banner Page Icons
 export { default as Published } from './published.svg?react';
 export { default as NotPublished } from './not-published.svg?react';
@@ -53,6 +53,10 @@ export { default as RedTrash } from './red-trash.svg?react';
 export { default as ArrowSorting } from './arrow-sorting.svg?react';
 export { default as Date } from './date.svg?react';
 export { default as ArrowDownGray } from './arrow-down-gray.svg?react';
+export { default as ArrowRightWhite } from './arrow-right-white.svg?react';
+// Rating Page Icons
+export { default as Search } from './search.svg?react';
+export { default as Calendar } from './calendar.svg?react';
 // Category Page Icons
 export { default as Pencil } from './pencil.svg?react';
 export { default as Chevron } from './chevron.svg?react';
