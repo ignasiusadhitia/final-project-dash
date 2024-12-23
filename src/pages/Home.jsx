@@ -111,7 +111,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="grid lg:grid-cols-[1fr,270px] gap-10 p-5 container">
+    <main className="grid lg:grid-cols-[1fr,270px] 2xl:grid-cols-[1fr,400px] gap-10 p-5 w-full">
       {/* SUMMARY */}
       <section>
         <Card className="grid lg:grid-cols-4 gap-3">
