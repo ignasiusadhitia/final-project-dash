@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import { TableCell } from '@components';
 import { Chevron } from '@icons';
 
-const Table = ({ tableHeader, tableData, actions, publish, sort }) => {
+const Table = ({
+  tableHeader = [],
+  tableData = [],
+  actions = [],
+  publish,
+  sort = [],
+}) => {
   return (
     <table className="w-full">
       <thead className="text-sm">
