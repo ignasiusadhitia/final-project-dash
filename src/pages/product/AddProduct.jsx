@@ -34,12 +34,23 @@ const AddProduct = () => {
   const [variantName, setVariantName] = useState('');
   const [variantNames, setVariantNames] = useState([]);
   const [variantValue, setVariantValue] = useState('');
+  const [defaultImageIndex, setDefaultImageIndex] = useState(null);
 
 
 
+  // Change the photo state to an array
+  const [photos, setPhotos] = useState([]);
+
+  // Update the onDrop callback
   const onDrop = useCallback((acceptedFiles) => {
-    setPhoto(acceptedFiles[0]);
+    setPhotos(prev => [...prev, ...acceptedFiles]);
   }, []);
+
+  // Add a function to remove specific photos
+  const removePhoto = (index) => {
+    setPhotos(photos.filter((_, i) => i !== index));
+  };
+
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -69,11 +80,11 @@ const AddProduct = () => {
       setVariantName('');
     }
   };
-  
+
   const handleDeleteVariantName = (index) => {
     setVariantNames(variantNames.filter((_, i) => i !== index));
   };
-  
+
   const handleAddVariantValue = (variantName) => {
     // Handle adding values for specific variant name
     console.log(`Add value for ${variantName}`);
@@ -266,7 +277,7 @@ const AddProduct = () => {
                             <button
                               onClick={() => handleAddVariantValue(vName)}
                               className="p-1 hover:rounded-full hover:bg-red-200"
-                            > 
+                            >
                               <PlusButton className="w-4 h-4 text-gray-500" />
                             </button>
                             <button
@@ -370,6 +381,8 @@ const AddProduct = () => {
             />
           </div>
 
+
+
           {/* product photo */}
           <div className="mb-4 w-1/2 bg-gray-100 p-5 rounded-lg">
             <label className="block text-sm md:text-base font-medium mb-1">
@@ -380,30 +393,54 @@ const AddProduct = () => {
               className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
                 }`}
             >
-              <input {...getInputProps()} />
-              {photo ? (
-                <div className="flex items-center justify-center">
-                  <img
-                    alt="Preview"
-                    className="max-h-40 object-contain"
-                    src={URL.createObjectURL(photo)}
-                  />
-                </div>
-              ) : (
-                <div>
-                  <p className="text-gray-600">
-                    <span className="text-red-500"> Click to upload</span> or Drag and drop
-                  </p>
-                  <p className="text-lg">
-                    SVG, PNG, JPG
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    (max, 800x400px)
-                  </p>
-                </div>
-              )}
+              <input {...getInputProps()} multiple />
+              <div>
+                <p className="text-gray-600">
+                  <span className="text-red-500">Click to upload</span> or Drag and drop
+                </p>
+                <p className="text-lg">SVG, PNG, JPG</p>
+                <p className="text-sm text-gray-500">(max, 800x400px)</p>
+              </div>
             </div>
           </div>
+          {/* Image Preview Section */}
+          <div className="mt-4">
+            <div className="flex gap-4 mb-5">
+              {photos.map((photo, index) => (
+                <div key={index} className="relative w-[200px] bg-gray-100 group rounded-lg">
+                  <div className="relative w-full h-[150px] rounded-lg p-4">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt={`Product preview ${index + 1}`}
+                      className="w-full h-full object-contain"
+                    />
+                    <button
+                      onClick={() => removePhoto(index)}
+                      className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
+                      type="button"
+                    >
+                      <Delete />
+                    </button>
+                    {defaultImageIndex === index && (
+                      <div className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
+                        style={{ background: 'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)' }}>
+                        Default
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setDefaultImageIndex(index)}
+                    className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                    type="button"
+                  >
+                    Set as Default
+                  </button>
+                </div>
+              ))}
+
+            </div>
+          </div>
+
           <div className="flex justify-end space-x-4">
             <Link
               className="border-2 border-red-500 hover:bg-re-400 text-black font-bold py-2 px-5  md:py-3 md:px-6 rounded text-sm md:text-base"
