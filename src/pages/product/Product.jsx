@@ -277,7 +277,7 @@ const Product = () => {
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                   }
                 >
-                  <RigthChevron className="w-4 h-4" />
+                  <RightChevron className="w-4 h-4" />
                 </button>
               </div>
             </div>
