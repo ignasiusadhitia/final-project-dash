@@ -2,10 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer utilities {
-  #end-date::placeholder,
-  #release-date::placeholder {
-    @apply text-type-text-light;
-  }
-}
