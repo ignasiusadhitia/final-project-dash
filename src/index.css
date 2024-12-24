@@ -5,7 +5,14 @@
 
 @layer utilities {
   #end-date::placeholder,
-  #release-date::placeholder {
+  #release-date::placeholder,
+  #start-date::placeholder {
     @apply text-type-text-light;
+  }
+}
+
+@layer utilities {
+  .promotion-form > div:nth-child(odd) {
+    @apply pr-6;
   }
 }

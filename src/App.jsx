@@ -4,6 +4,7 @@ import ProtectedLayout from '@layouts/ProtectedLayout';
 
 import {
   AddProduct,
+  AddPromotion,
   Banner,
   Category,
   EditProduct,
@@ -89,6 +90,18 @@ const protectedRoutes = [
   {
     path: 'promotions',
     element: <Promotion />,
+  },
+  {
+    path: 'promotions/add',
+    element: <AddPromotion />,
+  },
+  {
+    path: 'promotions/edit/:id',
+    element: <AddPromotion />,
+  },
+  {
+    path: 'promotions/detail/:id',
+    element: <AddPromotion />,
   },
   {
     path: 'ratings',

@@ -51,3 +51,5 @@ export { default as ArrowRightWhite } from './arrow-right-white.svg?react';
 // Rating Page Icons
 export { default as Search } from './search.svg?react';
 export { default as Calendar } from './calendar.svg?react';
+// Promotion Page Icons
+export { default as CloseSelect } from './close-select.svg?react';

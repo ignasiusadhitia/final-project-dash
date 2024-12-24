@@ -18,6 +18,7 @@ export { default as Category } from './category/Category';
 export { default as Orders } from './orders/Orders';
 // Promotion Pages
 export { default as Promotion } from './promotion/Promotion';
+export { default as AddPromotion } from './promotion/AddPromotion';
 // Rating Pages
 export { default as Rating } from './rating/Rating';
 // Stock Pages
