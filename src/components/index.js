@@ -26,7 +26,7 @@ export { default as Dropzone } from './category/Dropzone';
 export { default as Success } from './modals/Success';
 export { default as Confirm } from './modals/Confirm';
 // Order Components
-export { default as OrderList } from './orders/OrderList';
-export { default as ConfirmationModal } from './orders/ConfirmationModal';
-export { default as OrderDetails } from './orders/OrderDetails';
-export { default as StatusPill } from './orders/StatusPill';
+export { default as OrderList } from './order/OrderList';
+export { default as ConfirmationModal } from './order/ConfirmationModal';
+export { default as OrderDetails } from './order/OrderDetails';
+export { default as StatusPill } from './order/StatusPill';
