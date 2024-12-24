@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Footer, Navbar } from '@components';
 import {
   AddProduct,
+  AddPromotion,
   Banner,
   Category,
   EditProduct,
@@ -16,6 +17,9 @@ import {
   Rating,
   Register,
   Stock,
+  FormStock,
+  UpdateBanner,
+
 } from '@pages';
 
 const routes = [
@@ -75,6 +79,86 @@ const routes = [
   {
     path: '*',
     element: <NotFound />,
+  },
+];
+
+
+const protectedRoutes = [
+  {
+    path: 'products',
+    element: <Product />,
+  },
+  {
+    path: 'products/:id',
+    element: <ProductDetail />,
+  },
+  {
+    path: 'products/add',
+    element: <AddProduct />,
+  },
+  {
+    path: 'products/edit/:id',
+    element: <EditProduct />,
+  },
+  {
+    path: 'banners',
+    element: <Banner />,
+  },
+  {
+    path: 'banners/add',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/detail/:id',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'banners/edit/:id',
+    element: <UpdateBanner />,
+  },
+  {
+    path: 'categories',
+    element: <Category />,
+  },
+  {
+    path: 'orders',
+    element: <Orders />,
+  },
+  {
+    path: 'promotions',
+    element: <Promotion />,
+  },
+  {
+    path: 'promotions/add',
+    element: <AddPromotion />,
+  },
+  {
+    path: 'promotions/edit/:id',
+    element: <AddPromotion />,
+  },
+  {
+    path: 'promotions/detail/:id',
+    element: <AddPromotion />,
+  },
+  {
+    path: 'ratings',
+    element: <Rating />,
+  },
+  {
+    path: 'stocks',
+    element: <Stock />,
+  },
+  {
+    path: 'stocks/add',
+    element: <FormStock />,
+  },
+  {
+    path: 'stocks/edit/:id',
+    element: <FormStock />,
+  },
+  {
+    path: 'stocks/detail/:id',
+    element: <FormStock />,
   },
 ];
 
