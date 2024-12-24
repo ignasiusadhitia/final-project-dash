@@ -262,8 +262,7 @@ const Product = () => {
                   className={`px-2 py-1 rounded-lg border ${currentPage === 1 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
                   disabled={currentPage === 1}
                   onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 >
                   <LeftChevron className="w-4 h-4" />
                 </button>
@@ -274,8 +273,7 @@ const Product = () => {
                   className={`px-2 py-1 rounded-lg border ${currentPage === totalPages ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
                   disabled={currentPage === totalPages}
                   onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 >
                   <RightChevron className="w-4 h-4" />
                 </button>
