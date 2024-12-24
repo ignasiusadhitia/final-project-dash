@@ -49,7 +49,6 @@ const OrderDetails = ({
               </tr>
             </thead>
             <tbody>
-              {console.log(order)}
               {order?.products?.map((product) => (
                 <tr
                   key={product.id}
