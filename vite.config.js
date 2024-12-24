@@ -14,12 +14,6 @@ export default defineConfig({
     VitePWA({
       workbox: {
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MiB
-        runtimeCaching: [
-          {
-            urlPattern: /index-CASh6eow\.js/,
-            handler: 'NetworkOnly', // Jangan cache file besar ini
-          },
-        ],
       },
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico'],
