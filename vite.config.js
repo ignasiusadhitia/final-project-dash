@@ -12,9 +12,6 @@ export default defineConfig({
     react(),
     svgr(),
     VitePWA({
-      workbox: {
-        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MiB
-      },
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico'],
       manifest: {
