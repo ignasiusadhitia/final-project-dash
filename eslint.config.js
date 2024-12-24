@@ -125,13 +125,7 @@ export default [
           reservedFirst: true,
         },
       ],
-      'react/jsx-curly-newline': [
-        'error',
-        {
-          multiline: 'consistent',
-          singleline: 'consistent',
-        },
-      ],
+      'react/jsx-curly-newline': ['off'],
       'react/jsx-no-duplicate-props': ['error', { ignoreCase: true }],
       'jest/expect-expect': 'off',
     },
