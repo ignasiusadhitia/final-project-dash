@@ -177,7 +177,7 @@ const Category = () => {
           </header>
           <button
             className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[123px] h-[32px]"
-            onClick={() => navigate('/dashboard/stocks/add')}
+            onClick={handleOpenAddCategory}
           >
             Add New Category
           </button>

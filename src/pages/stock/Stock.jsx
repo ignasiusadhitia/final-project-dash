@@ -86,6 +86,9 @@ const Stock = () => {
           title="Delete Stock?"
         />
       ),
+      customClass: {
+        popup: 'rounded-3xl p-32',
+      },
       showConfirmButton: false,
     });
   };
