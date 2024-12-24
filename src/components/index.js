@@ -16,3 +16,5 @@ export { default as BannerForm } from './banner/BannerForm';
 // Order Components
 export { default as OrderList } from './orders/OrderList';
 export { default as ConfirmationModal } from './orders/ConfirmationModal';
+export { default as OrderDetails } from './orders/OrderDetails';
+export { default as StatusPill } from './orders/StatusPill';

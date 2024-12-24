@@ -32,7 +32,8 @@
     "redux-persist": "^6.0.0",
     "redux-persist-transform-encrypt": "^5.1.1",
     "sweetalert2": "^11.15.1",
-    "swiper": "^11.1.15"
+    "swiper": "^11.1.15",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

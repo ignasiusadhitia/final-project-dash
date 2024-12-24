@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,12 @@ import {
 
 import StatusPill from './StatusPill';
 
-const OrderList = ({ orders, onShowConfirmationHandler }) => {
+const OrderList = ({
+  orders,
+  onShowConfirmationHandler,
+  onShowOrderDetailsHandler,
+  onDownloadHandler,
+}) => {
   const [data, setData] = useState(orders);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -54,6 +59,11 @@ const OrderList = ({ orders, onShowConfirmationHandler }) => {
   const handleRowChange = (event) => {
     setRowsPerPage(Number(event.target.value));
   };
+
+  useEffect(() => {
+    setData(orders);
+  }, [orders]);
+
   return (
     <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
       <div className="flex items-baseline justify-between">
@@ -77,7 +87,10 @@ const OrderList = ({ orders, onShowConfirmationHandler }) => {
         </div>
 
         <div>
-          <button className="flex justify-center items-center text-[12.64px] rounded border-[1px] border-primary text-primary px-[13.5px] py-2">
+          <button
+            className="flex justify-center items-center text-[12.64px] rounded border-[1px] border-primary text-primary px-[13.5px] py-2"
+            onClick={onDownloadHandler}
+          >
             Download all
           </button>
         </div>
@@ -138,7 +151,7 @@ const OrderList = ({ orders, onShowConfirmationHandler }) => {
           <tbody className="text-sm">
             {currentData.map((item) => (
               <tr key={item.id}>
-                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
+                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light capitalize">
                   {item.username}
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
@@ -157,15 +170,21 @@ const OrderList = ({ orders, onShowConfirmationHandler }) => {
                   <div className="grid grid-cols-3 gap-2">
                     {item.status_order === 'completed' ||
                     item.status_order === 'canceled' ? (
-                      <button onClick={onShowConfirmationHandler}>
+                      <button
+                        onClick={() => onShowOrderDetailsHandler(item.id)}
+                      >
                         <Eyes />
                       </button>
                     ) : (
                       <>
-                        <button>
+                        <button
+                          onClick={() => onShowOrderDetailsHandler(item.id)}
+                        >
                           <AcceptOrder />
                         </button>
-                        <button>
+                        <button
+                          onClick={() => onShowConfirmationHandler(item.id)}
+                        >
                           <CancelOrder />
                         </button>
                       </>
@@ -259,6 +278,8 @@ const OrderList = ({ orders, onShowConfirmationHandler }) => {
 OrderList.propTypes = {
   orders: PropTypes.array,
   onShowConfirmationHandler: PropTypes.func,
+  onShowOrderDetailsHandler: PropTypes.func,
+  onDownloadHandler: PropTypes.func,
 };
 
 export default OrderList;

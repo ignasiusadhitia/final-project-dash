@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 
 import { ExclamationCircle } from '@icons';
 
-const ConfirmationModal = ({ onShowConfirmationHandler }) => {
+const ConfirmationModal = ({
+  id,
+  onShowConfirmationHandler,
+  onCancelOrderHandler,
+}) => {
   return (
     <div className="w-screen h-screen bg-[#101010] bg-opacity-40 absolute top-0 left-0 flex justify-center items-center">
       <div className="max-w-[440px] py-10 px-20 bg-white rounded-[1.25rem] flex flex-col items-center">
@@ -20,13 +24,13 @@ const ConfirmationModal = ({ onShowConfirmationHandler }) => {
         <div className="flex gap-4 mt-8">
           <button
             className="w-[100px] h-8 flex justify-center items-center border-[1px] border-primary rounded text-[12.64px] text-primary hover:text-white hover:bg-primary"
-            onClick={onShowConfirmationHandler}
+            onClick={() => onShowConfirmationHandler(null)}
           >
             No
           </button>
           <button
             className="w-[100px] h-8 flex justify-center items-center bg-primary text-white rounded hover:bg-primary-dark text-[12.64px]"
-            onClick={onShowConfirmationHandler}
+            onClick={() => onCancelOrderHandler(id)}
           >
             Yes
           </button>
@@ -37,7 +41,9 @@ const ConfirmationModal = ({ onShowConfirmationHandler }) => {
 };
 
 ConfirmationModal.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onShowConfirmationHandler: PropTypes.func,
+  onCancelOrderHandler: PropTypes.func,
 };
 
 export default ConfirmationModal;

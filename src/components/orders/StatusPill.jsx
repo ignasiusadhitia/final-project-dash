@@ -15,7 +15,9 @@ const StatusPill = ({ status }) => {
   const bgColor = statusColors[status] || 'bg-gray-400'; // Default color if status unknown
 
   return (
-    <div className={`py-2 px-3 ${bgColor} w-fit text-[#E8F0FE] rounded-full`}>
+    <div
+      className={`pt-[8px] pb-[9px] px-[10px] ${bgColor} w-fit h-fit text-[#E8F0FE] text-sm rounded-[5px] capitalize`}
+    >
       {status}
     </div>
   );
