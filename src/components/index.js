@@ -18,3 +18,12 @@ export { default as OrderList } from './orders/OrderList';
 export { default as ConfirmationModal } from './orders/ConfirmationModal';
 export { default as OrderDetails } from './orders/OrderDetails';
 export { default as StatusPill } from './orders/StatusPill';
+// Rating Component
+export { default as RatingList } from './rating/RatingList';
+// Category Components
+export { default as Table } from './category/Table';
+export { default as TableCell } from './category/TableCell';
+export { default as FormCategory } from './category/Form';
+export { default as Dropzone } from './category/Dropzone';
+export { default as Success } from './modals/Success';
+export { default as Confirm } from './modals/Confirm';

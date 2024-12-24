@@ -100,10 +100,12 @@ const BannerList = () => {
   const [data, setData] = useState(dummyData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const [sortConfig, setSortConfig] = useState({
     key: 'name',
     direction: 'ascending',
-  }); // New state for sorting
+  });
+
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const sortData = (key) => {
@@ -158,7 +160,11 @@ const BannerList = () => {
               Home
             </Link>
             <ArrowRightSmall />
-            <Link className="text-primary text-xs font-normal" to={'/banners'}>
+
+            <Link
+              className="text-primary text-xs font-normal"
+              to={'/dashboard/banners'}
+            >
               Banner Management
             </Link>
           </div>
