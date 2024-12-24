@@ -19,6 +19,7 @@ import {
   Rating,
   SignUp,
   Stock,
+  FormStock,
   UpdateBanner,
 } from '@pages';
 
@@ -97,6 +98,18 @@ const protectedRoutes = [
   {
     path: 'stocks',
     element: <Stock />,
+  },
+  {
+    path: 'stocks/add',
+    element: <FormStock />,
+  },
+  {
+    path: 'stocks/edit/:id',
+    element: <FormStock />,
+  },
+  {
+    path: 'stocks/detail/:id',
+    element: <FormStock />,
   },
 ];
 

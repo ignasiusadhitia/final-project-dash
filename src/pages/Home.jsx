@@ -111,13 +111,13 @@ const Home = () => {
   ];
 
   return (
-    <main className="grid lg:grid-cols-[1fr,270px] 2xl:grid-cols-[1fr,400px] gap-10 p-5 w-full">
+    <main className="grid lg:grid-cols-[1fr,270px] 2xl:grid-cols-[1fr,400px] gap-10 px-5 py-12 w-full">
       {/* SUMMARY */}
       <section>
-        <Card className="grid lg:grid-cols-4 gap-3">
+        <Card className="grid lg:grid-cols-4 gap-3 rounded-md">
           <h2 className="lg:col-span-4 font-semibold text-xl">Summary</h2>
           {summaryData.map((item, index) => (
-            <Card key={index} className="flex flex-col gap-5">
+            <Card key={index} className="flex flex-col gap-5 rounded-md">
               <div className="flex gap-2">
                 {item.icon}
                 <p className="font-semibold">{item.title}</p>
@@ -133,7 +133,7 @@ const Home = () => {
 
       {/* TOTAL EARNING */}
       <section>
-        <Card className="grid gap-4">
+        <Card className="grid gap-4 rounded-md">
           <div className="text-center flex flex-col items-center justify-between">
             <h2 className="font-semibold text-xl">Total earning this month</h2>
             <p className="text-6xl font-bold text-primary">310$</p>
@@ -146,7 +146,7 @@ const Home = () => {
 
       {/* REVENUE */}
       <section>
-        <Card>
+        <Card className=" rounded-md">
           <h2 className="font-semibold text-lg">Revenue</h2>
           <div className="h-[300px] my-5">
             <ResponsiveContainer height="100%" width="100%">
@@ -191,7 +191,7 @@ const Home = () => {
 
       {/* BEST ITEM SALES */}
       <section>
-        <Card>
+        <Card className=" rounded-md">
           <h2 className="font-semibold text-lg mb-5">Best Item Sales</h2>
           <div className="flex flex-col gap-3">
             {bestItemSales.map((item, index) => (

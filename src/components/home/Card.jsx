@@ -7,7 +7,7 @@ const Card = ({ children, className }) => {
   return (
     <div
       className={twMerge(
-        `p-5 border rounded-md shadow-md w-full h-full bg-white ${className}`
+        `py-4 px-6 rounded-3xl w-full h-full bg-white ${className}`
       )}
     >
       {children}
