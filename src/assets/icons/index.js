@@ -65,3 +65,7 @@ export { default as Image } from './image.svg?react';
 export { default as ModalCheck } from './modal-check.svg?react';
 export { default as ModalTrash } from './modal-trash.svg?react';
 export { default as ModalExclamation } from './modal-exclamation.svg?react';
+// Order's Page Icons
+export { default as AcceptOrder } from './accept.svg?react';
+export { default as CancelOrder } from './cancel.svg?react';
+export { default as ExclamationCircle } from './exclamation-circle.svg?react';
