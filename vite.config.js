@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
+import commonjs from '@rollup/plugin-commonjs';
 import react from '@vitejs/plugin-react-swc';
 
 // https://vite.dev/config/
@@ -472,7 +473,13 @@ export default defineConfig({
         ],
       },
     }),
+    commonjs(),
   ],
+  build: {
+    rollupOptions: {
+      external: ['xlsx'],
+    },
+  },
   resolve: {
     alias: {
       '@icons': path.resolve('src/assets/icons'),
