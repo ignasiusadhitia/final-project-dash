@@ -471,15 +471,6 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
-        // Set big file to not be pre-cached
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => url.pathname.endsWith('index-D1u5cjZB.js'),
-            handler: 'NetworkOnly', // Do not use cache for the file
-          },
-        ],
-      },
     }),
   ],
   build: {},
