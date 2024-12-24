@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Link } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import {
   ClassicEditor,
   Essentials,
@@ -16,6 +14,10 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
+import { useDropzone } from 'react-dropzone';
+import { Link } from 'react-router-dom';
+
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -125,9 +127,9 @@ const AddProduct = () => {
                 Product Name
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Product Name"
-                required
                 type="text"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
@@ -138,8 +140,8 @@ const AddProduct = () => {
                 Product Category
               </label>
               <select
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 required
+                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -156,9 +158,9 @@ const AddProduct = () => {
                 SKU Product
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter SKU Product"
-                required
                 type="text"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
@@ -181,9 +183,9 @@ const AddProduct = () => {
                 Initial Stock
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Initial Stock"
-                required
                 type="number"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
@@ -194,9 +196,9 @@ const AddProduct = () => {
                 Price
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Price"
-                required
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -265,14 +267,11 @@ const AddProduct = () => {
               ) : (
                 <div>
                   <p className="text-gray-600">
-                    <span className="text-red-500"> Click to upload</span> or Drag and drop
+                    <span className="text-red-500"> Click to upload</span> or
+                    Drag and drop
                   </p>
-                  <p className="text-lg">
-                    SVG, PNG, JPG
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    (max, 800x400px)
-                  </p>
+                  <p className="text-lg">SVG, PNG, JPG</p>
+                  <p className="text-sm text-gray-500">(max, 800x400px)</p>
                 </div>
               )}
             </div>
