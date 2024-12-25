@@ -1,110 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import {
-  ArrowDown,
-  Published,
-  NotPublished,
   ArrowRightSmall,
   Eyes,
-  Pen,
-  Trash,
   ArrowSorting,
-  ArrowLeft,
+  AcceptOrder,
+  CancelOrder,
 } from '@icons';
 
-const dummyData = [
-  {
-    id: 1,
-    name: 'Promo Akhir Tahun',
-    url: 'www.e-commerce.com',
-    release: '09/11/2024',
-    end: '12/11/2024',
-    published: true,
-  },
-  {
-    id: 2,
-    name: 'Produk Baru',
-    url: 'www.e-commerce.com',
-    release: '08/11/2024',
-    end: '11/11/2024',
-    published: false,
-  },
-  {
-    id: 3,
-    name: 'Diskon 30%',
-    url: 'www.e-commerce.com',
-    release: '07/11/2024',
-    end: '10/11/2024',
-    published: true,
-  },
-  {
-    id: 4,
-    name: 'Giveaway',
-    url: 'www.e-commerce.com',
-    release: '03/11/2024',
-    end: '09/11/2024',
-    published: false,
-  },
-  {
-    id: 5,
-    name: 'Event Akhir Tahun',
-    url: 'www.e-commerce.com',
-    release: '02/11/2024',
-    end: '08/11/2024',
-    published: true,
-  },
-  {
-    id: 6,
-    name: 'Flash Sale',
-    url: 'www.e-commerce.com',
-    release: '01/11/2024',
-    end: '07/11/2024',
-    published: false,
-  },
-  {
-    id: 7,
-    name: 'Promo Spesial',
-    url: 'www.e-commerce.com',
-    release: '31/10/2024',
-    end: '06/11/2024',
-    published: true,
-  },
-  {
-    id: 8,
-    name: 'Bonus Member',
-    url: 'www.e-commerce.com',
-    release: '30/10/2024',
-    end: '05/11/2024',
-    published: false,
-  },
-  {
-    id: 9,
-    name: 'Kupon Belanja',
-    url: 'www.e-commerce.com',
-    release: '29/10/2024',
-    end: '04/11/2024',
-    published: true,
-  },
-  {
-    id: 10,
-    name: 'Promo Gratis Ongkir',
-    url: 'www.e-commerce.com',
-    release: '28/10/2024',
-    end: '03/11/2024',
-    published: false,
-  },
-];
+import StatusPill from './StatusPill';
 
-const BannerList = () => {
-  const [data, setData] = useState(dummyData);
+const OrderList = ({
+  orders,
+  onShowConfirmationHandler,
+  onShowOrderDetailsHandler,
+  onDownloadHandler,
+}) => {
+  const [data, setData] = useState(orders);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({
     key: 'name',
     direction: 'ascending',
-  });
+  }); // New state for sorting
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const sortData = (key) => {
@@ -119,13 +40,6 @@ const BannerList = () => {
     });
     setData(sortedData);
     setSortConfig({ key, direction });
-  };
-
-  const handleTogglePublished = (id) => {
-    const updatedData = data.map((item) =>
-      item.id === id ? { ...item, published: !item.published } : item
-    );
-    setData(updatedData);
   };
 
   const handleChangePage = (direction) => {
@@ -146,11 +60,15 @@ const BannerList = () => {
     setRowsPerPage(Number(event.target.value));
   };
 
+  useEffect(() => {
+    setData(orders);
+  }, [orders]);
+
   return (
     <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
       <div className="flex items-baseline justify-between">
         <div>
-          <h1 className="text-[25.63px] font-bold">Banner Management</h1>
+          <h1 className="text-[25.63px] font-bold">Orders</h1>
           <div className="flex items-center gap-2 mt-2 pb-3">
             <Link
               className="text-primary text-xs font-normal"
@@ -161,97 +79,69 @@ const BannerList = () => {
             <ArrowRightSmall />
             <Link
               className="text-primary text-xs font-normal"
-              to={'/dashboard/banners'}
+              to={'/dashboard/orders'}
             >
-              Banner Management
+              Orders
             </Link>
           </div>
         </div>
 
         <div>
-          <Link
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[123px] h-[32px]"
-            to={'/dashboard/banners/add'}
+          <button
+            className="flex justify-center items-center text-[12.64px] rounded border-[1px] border-primary text-primary px-[13.5px] py-2"
+            onClick={onDownloadHandler}
           >
-            Add New Banner
-          </Link>
+            Download all
+          </button>
         </div>
       </div>
 
-      <div className="my-4 flex">
-        <div className="relative">
-          <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-          <select
-            className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-            defaultValue=""
-            id="filter"
-            name="filter"
-          >
-            <option disabled value="">
-              Select Filter
-            </option>
-            <option value="name">Name</option>
-            <option value="release">Release</option>
-            <option value="published">Published</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-5">
         <table className="table-auto w-full border-collapse">
           <thead>
             <tr>
               <th className="text-sm text-start font-bold px-4 py-2">
                 <button
                   className="flex items-center gap-2"
-                  onClick={() => sortData('name')}
+                  onClick={() => sortData('username')}
                 >
-                  Banner Picture
+                  User Name
                   <ArrowSorting />
                 </button>
               </th>
               <th className="flex items-center gap-2 text-sm text-start font-bold px-4 py-2">
                 <button
                   className="flex items-center gap-2"
-                  onClick={() => sortData('name')}
+                  onClick={() => sortData('address')}
                 >
-                  Banner Name
+                  Address
                   <ArrowSorting />
                 </button>
               </th>
               <th className="text-sm text-start font-bold px-4 py-2">
                 <button
                   className="flex items-center gap-2"
-                  onClick={() => sortData('url')}
+                  onClick={() => sortData('payment_method')}
                 >
-                  Target URL
+                  Payment Method
                   <ArrowSorting />
                 </button>
               </th>
               <th className="text-sm text-start font-bold px-4 py-2">
                 <button
                   className="flex items-center gap-2"
-                  onClick={() => sortData('release')}
+                  onClick={() => sortData('amount')}
                 >
-                  Release Date
+                  Amount
                   <ArrowSorting />
                 </button>
               </th>
               <th className="text-sm text-start font-bold px-4 py-2">
                 <button
                   className="flex items-center gap-2"
-                  onClick={() => sortData('end')}
+                  onClick={() => sortData('status_order')}
                 >
-                  End Date
-                  <ArrowSorting />
-                </button>
-              </th>
-              <th className="text-sm text-start font-bold px-4 py-2">
-                <button
-                  className="flex items-center gap-2"
-                  onClick={() => sortData('published')}
-                >
-                  Published
+                  Status Order
                   <ArrowSorting />
                 </button>
               </th>
@@ -261,41 +151,44 @@ const BannerList = () => {
           <tbody className="text-sm">
             {currentData.map((item) => (
               <tr key={item.id}>
-                <td className="px-4 py-3 border-b-2 text-type-text-light">
-                  <img
-                    alt="Banner"
-                    className="w-[50px] h-[37px] rounded"
-                    src="https://picsum.photos/150"
-                  />
+                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light capitalize">
+                  {item.username}
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
-                  {item.name}
+                  {item.address}
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
-                  {item.url}
+                  {item.payment_method}
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
-                  {item.release}
+                  ${item.amount}
                 </td>
-                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
-                  {item.end}
-                </td>
-                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-start">
-                  <button onClick={() => handleTogglePublished(item.id)}>
-                    {item.published ? <Published /> : <NotPublished />}
-                  </button>
+                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light capitalize">
+                  <StatusPill status={item.status_order} />
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-center">
                   <div className="grid grid-cols-3 gap-2">
-                    <Link to={'/dashboard/banners/detail/1'}>
-                      <Eyes />
-                    </Link>
-                    <Link to={'/dashboard/banners/edit/1'}>
-                      <Pen />
-                    </Link>
-                    <button>
-                      <Trash />
-                    </button>
+                    {item.status_order === 'completed' ||
+                    item.status_order === 'canceled' ? (
+                      <button
+                        onClick={() => onShowOrderDetailsHandler(item.id)}
+                      >
+                        <Eyes />
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => onShowOrderDetailsHandler(item.id)}
+                        >
+                          <AcceptOrder />
+                        </button>
+                        <button
+                          onClick={() => onShowConfirmationHandler(item.id)}
+                        >
+                          <CancelOrder />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -382,4 +275,11 @@ const BannerList = () => {
   );
 };
 
-export default BannerList;
+OrderList.propTypes = {
+  orders: PropTypes.array,
+  onShowConfirmationHandler: PropTypes.func,
+  onShowOrderDetailsHandler: PropTypes.func,
+  onDownloadHandler: PropTypes.func,
+};
+
+export default OrderList;

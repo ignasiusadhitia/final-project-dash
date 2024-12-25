@@ -94,9 +94,10 @@ const Sidebar = () => {
       <div className="py-6 w-full">
         <ul className="flex flex-col gap-5">
           {menuItems.map(({ path, label, icon, activeIcon }) => {
-            const isActive = path === '/dashboard'
-            ? location === path
-            : location.startsWith(path);
+            const isActive =
+              path === '/dashboard'
+                ? location === path
+                : location.startsWith(path);
 
             return (
               <li key={path} className={'relative flex items-center gap-7'}>
