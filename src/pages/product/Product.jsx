@@ -142,9 +142,11 @@ const Product = () => {
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-semibold">Product</h1>
 
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Add New Product
-          </button>
+          <Link to="add">
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              Add New Product
+            </button>
+          </Link>
         </div>
 
         <nav aria-label="Breadcrumb" className="flex mb-5">

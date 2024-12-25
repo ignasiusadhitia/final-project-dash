@@ -35,6 +35,7 @@ const AddProduct = () => {
   const [variantNames, setVariantNames] = useState([]);
   const [variantValue, setVariantValue] = useState('');
   const [defaultImageIndex, setDefaultImageIndex] = useState(null);
+  const [tempVariantNames, setTempVariantNames] = useState([]);
 
 
 
@@ -76,10 +77,11 @@ const AddProduct = () => {
 
   const handleAddVariantName = () => {
     if (variantName.trim()) {
-      setVariantNames([...variantNames, variantName]);
+      setTempVariantNames([...tempVariantNames, variantName]);
       setVariantName('');
     }
   };
+
 
   const handleDeleteVariantName = (index) => {
     setVariantNames(variantNames.filter((_, i) => i !== index));
@@ -92,14 +94,11 @@ const AddProduct = () => {
 
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariants([...variants, {
-      name: variantName,
-      value: variantValue
-    }]);
-    setVariantName('');
-    setVariantValue('');
+    setVariantNames([...variantNames, ...tempVariantNames]);
+    setTempVariantNames([]);
     setIsModalOpen(false);
   };
+
 
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-8 lg:p-12 w-full">
@@ -214,32 +213,48 @@ const AddProduct = () => {
               <label className="block text-sm md:text-base font-medium mb-1">
                 Product Variant
               </label>
-              <div className="relative">
-                <input
-                  className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
-                  type="text"
-                  value={variant}
-                  readOnly
-                  onClick={() => setIsModalOpen(true)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(true)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
-                >
-                  <AddButton className="w-5 h-5 me-2" />
-                  Add New Product Variant
-                </button>
-              </div>
-              {variants.length > 0 && (
-                <div className="mt-2 space-y-1">
-                  {variants.map((variant, index) => (
-                    <div key={index} className="text-sm text-gray-600">
-                      {variant.name}: {variant.value}
-                    </div>
-                  ))}
+              {variantNames.length === 0 ? (
+                <div className="relative">
+                  <input
+                    className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                    type="text"
+                    value={variant}
+                    readOnly
+                    onClick={() => setIsModalOpen(true)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
+                  >
+                    <AddButton className="w-5 h-5 me-2" />
+                    Add New Product Variant
+                  </button>
                 </div>
-              )}
+              ) : (
+                <div>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <div className="grid grid-cols-2 gap-4">
+                        {variantNames.map((name, index) => (
+                          <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium">{name}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setIsModalOpen(true)}
+                        className="p-2 bg-red-100 rounded-full hover:bg-red-200"                      >
+                        <PlusButton className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>)}
             </div>
 
 
@@ -260,7 +275,8 @@ const AddProduct = () => {
                           placeholder="e.g. Size, Color"
                         />
                         <button
-                          onClick={() => handleAddVariantName}
+                          type='button'
+                          onClick={handleAddVariantName}
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                         >
                           <PlusButton className="w-6 h-6 " />
@@ -270,17 +286,12 @@ const AddProduct = () => {
 
                     {/* Variant Names List */}
                     <div className="space-y-2">
-                      {variantNames.map((vName, index) => (
+                      {tempVariantNames.map((vName, index) => (
                         <div key={index} className="flex items-center justify-between bg-red-50 p-3 rounded">
                           <span className="font-medium">{vName}</span>
                           <div className="flex gap-2">
                             <button
-                              onClick={() => handleAddVariantValue(vName)}
-                              className="p-1 hover:rounded-full hover:bg-red-200"
-                            >
-                              <PlusButton className="w-4 h-4 text-gray-500" />
-                            </button>
-                            <button
+                              type="button"
                               onClick={() => handleDeleteVariantName(index)}
                               className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
                             >
@@ -289,6 +300,7 @@ const AddProduct = () => {
                           </div>
                         </div>
                       ))}
+
                     </div>
 
                     <div className="flex justify-end gap-2">
