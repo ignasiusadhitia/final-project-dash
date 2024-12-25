@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 import { LeftChevron, RightChevron, Delete, Details, Edit, ArrowSorting } from '@icons';
 
@@ -117,7 +116,6 @@ const initialProducts = [
 ];
 
 const Product = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState(initialProducts);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
@@ -249,19 +247,19 @@ const Product = () => {
             <tbody>
               {currentProducts.map((product, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="border-b px-4 py-2 text-xs text-black/60">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.name}
                   </td>
-                  <td className="border-b px-4 py-2 text-xs text-black/60">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.sku}
                   </td>
-                  <td className="border-b px-4 py-2 text-xs text-black/60">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.stock}
                   </td>
-                  <td className="border-b px-4 py-2 text-xs text-black/60">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.category}
                   </td>
-                  <td className="border-b px-4 py-2 text-xs text-black/60">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.price}
                   </td>
                   <td className="px-5 border-b border-gray-200">
@@ -277,28 +275,17 @@ const Product = () => {
                       </label>
                     </div>
                   </td>
-
                   <td className="px-5 py-2 border-b border-gray-200 flex justify-start items-center space-x-4">
-                    <button
-                      className="text-blue-500 hover:text-blue-700"
-                      onClick={() => navigate(`${product.id}`)}
-                    >
+                    <button className="text-blue-500 hover:text-blue-700">
                       <Details />
                     </button>
-                    <button
-                      className="text-blue-500 hover:text-blue-700"
-                      onClick={() => navigate(`edit/${product.id}`)}
-                    >
+                    <button className="text-blue-500 hover:text-blue-700">
                       <Edit />
                     </button>
-                    <button
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => handleDelete(product.id)}
-                    >
+                    <button className="text-red-500 hover:text-red-700">
                       <Delete />
                     </button>
                   </td>
-
                 </tr>
               ))}
             </tbody>
@@ -352,7 +339,7 @@ const Product = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 export default Product;
