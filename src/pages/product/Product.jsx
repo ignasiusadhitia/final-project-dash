@@ -192,22 +192,22 @@ const Product = () => {
             <tbody>
               {currentProducts.map((product, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.name}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.sku}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.stock}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.category}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
                     {product.price}
                   </td>
-                  <td className="px-5 py-2 border-b border-gray-200">
+                  <td className="px-5 border-b border-gray-200">
                     <div className="flex justify-center items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input
@@ -216,7 +216,7 @@ const Product = () => {
                           type="checkbox"
                           onChange={() => handlePublishToggle(product.id)}
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                       </label>
                     </div>
                   </td>
@@ -235,7 +235,7 @@ const Product = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-between items-center px-5 py-3 border-t">
+          <div className="flex justify-between items-center px-5 py-3 ">
             <div className="text-sm text-gray-700">
               {startIndex + 1}-{endIndex} of {totalItems}
             </div>
