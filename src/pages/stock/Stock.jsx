@@ -8,7 +8,6 @@ const MySwal = withReactContent(Swal);
 
 import { Table, Card, Success, Confirm } from '@components';
 import {
-  Chevron,
   Pencil,
   Trash,
   Eyes,
@@ -50,10 +49,17 @@ const Stock = () => {
     },
   ];
   const [tableData, setTableData] = useState(dummyData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
   const [sortConfig, setSortConfig] = useState({
     key: 'name',
     direction: 'ascending',
   });
+  // Handle row change
+  const handleRowChange = (event) => {
+    setRowsPerPage(Number(event.target.value));
+  };
   const dataKey = ['productName', 'variant', 'quantity'];
   const sortData = (key) => {
     let direction = 'ascending';
@@ -214,23 +220,72 @@ const Stock = () => {
 
         {/* PAGINATION */}
         <div className="flex flex-col items-center md:flex-row md:justify-between text-black/50 font-bold mt-5 text-sm px-5">
-          <p>1-20 of 27</p>
+          <p className="text-sm text-type-text-light font-medium">
+            {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
+              currentPage * rowsPerPage,
+              tableData.length
+            )} of ${tableData.length}`}
+          </p>
           <div className="flex justify-between items-center">
             <div>
               <label htmlFor="rows">Rows per page:</label>
-              <select id="rows" name="rows">
+              <select
+                id="rows"
+                name="rows"
+                value={rowsPerPage}
+                onChange={handleRowChange}
+              >
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
             </div>
             <div className="flex items-center gap-1">
-              <button>
-                <Chevron className="rotate-180 border h-5 w-5 rounded-sm" />
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                    stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
-              <p>1/2</p>
-              <button>
-                <Chevron className="border h-5 w-5 rounded-sm" />
+              <p className="font-medium text-sm">
+                <span className="text-[#171C26]">{currentPage}</span>/
+                <span className="text-[#687182]">{totalPages}</span>
+              </p>
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                    stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
             </div>
           </div>
