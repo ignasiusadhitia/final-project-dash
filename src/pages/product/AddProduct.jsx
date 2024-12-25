@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Link } from 'react-router-dom';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -57,7 +60,7 @@ const AddProduct = () => {
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png'],
     },
-    multiple: false,
+    multiple: true,
     onDrop,
   });
 
@@ -97,6 +100,30 @@ const AddProduct = () => {
     setVariantNames([...variantNames, ...tempVariantNames]);
     setTempVariantNames([]);
     setIsModalOpen(false);
+  };
+
+  // Add slider settings
+  const sliderSettings = {
+    dots: true,
+    className: "center",
+    infinite: false,
+    centerPadding: "10px",
+    slidesToShow: 4,
+    swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        }
+      }
+    ]
   };
 
 
@@ -457,41 +484,43 @@ const AddProduct = () => {
           </div>
           {/* Image Preview Section */}
           <div className="mt-4">
-            <div className="flex gap-4 mb-5">
+            <Slider {...sliderSettings}>
               {photos.map((photo, index) => (
-                <div key={index} className="relative w-[200px] bg-gray-100 group rounded-lg">
-                  <div className="relative w-full h-[150px] rounded-lg p-4">
-                    <img
-                      src={URL.createObjectURL(photo)}
-                      alt={`Product preview ${index + 1}`}
-                      className="w-full h-full object-contain"
-                    />
+                <div key={index} className="px-2">
+                  <div className="relative w-[200px] bg-gray-100 group rounded-lg">
+                    <div className="relative w-full h-[150px] rounded-lg p-4">
+                      <img
+                        src={URL.createObjectURL(photo)}
+                        alt={`Product preview ${index + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                      <button
+                        onClick={() => removePhoto(index)}
+                        className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
+                        type="button"
+                      >
+                        <Delete />
+                      </button>
+                      {defaultImageIndex === index && (
+                        <div className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
+                          style={{ background: 'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)' }}>
+                          Default
+                        </div>
+                      )}
+                    </div>
                     <button
-                      onClick={() => removePhoto(index)}
-                      className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
+                      onClick={() => setDefaultImageIndex(index)}
+                      className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       type="button"
                     >
-                      <Delete />
+                      Set as Default
                     </button>
-                    {defaultImageIndex === index && (
-                      <div className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
-                        style={{ background: 'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)' }}>
-                        Default
-                      </div>
-                    )}
                   </div>
-                  <button
-                    onClick={() => setDefaultImageIndex(index)}
-                    className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                    type="button"
-                  >
-                    Set as Default
-                  </button>
                 </div>
               ))}
-
-            </div>
+            </Slider>
           </div>
+
 
           <div className="flex justify-end space-x-4">
             <Link
