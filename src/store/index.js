@@ -37,7 +37,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(dashApi.middleware),
+    }).concat(dashApi.middleware, categoryApi.middleware),
 });
 
 const persistor = persistStore(store);

@@ -8,6 +8,7 @@ import { Chevron } from '@icons';
 const Table = ({
   tableHeader = [],
   tableData = [],
+  dataKey = [],
   actions = [],
   publish,
   sort = [],
@@ -42,20 +43,17 @@ const Table = ({
       <tbody>
         {tableData.map((item, index) => (
           <tr key={index}>
-            {Object.entries(item).map(
-              ([objectKey, objectValue], subIndex) =>
-                objectKey !== 'id' && (
-                  <td
-                    key={subIndex}
-                    className="border-b px-4 py-2 text-xs text-black/60"
-                  >
-                    <TableCell
-                      objectValue={objectValue}
-                      onPublish={() => publish(item)}
-                    />
-                  </td>
-                )
-            )}
+            {dataKey.map((itemKey, subIndex) => (
+              <td
+                key={subIndex}
+                className="border-b px-4 py-2 text-xs text-black/60"
+              >
+                <TableCell
+                  objectValue={item[itemKey]}
+                  onPublish={() => publish(item)}
+                />
+              </td>
+            ))}
             <td className="py-2 px-4 border-b">
               <div className="flex gap-2 text-black/50">
                 {actions.map((action, index) => (
@@ -77,6 +75,7 @@ const Table = ({
 Table.propTypes = {
   tableHeader: PropTypes.array.isRequired,
   tableData: PropTypes.array.isRequired,
+  dataKey: PropTypes.array.isRequired,
   actions: PropTypes.array,
   publish: PropTypes.func,
   sort: PropTypes.array,

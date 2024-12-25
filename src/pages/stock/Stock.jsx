@@ -49,6 +49,7 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const dataKey = ['productName', 'variant', 'quantity'];
   const sort = [
     {
       asc: () => alert('sort asc by name'),
@@ -195,6 +196,7 @@ const Stock = () => {
         <div className="overflow-x-auto">
           <Table
             actions={actions}
+            dataKey={dataKey}
             sort={sort}
             tableData={tableData}
             tableHeader={tableHeader}

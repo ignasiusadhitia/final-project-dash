@@ -16,17 +16,18 @@ const Category = () => {
   const tableData = [
     {
       id: 1,
-      category: 'Electronics',
-      icon: 'Electronics',
+      name: 'Electronics',
+      image: 'Electronics',
       published: true,
     },
     {
       id: 2,
-      category: 'Home & Lifestyle',
-      icon: 'Home & Lifestyle',
+      name: 'Home & Lifestyle',
+      image: 'Home & Lifestyle',
       published: false,
     },
   ];
+  const dataKey = ['name', 'image', 'published'];
 
   // ADD CATEGORY
   const handleAddCategory = (e) => {
@@ -186,6 +187,7 @@ const Category = () => {
         <div className="overflow-auto">
           <Table
             actions={actions}
+            dataKey={dataKey}
             publish={handleOpenPublishModal}
             sort={sort}
             tableData={tableData}
