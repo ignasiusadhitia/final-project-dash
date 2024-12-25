@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import Skeleton from 'react-loading-skeleton';
+// import 'react-loading-skeleton/dist/skeleton.css';
 import {
   LineChart,
   Line,
@@ -11,80 +13,80 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import { Card } from '@components';
-import { Items, Clicks, Sales, Users, Next } from '@icons';
+import {
+  useGetBestSellerProductQuery,
+  useGetEarningsQuery,
+  useGetRevenueQuery,
+  useGetSummaryQuery,
+} from '@store/features/dashSlice';
+
+import { Card, Summary } from '@components';
+import { Items, Next } from '@icons';
 
 const Home = () => {
-  const summaryData = [
-    {
-      icon: <Users />,
-      title: 'Users',
-      value: '35k',
-    },
-    {
-      icon: <Clicks />,
-      title: 'Orders',
-      value: '40',
-    },
-    {
-      icon: <Sales />,
-      title: 'Sales',
-      value: '345$',
-    },
-    {
-      icon: <Items />,
-      title: 'Items',
-      value: '68',
-    },
-  ];
+  const { data: bestSellerData } = useGetBestSellerProductQuery();
+  const { data: earningData } = useGetEarningsQuery();
+  const { data: revenueData } = useGetRevenueQuery();
+  const { data: summaryData } = useGetSummaryQuery();
+  console.log(bestSellerData);
+  console.log(earningData);
+  console.log(revenueData);
+  console.log(summaryData);
+
+  const summaryDataDummy = {
+    users: '35k',
+    orders: '40',
+    sales: '345$',
+    items: '68',
+  };
   const salesData = [
     {
       month: 'Jan',
-      sales: 10000000,
+      revenue: '10000000',
     },
     {
       month: 'Feb',
-      sales: 90000000,
+      revenue: '90000000',
     },
     {
       month: 'Mar',
-      sales: 50000000,
+      revenue: '50000000',
     },
     {
       month: 'Apr',
-      sales: 60000000,
+      revenue: '60000000',
     },
     {
       month: 'Mei',
-      sales: 40000000,
+      revenue: '40000000',
     },
     {
       month: 'Jun',
-      sales: 80000000,
+      revenue: '80000000',
     },
     {
       month: 'Jul',
-      sales: 70000000,
+      revenue: '70000000',
     },
     {
       month: 'Aug',
-      sales: 70000000,
+      revenue: '70000000',
     },
     {
       month: 'Sep',
-      sales: 50000000,
+      revenue: '50000000',
     },
     {
       month: 'Oct',
-      sales: 20000000,
+      revenue: '20000000',
     },
     {
       month: 'Nov',
-      sales: 40000000,
+      revenue: '40000000',
     },
     {
       month: 'Des',
-      sales: 70000000,
+      revenue: '70000000',
     },
   ];
   const bestItemSales = [
@@ -114,21 +116,7 @@ const Home = () => {
     <main className="grid lg:grid-cols-[1fr,270px] 2xl:grid-cols-[1fr,400px] gap-10 px-5 py-12 w-full">
       {/* SUMMARY */}
       <section>
-        <Card className="grid lg:grid-cols-4 gap-3 rounded-md">
-          <h2 className="lg:col-span-4 font-semibold text-xl">Summary</h2>
-          {summaryData.map((item, index) => (
-            <Card key={index} className="flex flex-col gap-5 rounded-md">
-              <div className="flex gap-2">
-                {item.icon}
-                <p className="font-semibold">{item.title}</p>
-              </div>
-              <p className="font-semibold text-4xl">{item.value}</p>
-              <div className="w-full h-1 bg-primary/50 rounded-full overflow-hidden">
-                <div className="w-1/2 h-1 bg-primary"></div>
-              </div>
-            </Card>
-          ))}
-        </Card>
+        <Summary data={summaryDataDummy} />
       </section>
 
       {/* TOTAL EARNING */}
@@ -164,7 +152,7 @@ const Home = () => {
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" />
                 <YAxis
-                  tickFormatter={(value) => `${(value / 1000000).toFixed(0)}M`}
+                  tickFormatter={(data) => `${(data / 1000000).toFixed(0)}M`}
                 />
                 <Tooltip />
                 <Legend
@@ -176,7 +164,7 @@ const Home = () => {
                 />
                 <Line
                   activeDot={{ r: 8 }}
-                  dataKey="sales"
+                  dataKey="revenue"
                   dot={false}
                   legendType="circle"
                   stroke="red"
