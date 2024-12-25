@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TableCell } from '@components';
-import { Chevron } from '@icons';
+import { ArrowSorting } from '@icons';
 
 const Table = ({
   tableHeader = [],
@@ -20,21 +20,13 @@ const Table = ({
           {tableHeader.map((item, index) => (
             <th key={index} className="text-start px-4 py-6">
               <div className="flex items-center gap-1">
-                {item}
-                <div>
-                  {sort[index]?.asc && (
-                    <Chevron
-                      className="-rotate-90 cursor-pointer"
-                      onClick={() => sort[index].asc()}
-                    />
-                  )}
-                  {sort[index]?.desc && (
-                    <Chevron
-                      className="rotate-90 cursor-pointer"
-                      onClick={() => sort[index].desc()}
-                    />
-                  )}
-                </div>
+                <button
+                  className={`flex items-center gap-2 ${!sort[index] && 'cursor-default'}`}
+                  onClick={() => sort[index]()}
+                >
+                  {item}
+                  {sort[index] && <ArrowSorting />}
+                </button>
               </div>
             </th>
           ))}

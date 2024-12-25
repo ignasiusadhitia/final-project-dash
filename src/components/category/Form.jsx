@@ -7,8 +7,8 @@ import { Dropzone } from '@components';
 
 const Form = ({ data, action }) => {
   const [formData, setFormData] = useState({
-    categoryName: data?.category || '',
-    icon: data?.icon || null,
+    name: data?.name || '',
+    image: data?.image || null,
     published: data?.published || false,
   });
 
@@ -35,10 +35,10 @@ const Form = ({ data, action }) => {
             required
             className="border rounded-md py-3 px-4 text-sm bg-surface-background"
             id="category-name"
-            name="categoryName"
+            name="name"
             placeholder="Enter Category Name"
             type="text"
-            value={formData.categoryName}
+            value={formData.name}
             onChange={handleChange}
           />
           <p className="text-[#f93131] text-xs text-left hidden">
@@ -46,11 +46,11 @@ const Form = ({ data, action }) => {
           </p>
         </div>
 
-        {/* CATEGORY ICON */}
+        {/* CATEGORY image */}
         <Dropzone
           handleChange={handleChange}
-          name="icon"
-          value={formData.icon}
+          name="image"
+          value={formData.image}
         />
 
         {/* FORM BUTTON */}

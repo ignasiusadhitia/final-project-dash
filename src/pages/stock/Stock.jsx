@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const Stock = () => {
 
   // TABLE PROPS
   const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
-  const tableData = [
+  const dummyData = [
     {
       id: 1,
       productName: 'Laptop HP',
@@ -49,20 +49,29 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const [tableData, setTableData] = useState(dummyData);
+  const [sortConfig, setSortConfig] = useState({
+    key: 'name',
+    direction: 'ascending',
+  });
   const dataKey = ['productName', 'variant', 'quantity'];
+  const sortData = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sortedData = [...tableData].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setTableData(sortedData);
+    setSortConfig({ key, direction });
+  };
   const sort = [
-    {
-      asc: () => alert('sort asc by name'),
-      desc: () => alert('sort desc by name'),
-    },
-    {
-      asc: () => alert('sort asc by varian'),
-      desc: () => alert('sort desc by varian'),
-    },
-    {
-      asc: () => alert('sort asc by quantity'),
-      desc: () => alert('sort desc by quantity'),
-    },
+    () => sortData('productName'),
+    () => sortData('variant'),
+    () => sortData('quantity'),
   ];
 
   const handleDelete = (data) => {
