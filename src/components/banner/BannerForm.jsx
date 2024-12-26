@@ -76,7 +76,7 @@ const BannerForm = () => {
       </div>
 
       <div className="py-6 flex flex-col gap-6 border-t border-surface-border">
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="name">
               Banner Name
@@ -111,7 +111,7 @@ const BannerForm = () => {
           </div>
         </div>
 
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="end-date">
               End Date
@@ -146,7 +146,7 @@ const BannerForm = () => {
           </div>
         </div>
 
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="type">
               Banner Type

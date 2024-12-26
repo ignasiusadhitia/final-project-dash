@@ -138,44 +138,46 @@ const Stock = () => {
 
         {/* FILTER AND SEARCH */}
         <div className="grid gap-5 md:flex justify-between items-center">
-          <div className="grid md:flex flex-wrap gap-5">
-            <div>
-              <DatePicker
-                className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
-                id="release-date"
-                style={{
-                  border: '1px solid #DBDCDE',
-                  outline: 'none',
-                  boxShadow: 'none',
-                  background: 'white',
-                }}
-                suffixIcon={<Calendar />}
-                type="date"
-                // value={date}
-                // onChange={handleFilterByDate}
-              />
-            </div>
-            <div className="relative">
-              <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-              <select
-                className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-                defaultValue=""
-                id="filter"
-                name="filter"
-              >
-                <option disabled value="">
-                  Select Filter
-                </option>
-                <option value="name">Name</option>
-                <option value="release">Release</option>
-                <option value="published">Published</option>
-              </select>
+          <div className='flex gap-6 flex-col md:flex-row'>
+            <div className="w-full md:w-auto flex gap-5 items-center">
+              <div>
+                <DatePicker
+                  className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+                  id="release-date"
+                  style={{
+                    border: '1px solid #DBDCDE',
+                    outline: 'none',
+                    boxShadow: 'none',
+                    background: 'white',
+                  }}
+                  suffixIcon={<Calendar />}
+                  type="date"
+                  // value={date}
+                  // onChange={handleFilterByDate}
+                />
+              </div>
+              <div className="relative">
+                <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+                <select
+                  className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                  defaultValue=""
+                  id="filter"
+                  name="filter"
+                >
+                  <option disabled value="">
+                    Select Filter
+                  </option>
+                  <option value="name">Name</option>
+                  <option value="release">Release</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
             </div>
 
-            <div className="relative">
+            <div className="relative w-full md:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input
-                className="bg-white w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
+                className="bg-white w-full md:w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
                 id="search"
                 name="search"
                 placeholder="Search"
