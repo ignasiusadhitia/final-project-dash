@@ -31,19 +31,16 @@ const AddProduct = () => {
   const [variant, setVariant] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [photo, setPhoto] = useState(null);
-  const [variants, setVariants] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [variantName, setVariantName] = useState('');
   const [variantNames, setVariantNames] = useState([]);
-  const [variantValue, setVariantValue] = useState('');
   const [defaultImageIndex, setDefaultImageIndex] = useState(null);
   const [tempVariantNames, setTempVariantNames] = useState([]);
 
-
-
+  
   // Change the photo state to an array
   const [photos, setPhotos] = useState([]);
+  console.log(photos)
 
   // Update the onDrop callback
   const onDrop = useCallback((acceptedFiles) => {
@@ -74,7 +71,7 @@ const AddProduct = () => {
       stock,
       price,
       description,
-      photo,
+      photos,
     });
   };
 
@@ -105,7 +102,7 @@ const AddProduct = () => {
   // Add slider settings
   const sliderSettings = {
     dots: true,
-    className: "center",
+    className: "left",
     infinite: false,
     centerPadding: "10px",
     slidesToShow: 4,
@@ -525,7 +522,7 @@ const AddProduct = () => {
           <div className="flex justify-end space-x-4">
             <Link
               className="border-2 border-red-500 hover:bg-re-400 text-black font-bold py-2 px-5  md:py-3 md:px-6 rounded text-sm md:text-base"
-              to="/product"
+              to="/dashboard/products"
             >
               Cancel
             </Link>
