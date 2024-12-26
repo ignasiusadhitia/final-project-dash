@@ -21,7 +21,6 @@ const Stock = () => {
   const navigate = useNavigate();
 
   // TABLE PROPS
-  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
   const dummyData = [
     {
       id: 1,
@@ -48,7 +47,10 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
   const [tableData, setTableData] = useState(dummyData);
+  const dataKey = ['productName', 'variant', 'quantity'];
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
@@ -60,7 +62,6 @@ const Stock = () => {
   const handleRowChange = (event) => {
     setRowsPerPage(Number(event.target.value));
   };
-  const dataKey = ['productName', 'variant', 'quantity'];
   const sortData = (key) => {
     let direction = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {

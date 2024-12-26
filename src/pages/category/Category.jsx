@@ -12,6 +12,7 @@ const Category = () => {
   const navigate = useNavigate();
   // PROPS TABLE HEADER & DATA
   const tableHeader = ['Category Name', 'Category Icon', 'Published', 'Action'];
+  const dataKey = ['name', 'image', 'published'];
   const dummyData = [
     {
       id: 1,
@@ -33,14 +34,15 @@ const Category = () => {
     },
   ];
   const [tableData, setTableData] = useState(dummyData);
+  // PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  // SORTING
   const [sortConfig, setSortConfig] = useState({
     key: 'name',
     direction: 'ascending',
   });
-  const dataKey = ['name', 'image', 'published'];
   // HANDLE ROW CHANGE
   const handleRowChange = (event) => {
     setRowsPerPage(Number(event.target.value));

@@ -473,6 +473,7 @@ export default defineConfig({
       },
     }),
   ],
+  build: {},
   resolve: {
     alias: {
       '@icons': path.resolve('src/assets/icons'),
