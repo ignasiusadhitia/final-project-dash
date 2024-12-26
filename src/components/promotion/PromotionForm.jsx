@@ -72,7 +72,7 @@ const PromotionForm = () => {
       </div>
 
       <div className="py-6 flex flex-col gap-6 border-t border-surface-border">
-        <div className="promotion-form grid grid-cols-2 w-full gap-6">
+        <div className="promotion-form grid grid-cols-1 md:grid-cols-2 w-full gap-6">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="promotion-type">
               Promotion Type

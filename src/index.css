@@ -12,7 +12,9 @@
 }
 
 @layer utilities {
-  .promotion-form > div:nth-child(odd) {
-    @apply pr-6;
+  @media (min-width: 768px) {
+    .promotion-form > div:nth-child(odd) {
+      @apply pr-6;
+    }
   }
 }

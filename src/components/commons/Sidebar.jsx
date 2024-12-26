@@ -90,7 +90,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <button onClick={handleSidebar} className='absolute z-40 right-5 top-3'>
+      <button onClick={handleSidebar} className='lg:hidden absolute z-40 right-5 top-3'>
         {isOpen ? <Close /> : <Hamburger />}
       </button>
       <aside className={`absolute z-20 bg-transparent ${!isOpen ? "-translate-x-full" : "-translate-x-0 backdrop-blur-sm"} transition duration-150 lg:-translate-x-0 lg:static w-full lg:w-[218px] flex-shrink-0 text-white h-screen bg-[#FFFFFF]`}>

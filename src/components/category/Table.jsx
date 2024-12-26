@@ -57,7 +57,7 @@ const Table = ({
                 )
             )}
             <td className="py-2 px-4 border-b">
-              <div className="flex gap-2 text-black/50">
+              <div className="flex gap-3 lg:gap-5 items-center text-black/50">
                 {actions.map((action, index) => (
                   <action.icon
                     key={index}
