@@ -9,35 +9,36 @@ const Dropzone = ({ name, value, handleChange }) => {
   const [images, setImages] = useState([]);
   const hiddenInputRef = useRef(null);
 
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop: (incomingFiles) => {
       if (hiddenInputRef.current) {
         // Note the specific way we need to munge the file into the hidden input
         // https://stackoverflow.com/a/68182158/1068446
         const dataTransfer = new DataTransfer();
-        incomingFiles.forEach((v) => {
-          dataTransfer.items.add(v);
-        });
+        dataTransfer.items.add(incomingFiles[0]);
         hiddenInputRef.current.files = dataTransfer.files;
+        setImages([dataTransfer.files[0].path]);
+        handleChange({
+          target: {
+            name,
+            value: dataTransfer.files[0],
+          },
+        });
       }
     },
   });
 
   useEffect(() => {
-    setImages([acceptedFiles[0]?.path]) || [];
-  }, [acceptedFiles]);
-
-  useEffect(() => {
-    if (value && !undefined && !null) {
+    if (value) {
       setImages([value]);
     } else {
       setImages([]);
     }
-  }, [value]);
+  }, []);
 
   const handelCancelImage = () => {
     setImages([]);
-    hiddenInputRef.current.value = '';
+    hiddenInputRef.current.value = null;
   };
 
   const files = images.map((fileName, index) => (
@@ -66,7 +67,6 @@ const Dropzone = ({ name, value, handleChange }) => {
             name={name}
             required={images.length <= 0}
             type="file"
-            onChange={handleChange}
           />
           <input {...getInputProps()} />
           <div>
@@ -93,7 +93,7 @@ const Dropzone = ({ name, value, handleChange }) => {
 
 Dropzone.propTypes = {
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(File)]),
   handleChange: PropTypes.func,
 };
 

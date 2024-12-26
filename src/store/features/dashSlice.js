@@ -5,8 +5,8 @@ export const dashApi = createApi({
     baseUrl: import.meta.env.VITE_DASH_API_BASE_URL,
     prepareHeaders: (headers) => {
       headers.set(
-        'Authorization',
-        'Bearer MTphZG1pbjoxNzM1MDY4MjU3.CJ9GMkPexjyHXZlIB1PD9SvjFWJB_4EjoAQVQn6ptpo='
+        'token',
+        'MTphZG1pbjoxNzM1MjAyNDEy.uJpCBRTOPbGZLdeUbDbEzOkoFUqoG_bxKmZCBinQpLY='
       );
       return headers;
 

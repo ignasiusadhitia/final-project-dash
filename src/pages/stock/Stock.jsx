@@ -125,6 +125,11 @@ const Stock = () => {
     },
   ];
 
+  const [showPickDate, setShowPickDate] = useState(false);
+  const togglePickDate = () => {
+    setShowPickDate(!showPickDate);
+  };
+
   return (
     <div className="w-full px-5 pt-12 overflow-hidden">
       <Card className="rounded-3xl h-auto">
@@ -154,11 +159,17 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
-        <div className="grid gap-5 md:flex justify-between items-center">
-          <div className="grid md:flex flex-wrap gap-5">
-            <div>
+        <div className="grid gap-5 md:flex justify-between">
+          <div className="flex flex-wrap gap-5">
+            <div className={`relative ${!showPickDate && 'overflow-hidden'}`}>
+              <div
+                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+                onClick={togglePickDate}
+              >
+                <Calendar />
+              </div>
               <DatePicker
-                className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+                className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
                 id="release-date"
                 style={{
                   border: '1px solid #DBDCDE',
@@ -170,6 +181,7 @@ const Stock = () => {
                 type="date"
                 // value={date}
                 // onChange={handleFilterByDate}
+                onChange={togglePickDate}
               />
             </div>
             <div className="relative">
