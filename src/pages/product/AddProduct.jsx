@@ -19,6 +19,10 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
+import { useDropzone } from 'react-dropzone';
+import { Link } from 'react-router-dom';
+
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import 'ckeditor5/ckeditor5.css';
 import { AddButton, Delete, PlusButton } from '@icons';
@@ -36,22 +40,19 @@ const AddProduct = () => {
   const [variantNames, setVariantNames] = useState([]);
   const [defaultImageIndex, setDefaultImageIndex] = useState(null);
   const [tempVariantNames, setTempVariantNames] = useState([]);
-
-  
   // Change the photo state to an array
   const [photos, setPhotos] = useState([]);
   console.log(photos)
 
   // Update the onDrop callback
   const onDrop = useCallback((acceptedFiles) => {
-    setPhotos(prev => [...prev, ...acceptedFiles]);
+    setPhotos((prev) => [...prev, ...acceptedFiles]);
   }, []);
 
   // Add a function to remove specific photos
   const removePhoto = (index) => {
     setPhotos(photos.filter((_, i) => i !== index));
   };
-
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -94,8 +95,15 @@ const AddProduct = () => {
 
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariantNames([...variantNames, ...tempVariantNames]);
-    setTempVariantNames([]);
+    setVariants([
+      ...variants,
+      {
+        name: variantName,
+        value: variantValue,
+      },
+    ]);
+    setVariantName('');
+    setVariantValue('');
     setIsModalOpen(false);
   };
 
@@ -194,9 +202,9 @@ const AddProduct = () => {
                 Product Name
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Product Name"
-                required
                 type="text"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
@@ -207,8 +215,8 @@ const AddProduct = () => {
                 Product Category
               </label>
               <select
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 required
+                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -225,9 +233,9 @@ const AddProduct = () => {
                 SKU Product
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter SKU Product"
-                required
                 type="text"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
@@ -281,7 +289,6 @@ const AddProduct = () => {
                 </div>)}
             </div>
 
-
             {/* Add Modal */}
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -289,19 +296,22 @@ const AddProduct = () => {
                   <h3 className="text-lg font-semibold mb-4">Add Variant</h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1">Variant Name</label>
+                      <label className="block text-sm font-medium mb-1">
+                        Variant Name
+                      </label>
                       <div className="flex items-center">
                         <input
+                          className="border rounded-md w-full p-2 bg-gray-100"
+                          placeholder="e.g. Size, Color"
                           type="text"
                           value={variantName}
                           onChange={(e) => setVariantName(e.target.value)}
-                          className="border rounded-md w-full p-2 bg-gray-100"
-                          placeholder="e.g. Size, Color"
                         />
                         <button
                           type='button'
                           onClick={handleAddVariantName}
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
+                          onClick={() => handleAddVariantName}
                         >
                           <PlusButton className="w-6 h-6 " />
                         </button>
@@ -318,6 +328,7 @@ const AddProduct = () => {
                               type="button"
                               onClick={() => handleDeleteVariantName(index)}
                               className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
+                              onClick={() => handleDeleteVariantName(index)}
                             >
                               <Delete className="w-4 h-4" />
                             </button>
@@ -329,16 +340,16 @@ const AddProduct = () => {
 
                     <div className="flex justify-end gap-2">
                       <button
+                        className="border border-gray-300 px-4 py-2 rounded-md"
                         type="button"
                         onClick={() => setIsModalOpen(false)}
-                        className="border border-gray-300 px-4 py-2 rounded-md"
                       >
                         Cancel
                       </button>
                       <button
+                        className="bg-red-500 text-white px-4 py-2 rounded-md"
                         type="button"
                         onClick={handleAddVariant}
-                        className="bg-red-500 text-white px-4 py-2 rounded-md"
                       >
                         Add Variant
                       </button>
@@ -348,15 +359,14 @@ const AddProduct = () => {
               </div>
             )}
 
-
             <div className="mb-4">
               <label className="block text-sm md:text-base font-medium mb-1">
                 Initial Stock
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Initial Stock"
-                required
                 type="number"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
@@ -367,9 +377,9 @@ const AddProduct = () => {
                 Price
               </label>
               <input
+                required
                 className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                 placeholder="Enter Price"
-                required
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -417,8 +427,6 @@ const AddProduct = () => {
             />
           </div>
 
-
-
           {/* product photo */}
           <div className="mb-4 w-1/2 bg-gray-100 p-5 rounded-lg">
             <label className="block text-sm md:text-base font-medium mb-1">
@@ -426,13 +434,15 @@ const AddProduct = () => {
             </label>
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
-                }`}
+              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${
+                isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              }`}
             >
               <input {...getInputProps()} multiple />
               <div>
                 <p className="text-gray-600">
-                  <span className="text-red-500">Click to upload</span> or Drag and drop
+                  <span className="text-red-500">Click to upload</span> or Drag
+                  and drop
                 </p>
                 <p className="text-lg">SVG, PNG, JPG</p>
                 <p className="text-sm text-gray-500">(max, 800x400px)</p>
@@ -469,6 +479,7 @@ const AddProduct = () => {
                       onClick={() => setDefaultImageIndex(index)}
                       className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       type="button"
+                      onClick={() => removePhoto(index)}
                     >
                       Set as Default
                     </button>
