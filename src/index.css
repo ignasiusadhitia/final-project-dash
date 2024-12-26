@@ -16,3 +16,8 @@
     @apply pr-6;
   }
 }
+
+.swal2-icon svg {
+  background: none;
+  border: none;
+}
