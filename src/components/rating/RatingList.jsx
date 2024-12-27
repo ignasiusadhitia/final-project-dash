@@ -197,45 +197,47 @@ const RatingList = () => {
         </div>
       </div>
 
-      <div className="my-4 flex items-center gap-5">
-        <div>
-          <DatePicker
-            className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
-            id="release-date"
-            style={{
-              border: '1px solid #DBDCDE',
-              outline: 'none',
-              boxShadow: 'none',
-              background: 'white',
-            }}
-            suffixIcon={<Calendar />}
-            type="date"
-            value={date}
-            onChange={handleFilterByDate}
-          />
+      <div className="my-4 flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
+        <div className='w-full md:w-auto flex gap-5 items-center'>
+          <div>
+            <DatePicker
+              className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+              id="release-date"
+              style={{
+                border: '1px solid #DBDCDE',
+                outline: 'none',
+                boxShadow: 'none',
+                background: 'white',
+              }}
+              suffixIcon={<Calendar />}
+              type="date"
+              value={date}
+              onChange={handleFilterByDate}
+            />
+          </div>
+
+          <div className="relative w-full md:w-auto">
+            <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+            <select
+              className="w-full md:w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+              defaultValue=""
+              id="filter"
+              name="filter"
+            >
+              <option disabled value="">
+                Select Filter
+              </option>
+              <option value="name">Name</option>
+              <option value="release">Release</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
         </div>
 
-        <div className="relative">
-          <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-          <select
-            className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-            defaultValue=""
-            id="filter"
-            name="filter"
-          >
-            <option disabled value="">
-              Select Filter
-            </option>
-            <option value="name">Name</option>
-            <option value="release">Release</option>
-            <option value="published">Published</option>
-          </select>
-        </div>
-
-        <div className="relative">
+        <div className="relative w-full md:w-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
           <input
-            className="bg-white w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
+            className="bg-white w-full md:w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
             id="search"
             name="search"
             placeholder="Search"
@@ -247,7 +249,7 @@ const RatingList = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="table-fixed w-full border-collapse">
+        <table className="table-auto lg:table-fixed w-full border-collapse">
           <thead>
             <tr>
               <th className="text-sm text-start font-bold px-4 py-2">
@@ -339,80 +341,80 @@ const RatingList = () => {
             ))}
           </tbody>
         </table>
+      </div>
 
-        <div className="flex items-center justify-between mt-4 py-4">
-          <p className="text-sm text-type-text-light font-medium">
-            {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
-              currentPage * rowsPerPage,
-              data.length
-            )} of ${data.length}`}
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2 items-center">
-              <p className="text-sm font-medium text-type-text-light">
-                Rows per page:
-              </p>
-              <select
-                className="text-type-text-light px-1"
-                id="row-page"
-                name="row-page"
-                value={rowsPerPage}
-                onChange={handleRowChange}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-            <button
-              className="p-1 px-2 rounded-lg border"
-              disabled={currentPage === 1}
-              onClick={() => handleChangePage('prev')}
-            >
-              <svg
-                fill="none"
-                height="17"
-                viewBox="0 0 16 17"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
-                  stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </button>
-            <p className="font-medium text-sm">
-              <span className="text-[#171C26]">{currentPage}</span>/
-              <span className="text-[#687182]">{totalPages}</span>
+      <div className="flex flex-col lg:flex-row items-center justify-between mt-4 py-4">
+        <p className="text-sm text-type-text-light font-medium">
+          {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
+            currentPage * rowsPerPage,
+            data.length
+          )} of ${data.length}`}
+        </p>
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 items-center">
+            <p className="text-sm font-medium text-type-text-light">
+              Rows per page:
             </p>
-            <button
-              className="p-1 px-2 rounded-lg border"
-              disabled={currentPage === totalPages}
-              onClick={() => handleChangePage('next')}
+            <select
+              className="text-type-text-light px-1"
+              id="row-page"
+              name="row-page"
+              value={rowsPerPage}
+              onChange={handleRowChange}
             >
-              <svg
-                fill="none"
-                height="17"
-                viewBox="0 0 16 17"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
-                  stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </button>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
           </div>
+          <button
+            className="p-1 px-2 rounded-lg border"
+            disabled={currentPage === 1}
+            onClick={() => handleChangePage('prev')}
+          >
+            <svg
+              fill="none"
+              height="17"
+              viewBox="0 0 16 17"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </button>
+          <p className="font-medium text-sm">
+            <span className="text-[#171C26]">{currentPage}</span>/
+            <span className="text-[#687182]">{totalPages}</span>
+          </p>
+          <button
+            className="p-1 px-2 rounded-lg border"
+            disabled={currentPage === totalPages}
+            onClick={() => handleChangePage('next')}
+          >
+            <svg
+              fill="none"
+              height="17"
+              viewBox="0 0 16 17"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

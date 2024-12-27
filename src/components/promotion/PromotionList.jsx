@@ -265,8 +265,10 @@ const PromotionList = () => {
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
                   {item.description}
                 </td>
-                <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light">
-                  {item.status}
+                <td className="border-b-2 text-white">
+                  <span className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === "Active" ? "bg-[#198754]" : "bg-[#6C757D]"}`}>
+                    {item.status}
+                  </span>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-start">
                   <button onClick={() => handleTogglePublished(item.id)}>
@@ -274,7 +276,7 @@ const PromotionList = () => {
                   </button>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-center">
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="flex gap-3 lg:gap-5 items-center">
                     <Link to={`/dashboard/promotions/detail/${item.id}`}>
                       <Eyes />
                     </Link>

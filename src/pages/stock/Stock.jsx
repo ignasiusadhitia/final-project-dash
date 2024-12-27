@@ -160,10 +160,13 @@ const Stock = () => {
 
         {/* FILTER AND SEARCH */}
         <div className="grid gap-5 md:flex justify-between">
-          <div className="flex flex-wrap gap-5">
-            <div className={`relative ${!showPickDate && 'overflow-hidden'}`}>
+          <div className="flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
+            {/* DATE PICKER */}
+            <div
+              className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
+            >
               <div
-                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none hover:bg-black/5"
                 onClick={togglePickDate}
               >
                 <Calendar />
@@ -184,10 +187,11 @@ const Stock = () => {
                 onChange={togglePickDate}
               />
             </div>
-            <div className="relative">
+            {/* SELECT FILTER */}
+            <div className="relative flex-grow">
               <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
               <select
-                className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                className="min-w-[250px] w-full h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
                 defaultValue=""
                 id="filter"
                 name="filter"
@@ -200,11 +204,11 @@ const Stock = () => {
                 <option value="published">Published</option>
               </select>
             </div>
-
-            <div className="relative">
+            {/* SEARCH */}
+            <div className="relative w-full md:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input
-                className="bg-white w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
+                className="bg-white w-full md:w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
                 id="search"
                 name="search"
                 placeholder="Search"
