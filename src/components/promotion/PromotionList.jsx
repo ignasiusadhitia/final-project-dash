@@ -266,7 +266,9 @@ const PromotionList = () => {
                   {item.description}
                 </td>
                 <td className="border-b-2 text-white">
-                  <span className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === "Active" ? "bg-[#198754]" : "bg-[#6C757D]"}`}>
+                  <span
+                    className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === 'Active' ? 'bg-[#198754]' : 'bg-[#6C757D]'}`}
+                  >
                     {item.status}
                   </span>
                 </td>

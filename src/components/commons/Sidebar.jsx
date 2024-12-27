@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Hamburger, Close } from '@icons';
 
+import { Hamburger, Close } from '@icons';
 import {
   Home,
   Product,
@@ -82,18 +82,23 @@ const Sidebar = () => {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [navigate])
+  }, [navigate]);
 
   const handleSidebar = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   return (
     <>
-      <button onClick={handleSidebar} className='lg:hidden absolute z-40 right-5 top-3'>
+      <button
+        className="lg:hidden absolute z-40 right-5 top-3"
+        onClick={handleSidebar}
+      >
         {isOpen ? <Close /> : <Hamburger />}
       </button>
-      <aside className={`absolute z-20 bg-transparent ${!isOpen ? "-translate-x-full" : "-translate-x-0 backdrop-blur-sm"} transition duration-150 lg:-translate-x-0 lg:static w-full lg:w-[218px] flex-shrink-0 text-white h-screen bg-[#FFFFFF]`}>
+      <aside
+        className={`absolute z-20 bg-transparent ${!isOpen ? '-translate-x-full' : '-translate-x-0 backdrop-blur-sm'} transition duration-150 lg:-translate-x-0 lg:static w-full lg:w-[218px] flex-shrink-0 text-white h-screen bg-[#FFFFFF]`}
+      >
         <header className="w-[218px] lg:w-auto bg-type-text flex gap-4 px-7 items-center h-[66px]">
           <img
             alt="user"
