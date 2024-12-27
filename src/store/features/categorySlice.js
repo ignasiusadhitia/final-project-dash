@@ -5,10 +5,7 @@ export const categoryApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_DASH_API_BASE_URL,
     prepareHeaders: (headers) => {
-      headers.set(
-        'Authorization',
-        'Bearer MTphZG1pbjoxNzM1MDY4MjU3.CJ9GMkPexjyHXZlIB1PD9SvjFWJB_4EjoAQVQn6ptpo='
-      );
+      headers.set('token', import.meta.env.VITE_X_API_KEY);
       return headers;
 
       //   const token = localStorage.getItem('token');

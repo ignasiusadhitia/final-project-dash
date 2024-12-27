@@ -4,10 +4,7 @@ export const dashApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_DASH_API_BASE_URL,
     prepareHeaders: (headers) => {
-      headers.set(
-        'token',
-        'MTphZG1pbjoxNzM1MjAyNDEy.uJpCBRTOPbGZLdeUbDbEzOkoFUqoG_bxKmZCBinQpLY='
-      );
+      headers.set('token', import.meta.env.VITE_X_API_KEY);
       return headers;
 
       //   const token = localStorage.getItem('token');
