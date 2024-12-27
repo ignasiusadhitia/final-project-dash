@@ -150,7 +150,12 @@ const RatingList = () => {
     setData(filteredData);
   };
 
+  const [showPickDate, setShowPickDate] = useState(false);
+  const togglePickDate = () => {
+    setShowPickDate(!showPickDate);
+  };
   const handleFilterByDate = (e) => {
+    togglePickDate();
     if (!e) {
       setData(dummyData);
       return;
@@ -198,10 +203,18 @@ const RatingList = () => {
       </div>
 
       <div className="my-4 flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
-        <div className='w-full md:w-auto flex gap-5 items-center'>
-          <div>
+        <div className="w-full md:w-auto flex gap-5 items-center">
+          <div
+            className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
+          >
+            <div
+              className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none hover:bg-black/5"
+              onClick={togglePickDate}
+            >
+              <Calendar />
+            </div>
             <DatePicker
-              className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+              className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
               id="release-date"
               style={{
                 border: '1px solid #DBDCDE',
