@@ -7,7 +7,7 @@ import { ModalTrash, ModalExclamation } from '@icons';
 
 const Confirm = ({ title = 'Confirmation', desc, publish = true, action }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-3">
+    <div className="flex flex-col justify-center items-center gap-5">
       {publish ? <ModalExclamation /> : <ModalTrash />}
       <p className="text-primary text-2xl font-bold">{title}</p>
       <p className="text-base text-[#101010]">{desc}</p>

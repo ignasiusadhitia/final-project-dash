@@ -29,7 +29,7 @@ const FormStock = () => {
       MySwal.fire({
         html: <Success message="This category was successfully edited" />,
         customClass: {
-          popup: 'rounded-md w-auto md:w-[720px]',
+          popup: 'rounded-3xl w-auto md:w-[720px]',
         },
         showConfirmButton: false,
         timer: 1000,
@@ -38,7 +38,7 @@ const FormStock = () => {
       MySwal.fire({
         html: <Success message="This category was successfully added" />,
         customClass: {
-          popup: 'rounded-md w-auto md:w-[720px]',
+          popup: 'rounded-3xl w-auto md:w-[720px]',
         },
         showConfirmButton: false,
         timer: 1000,

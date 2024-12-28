@@ -4,14 +4,11 @@ import { Link } from 'react-router-dom';
 
 import {
   ArrowDown,
-  Published,
-  NotPublished,
   ArrowRightSmall,
   Eyes,
   Pen,
   Trash,
   ArrowSorting,
-  ArrowLeft,
 } from '@icons';
 
 const dummyData = [
@@ -266,13 +263,24 @@ const PromotionList = () => {
                   {item.description}
                 </td>
                 <td className="border-b-2 text-white">
-                  <span className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === "Active" ? "bg-[#198754]" : "bg-[#6C757D]"}`}>
+                  <span
+                    className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === 'Active' ? 'bg-[#198754]' : 'bg-[#6C757D]'}`}
+                  >
                     {item.status}
                   </span>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-start">
-                  <button onClick={() => handleTogglePublished(item.id)}>
-                    {item.published ? <Published /> : <NotPublished />}
+                  <button
+                    className={`p-[2px] w-10 h-[22px] rounded-full  transition-all ${
+                      item.published ? 'bg-primary' : 'bg-[#D2D2D2]'
+                    }`}
+                    onClick={() => handleTogglePublished(item.id)}
+                  >
+                    <div
+                      className={` h-[18px] w-[18px] rounded-full bg-white transition-all ${
+                        item.published && 'translate-x-full'
+                      }`}
+                    ></div>
                   </button>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-center">

@@ -6,12 +6,16 @@ const TableCell = ({ objectValue, onPublish }) => {
   if (typeof objectValue === 'boolean') {
     return (
       <button
-        className={`p-[1px] w-10 rounded-full border flex ${
-          objectValue ? 'bg-primary justify-end' : 'bg-[#D2D2D2]'
+        className={`p-[2px] w-10 h-[22px] rounded-full  transition-all ${
+          objectValue ? 'bg-primary' : 'bg-[#D2D2D2]'
         }`}
         onClick={onPublish}
       >
-        <div className="border h-4 w-4 rounded-full bg-white"></div>
+        <div
+          className={` h-[18px] w-[18px] rounded-full bg-white transition-all ${
+            objectValue && 'translate-x-full'
+          }`}
+        ></div>
       </button>
     );
   }

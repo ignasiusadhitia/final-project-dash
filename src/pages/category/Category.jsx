@@ -54,7 +54,7 @@ const Category = () => {
     MySwal.fire({
       html: <Success message="This category was successfully added" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -74,7 +74,7 @@ const Category = () => {
     MySwal.fire({
       html: <Success message="This category was successfully edited" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -95,7 +95,7 @@ const Category = () => {
         <Success message={`Data with id:${data.id} successfully deleted`} />
       ),
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -112,6 +112,9 @@ const Category = () => {
           title="Delete Category?"
         />
       ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
       showConfirmButton: false,
     });
   };
@@ -139,7 +142,7 @@ const Category = () => {
         />
       ),
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -155,6 +158,9 @@ const Category = () => {
             publish={true}
           />
         ),
+        customClass: {
+          popup: 'rounded-3xl py-10',
+        },
         showConfirmButton: false,
       });
     } else {
@@ -192,7 +198,8 @@ const Category = () => {
         <div className="flex justify-between mb-10 items-baseline">
           <header className="space-y-2">
             <h1 className="text-[25.63px] font-bold">Category</h1>
-            <p className="flex gap-1 items-center">
+            {/* BREADCRUMB */}
+            <p className="flex gap-2 items-center">
               <span
                 className="text-primary cursor-pointer text-xs"
                 onClick={() => navigate('/dashboard')}

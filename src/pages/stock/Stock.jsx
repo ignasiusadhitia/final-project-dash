@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -87,7 +87,7 @@ const Stock = () => {
         <Success message={`Data with id:${data.id} successfully deleted`} />
       ),
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -104,7 +104,7 @@ const Stock = () => {
         />
       ),
       customClass: {
-        popup: 'rounded-3xl p-32',
+        popup: 'rounded-3xl py-10',
       },
       showConfirmButton: false,
     });
@@ -126,9 +126,23 @@ const Stock = () => {
   ];
 
   const [showPickDate, setShowPickDate] = useState(false);
+  const dateRef = useRef(null);
   const togglePickDate = () => {
     setShowPickDate(!showPickDate);
   };
+  const handleClickOutside = (event) => {
+    if (dateRef.current && !dateRef.current.contains(event.target)) {
+      setShowPickDate(false);
+    }
+  };
+  useEffect(() => {
+    if (showPickDate) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPickDate]);
 
   return (
     <div className="w-full px-5 pt-12 overflow-hidden">
@@ -163,10 +177,11 @@ const Stock = () => {
           <div className="flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
             {/* DATE PICKER */}
             <div
+              ref={dateRef}
               className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
             >
               <div
-                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none hover:bg-black/5"
+                className="w-full cursor-pointer bg-white hover:border-surface-border text-type-text-light border rounded-lg border-surface-border px-4 py-2 hover:bg-black/5"
                 onClick={togglePickDate}
               >
                 <Calendar />
@@ -184,7 +199,7 @@ const Stock = () => {
                 type="date"
                 // value={date}
                 // onChange={handleFilterByDate}
-                onChange={togglePickDate}
+                onChange={() => setShowPickDate(false)}
               />
             </div>
             {/* SELECT FILTER */}
