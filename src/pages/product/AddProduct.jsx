@@ -304,7 +304,6 @@ const AddProduct = () => {
                         />
                         <button
                           type='button'
-                          onClick={handleAddVariantName}
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                           onClick={() => handleAddVariantName}
                         >
@@ -323,7 +322,6 @@ const AddProduct = () => {
                               type="button"
                               onClick={() => handleDeleteVariantName(index)}
                               className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
-                              onClick={() => handleDeleteVariantName(index)}
                             >
                               <Delete className="w-4 h-4" />
                             </button>
@@ -474,7 +472,6 @@ const AddProduct = () => {
                       onClick={() => setDefaultImageIndex(index)}
                       className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       type="button"
-                      onClick={() => removePhoto(index)}
                     >
                       Set as Default
                     </button>
