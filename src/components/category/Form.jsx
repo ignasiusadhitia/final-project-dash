@@ -60,14 +60,14 @@ const Form = ({ data, action }) => {
         {/* FORM BUTTON */}
         <div className="self-end flex gap-2 mt-5 text-xs">
           <button
-            className="border px-5 py-2 rounded-md border-primary text-primary"
+            className="border px-5 py-2 rounded-md border-primary text-primary hover:bg-primary hover:text-white transition-colors"
             type="button"
             onClick={() => Swal.close()}
           >
             Cancel
           </button>
           <button
-            className="border px-5 py-1 rounded-md bg-primary text-white"
+            className="border px-5 py-1 rounded-md bg-primary hover:bg-primary-dark transition-colors text-white"
             type="submit"
           >
             {data?.id ? 'Save' : 'Add'}

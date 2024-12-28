@@ -215,7 +215,7 @@ const PromotionList = () => {
 
         <div>
           <Link
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[132px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[132px] h-[32px]"
             to={'/dashboard/promotions/add'}
           >
             Add New Promotion

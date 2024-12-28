@@ -110,13 +110,13 @@ const OrderDetails = ({
       ) : (
         <div className="flex justify-end gap-4 text-[12.64px] mt-[50px]">
           <button
-            className="w-[100px] h-[32px] flex justify-center items-center rounded border-[1px] border-primary text-primary hover:bg-primary hover:text-white"
+            className="w-[100px] h-[32px] flex justify-center items-center rounded border-[1px] border-primary text-primary hover:bg-primary transition-colors hover:text-white"
             onClick={() => Swal.close()}
           >
             Cancel
           </button>
           <button
-            className="w-[100px] h-[32px] flex justify-center items-center rounded bg-primary hover:bg-primary-dark disabled:bg-surface-background-2 text-white"
+            className="w-[100px] h-[32px] flex justify-center items-center rounded bg-primary hover:bg-primary-dark transition-colors disabled:bg-surface-background-2 text-white"
             disabled={!modalTrackingNumber && order?.status_order === 'process'}
             onClick={() => {
               onChangeStatusHandler(order.id, order.status_order);

@@ -185,7 +185,7 @@ const Home = () => {
             {bestItemSales.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <div className="flex gap-5">
-                  <Items className="w-16 h-16" />
+                  <Items className="w-14 h-14" />
                   <div>
                     <p>{item.name}</p>
                     <p>{item.category}</p>

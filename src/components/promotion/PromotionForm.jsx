@@ -297,14 +297,14 @@ const PromotionForm = () => {
       <div className="flex justify-end">
         <div className="flex gap-5">
           <Link
-            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary'}`}
+            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary hover:bg-primary hover:text-white transition-colors'}`}
             to="/dashboard/promotions"
           >
-            {isDetailPage ? 'Close' : 'Cancle'}
+            {isDetailPage ? 'Close' : 'Cancel'}
           </Link>
           {!isDetailPage && (
             <button
-              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white"
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
               type="submit"
             >
               {id ? 'Save' : 'Add Promotion'}

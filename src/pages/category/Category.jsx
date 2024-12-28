@@ -254,7 +254,7 @@ const Category = () => {
             </p>
           </header>
           <button
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[128px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[128px] h-[32px]"
             onClick={handleOpenAddCategory}
           >
             Add New Category

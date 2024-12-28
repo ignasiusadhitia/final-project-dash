@@ -249,14 +249,14 @@ const BannerForm = () => {
       <div className="flex justify-end">
         <form className="flex gap-5" onSubmit={handleSubmit}>
           <Link
-            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary'}`}
+            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary hover:bg-primary transition-colors hover:text-white'}`}
             to="/dashboard/banners"
           >
             {isDetailPage ? 'Close' : 'Cancle'}
           </Link>
           {!isDetailPage && (
             <button
-              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white"
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
               type="submit"
             >
               {id ? 'Save' : 'Add Banner'}

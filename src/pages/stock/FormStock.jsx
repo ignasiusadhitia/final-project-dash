@@ -178,14 +178,14 @@ const FormStock = () => {
             </div>
             <div className="mt-10 flex justify-end gap-2">
               <button
-                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${page == 'detail' ? 'bg-type-text-light text-white' : 'border-primary text-primary'}`}
+                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${page == 'detail' ? 'bg-type-text-light text-white' : 'border-primary text-primary hover:bg-primary hover:text-white transition-colors'}`}
                 type="button"
                 onClick={() => navigate(-1)}
               >
                 Close
               </button>
               <button
-                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 bg-primary text-white ${page == 'detail' && 'hidden'}`}
+                className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 bg-primary text-white hover:bg-primary-dark ${page == 'detail' && 'hidden'}`}
                 type="submit"
               >
                 {id ? 'Save' : 'Add Stock'}
