@@ -19,11 +19,6 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
-import { useDropzone } from 'react-dropzone';
-import { Link } from 'react-router-dom';
-
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-
 import 'ckeditor5/ckeditor5.css';
 import { AddButton, Delete, PlusButton } from '@icons';
 
