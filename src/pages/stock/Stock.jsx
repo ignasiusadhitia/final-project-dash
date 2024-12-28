@@ -49,6 +49,10 @@ const Stock = () => {
   ];
   const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
   const [tableData, setTableData] = useState(dummyData);
+  const totalStock = tableData.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
   const dataKey = ['productName', 'variant', 'quantity'];
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,6 +86,8 @@ const Stock = () => {
   ];
 
   const handleDelete = (data) => {
+    const newData = tableData.filter((item) => item.id !== data.id);
+    setTableData(newData);
     MySwal.fire({
       html: (
         <Success message={`Data with id:${data.id} successfully deleted`} />
@@ -234,7 +240,7 @@ const Stock = () => {
             </div>
           </div>
           <div className="bg-[#EEE4FF] text-primary text-right rounded-md w-[93px] h-[44px] leading-none py-1 px-3 text-nowrap">
-            <p className="text-[21.8px] font-bold">120</p>
+            <p className="text-[21.8px] font-bold">{totalStock}</p>
             <p className="text-[14.4px]">Total Stock</p>
           </div>
         </div>

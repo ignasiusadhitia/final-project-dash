@@ -7,6 +7,7 @@ import { Dropzone } from '@components';
 
 const Form = ({ data, action }) => {
   const [formData, setFormData] = useState({
+    id: data?.id || null,
     name: data?.name || '',
     image: data?.image || null,
     published: data?.published || false,
@@ -25,7 +26,10 @@ const Form = ({ data, action }) => {
       <h2 className="text-lg font-bold mb-10 self-start">
         {data?.id ? 'Edit Category' : 'Add Category'}
       </h2>
-      <form className="flex flex-col gap-5" onSubmit={action}>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={(e) => action(e, formData)}
+      >
         {/* CATEGORY NAME */}
         <div className="flex flex-col gap-2">
           <label className="text-sm self-start" htmlFor="category-name">

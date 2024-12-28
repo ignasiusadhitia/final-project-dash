@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
 import { DatePicker } from 'antd';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
+import { Success } from '@components';
 import {
   ArrowLeft,
   ArrowRightSmall,
@@ -12,6 +17,7 @@ import {
 } from '@icons';
 
 const PromotionForm = () => {
+  const navigate = useNavigate();
   const location = useLocation().pathname.split('/');
   const [promotionType, setPromotionType] = useState('');
   const page = location[location.length - 2];
@@ -34,10 +40,38 @@ const PromotionForm = () => {
     setPromotionType(event.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(-1);
+    // Handle form submission here
+    if (id) {
+      MySwal.fire({
+        html: <Success message="This promotion was successfully edited" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      MySwal.fire({
+        html: <Success message="This promotion was successfully added" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+  };
+
   const isDetailPage = page === 'detail';
 
   return (
-    <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
+    <form
+      className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl"
+      onSubmit={handleSubmit}
+    >
       <div className="flex items-baseline justify-between">
         <div>
           <div className="flex gap-4 items-center">
@@ -269,13 +303,16 @@ const PromotionForm = () => {
             {isDetailPage ? 'Close' : 'Cancle'}
           </Link>
           {!isDetailPage && (
-            <button className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white">
+            <button
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white"
+              type="submit"
+            >
               {id ? 'Save' : 'Add Promotion'}
             </button>
           )}
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

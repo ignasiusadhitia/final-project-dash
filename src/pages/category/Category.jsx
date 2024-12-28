@@ -49,8 +49,15 @@ const Category = () => {
   };
 
   // ADD CATEGORY
-  const handleAddCategory = (e) => {
+  const handleAddCategory = (e, data) => {
     e.preventDefault();
+    const newData = {
+      id: new Date().getTime(),
+      name: data.name,
+      image: data.image.name,
+      published: data.published || false,
+    };
+    setTableData([...tableData, newData]);
     MySwal.fire({
       html: <Success message="This category was successfully added" />,
       customClass: {
@@ -69,8 +76,18 @@ const Category = () => {
 
   // TABLE ACTIONS (Edit & Delete)
   // Edit
-  const handleEditCategory = (e) => {
+  const handleEditCategory = (e, data) => {
     e.preventDefault();
+    console.log(data);
+    const newData = {
+      id: data.id,
+      name: data.name,
+      image: data.image.name || data.image,
+      published: data.published,
+    };
+    setTableData(
+      tableData.map((item) => (item.id === data.id ? newData : item))
+    );
     MySwal.fire({
       html: <Success message="This category was successfully edited" />,
       customClass: {
@@ -90,6 +107,8 @@ const Category = () => {
 
   // Delete
   const handleDelete = (data) => {
+    const newData = tableData.filter((item) => item.id !== data.id);
+    setTableData(newData);
     MySwal.fire({
       html: (
         <Success message={`Data with id:${data.id} successfully deleted`} />
@@ -134,7 +153,13 @@ const Category = () => {
   // PROPS PUBLISH CATEGORY (Publish or unpublish category function)
   const handleUnpublish = (data) => {
     // Pending: Process backend
-    // Sweet alert is called after backend process
+    const newData = tableData.map((item) => {
+      if (item.id === data.id) {
+        return { ...item, published: false };
+      }
+      return item;
+    });
+    setTableData(newData);
     MySwal.fire({
       html: (
         <Success
@@ -164,7 +189,25 @@ const Category = () => {
         showConfirmButton: false,
       });
     } else {
-      alert(`Publish ${data.id}`);
+      const newData = tableData.map((item) => {
+        if (item.id === data.id) {
+          return { ...item, published: true };
+        }
+        return item;
+      });
+      setTableData(newData);
+      MySwal.fire({
+        html: (
+          <Success
+            message={`Successfuly Publish Category with id = ${data.id}`}
+          />
+        ),
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
