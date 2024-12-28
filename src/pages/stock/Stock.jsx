@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ const MySwal = withReactContent(Swal);
 
 import { Table, Card, Success, Confirm } from '@components';
 import {
-  Chevron,
   Pencil,
   Trash,
   Eyes,
@@ -22,8 +21,7 @@ const Stock = () => {
   const navigate = useNavigate();
 
   // TABLE PROPS
-  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
-  const tableData = [
+  const dummyData = [
     {
       id: 1,
       productName: 'Laptop HP',
@@ -49,19 +47,38 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
+  const [tableData, setTableData] = useState(dummyData);
+  const dataKey = ['productName', 'variant', 'quantity'];
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  const [sortConfig, setSortConfig] = useState({
+    key: 'name',
+    direction: 'ascending',
+  });
+  // Handle row change
+  const handleRowChange = (event) => {
+    setRowsPerPage(Number(event.target.value));
+  };
+  const sortData = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sortedData = [...tableData].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setTableData(sortedData);
+    setSortConfig({ key, direction });
+  };
   const sort = [
-    {
-      asc: () => alert('sort asc by name'),
-      desc: () => alert('sort desc by name'),
-    },
-    {
-      asc: () => alert('sort asc by varian'),
-      desc: () => alert('sort desc by varian'),
-    },
-    {
-      asc: () => alert('sort asc by quantity'),
-      desc: () => alert('sort desc by quantity'),
-    },
+    () => sortData('productName'),
+    () => sortData('variant'),
+    () => sortData('quantity'),
   ];
 
   const handleDelete = (data) => {
@@ -108,6 +125,11 @@ const Stock = () => {
     },
   ];
 
+  const [showPickDate, setShowPickDate] = useState(false);
+  const togglePickDate = () => {
+    setShowPickDate(!showPickDate);
+  };
+
   return (
     <div className="w-full px-5 pt-12 overflow-hidden">
       <Card className="rounded-3xl h-auto">
@@ -137,43 +159,52 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
-        <div className="grid gap-5 md:flex justify-between items-center">
-          <div className='flex gap-6 flex-col md:flex-row'>
-            <div className="w-full md:w-auto flex gap-5 items-center">
-              <div>
-                <DatePicker
-                  className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
-                  id="release-date"
-                  style={{
-                    border: '1px solid #DBDCDE',
-                    outline: 'none',
-                    boxShadow: 'none',
-                    background: 'white',
-                  }}
-                  suffixIcon={<Calendar />}
-                  type="date"
-                  // value={date}
-                  // onChange={handleFilterByDate}
-                />
+        <div className="grid gap-5 md:flex justify-between">
+          <div className="flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
+            {/* DATE PICKER */}
+            <div
+              className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
+            >
+              <div
+                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none hover:bg-black/5"
+                onClick={togglePickDate}
+              >
+                <Calendar />
               </div>
-              <div className="relative">
-                <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-                <select
-                  className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-                  defaultValue=""
-                  id="filter"
-                  name="filter"
-                >
-                  <option disabled value="">
-                    Select Filter
-                  </option>
-                  <option value="name">Name</option>
-                  <option value="release">Release</option>
-                  <option value="published">Published</option>
-                </select>
-              </div>
+              <DatePicker
+                className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
+                id="release-date"
+                style={{
+                  border: '1px solid #DBDCDE',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  background: 'white',
+                }}
+                suffixIcon={<Calendar />}
+                type="date"
+                // value={date}
+                // onChange={handleFilterByDate}
+                onChange={togglePickDate}
+              />
             </div>
-
+            {/* SELECT FILTER */}
+            <div className="relative flex-grow">
+              <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+              <select
+                className="min-w-[250px] w-full h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                defaultValue=""
+                id="filter"
+                name="filter"
+              >
+                <option disabled value="">
+                  Select Filter
+                </option>
+                <option value="name">Name</option>
+                <option value="release">Release</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+            {/* SEARCH */}
             <div className="relative w-full md:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -197,6 +228,7 @@ const Stock = () => {
         <div className="overflow-x-auto">
           <Table
             actions={actions}
+            dataKey={dataKey}
             sort={sort}
             tableData={tableData}
             tableHeader={tableHeader}
@@ -205,23 +237,72 @@ const Stock = () => {
 
         {/* PAGINATION */}
         <div className="flex flex-col items-center md:flex-row md:justify-between text-black/50 font-bold mt-5 text-sm px-5">
-          <p>1-20 of 27</p>
+          <p className="text-sm text-type-text-light font-medium">
+            {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
+              currentPage * rowsPerPage,
+              tableData.length
+            )} of ${tableData.length}`}
+          </p>
           <div className="flex justify-between items-center">
             <div>
               <label htmlFor="rows">Rows per page:</label>
-              <select id="rows" name="rows">
+              <select
+                id="rows"
+                name="rows"
+                value={rowsPerPage}
+                onChange={handleRowChange}
+              >
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
             </div>
             <div className="flex items-center gap-1">
-              <button>
-                <Chevron className="rotate-180 border h-5 w-5 rounded-sm" />
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                    stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
-              <p>1/2</p>
-              <button>
-                <Chevron className="border h-5 w-5 rounded-sm" />
+              <p className="font-medium text-sm">
+                <span className="text-[#171C26]">{currentPage}</span>/
+                <span className="text-[#687182]">{totalPages}</span>
+              </p>
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                    stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
             </div>
           </div>

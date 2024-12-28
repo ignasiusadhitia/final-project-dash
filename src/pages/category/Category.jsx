@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -6,27 +6,47 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 import { Card, Table, FormCategory, Confirm, Success } from '@components';
-import { Trash, Pencil, Chevron, ArrowRightSmall } from '@icons';
+import { Trash, Pencil, ArrowRightSmall } from '@icons';
 
 const Category = () => {
   const navigate = useNavigate();
-
   // PROPS TABLE HEADER & DATA
   const tableHeader = ['Category Name', 'Category Icon', 'Published', 'Action'];
-  const tableData = [
+  const dataKey = ['name', 'image', 'published'];
+  const dummyData = [
     {
       id: 1,
-      category: 'Electronics',
-      icon: 'Electronics',
+      name: 'Electronics',
+      image: 'Electronics',
       published: true,
     },
     {
       id: 2,
-      category: 'Home & Lifestyle',
-      icon: 'Home & Lifestyle',
+      name: 'Home & Lifestyle',
+      image: 'Home & Lifestyle',
       published: false,
     },
+    {
+      id: 3,
+      name: 'Fashion',
+      image: 'Fashion',
+      published: true,
+    },
   ];
+  const [tableData, setTableData] = useState(dummyData);
+  // PAGINATION
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  // SORTING
+  const [sortConfig, setSortConfig] = useState({
+    key: 'name',
+    direction: 'ascending',
+  });
+  // HANDLE ROW CHANGE
+  const handleRowChange = (event) => {
+    setRowsPerPage(Number(event.target.value));
+  };
 
   // ADD CATEGORY
   const handleAddCategory = (e) => {
@@ -111,6 +131,7 @@ const Category = () => {
   // PROPS PUBLISH CATEGORY (Publish or unpublish category function)
   const handleUnpublish = (data) => {
     // Pending: Process backend
+    // Sweet alert is called after backend process
     MySwal.fire({
       html: (
         <Success
@@ -142,19 +163,26 @@ const Category = () => {
   };
 
   // PROPS SORT CATEGORY
+  const sortData = (key) => {
+    // First click on key parameter always sort by ascending
+    let direction = 'ascending';
+    // If sortConfig.key is the same as the key parameter, then the direction is reversed
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    // Sorting data
+    const sortedData = [...tableData].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setTableData(sortedData);
+    setSortConfig({ key, direction });
+  };
   const sort = [
-    {
-      asc: () => alert('sort asc by name'),
-      desc: () => alert('sort desc by name'),
-    },
-    {
-      asc: () => alert('sort asc by icon'),
-      desc: () => alert('sort desc by icon'),
-    },
-    {
-      asc: () => alert('sort asc by publish'),
-      desc: () => alert('sort desc by publish'),
-    },
+    () => sortData('name'),
+    () => sortData('image'),
+    () => sortData('published'),
   ];
 
   return (
@@ -186,6 +214,7 @@ const Category = () => {
         <div className="overflow-auto">
           <Table
             actions={actions}
+            dataKey={dataKey}
             publish={handleOpenPublishModal}
             sort={sort}
             tableData={tableData}
@@ -194,23 +223,72 @@ const Category = () => {
         </div>
         {/* PAGINATION */}
         <div className="flex flex-col items-center md:flex-row md:justify-between text-black/50 font-bold mt-5 text-sm px-5">
-          <p>1-20 of 27</p>
+          <p className="text-sm text-type-text-light font-medium">
+            {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
+              currentPage * rowsPerPage,
+              tableData.length
+            )} of ${tableData.length}`}
+          </p>
           <div className="flex justify-between items-center">
             <div>
               <label htmlFor="rows">Rows per page:</label>
-              <select id="rows" name="rows">
+              <select
+                id="rows"
+                name="rows"
+                value={rowsPerPage}
+                onChange={handleRowChange}
+              >
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
             </div>
             <div className="flex items-center gap-1">
-              <button>
-                <Chevron className="rotate-180 border h-5 w-5 rounded-sm" />
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                    stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
-              <p>1/2</p>
-              <button>
-                <Chevron className="border h-5 w-5 rounded-sm" />
+              <p className="font-medium text-sm">
+                <span className="text-[#171C26]">{currentPage}</span>/
+                <span className="text-[#687182]">{totalPages}</span>
+              </p>
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                    stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
             </div>
           </div>
