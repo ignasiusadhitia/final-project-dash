@@ -312,7 +312,6 @@ const AddProduct = () => {
                         />
                         <button
                           type='button'
-                          onClick={handleAddVariantName}
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                         >
                           <PlusButton className="w-6 h-6 " />
