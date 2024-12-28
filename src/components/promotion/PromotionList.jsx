@@ -116,7 +116,7 @@ const PromotionList = () => {
     MySwal.fire({
       html: (
         <Success
-          message={`Successfuly ${currentData[0].published ? 'Unpublish' : 'Publish'} Category with id = ${id}`} // TODO: change this message
+          message={`Successfuly ${currentData[0].published ? 'Unpublish' : 'Publish'} Promotion with id = ${id}`} // TODO: change this message
         />
       ),
       customClass: {
@@ -132,7 +132,7 @@ const PromotionList = () => {
         html: (
           <Confirm
             action={() => handleTogglePublished(data.id)}
-            desc="Are you sure want to unpublish this category?"
+            desc="Are you sure want to unpublish this promotion?"
             publish={true}
           />
         ),

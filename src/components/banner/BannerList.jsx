@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
+import { Confirm, Success } from '@components';
 import {
   ArrowDown,
   ArrowRightSmall,
@@ -118,11 +123,74 @@ const BannerList = () => {
     setSortConfig({ key, direction });
   };
 
+  // HANDLE PUBLISH LOGIC
   const handleTogglePublished = (id) => {
     const updatedData = data.map((item) =>
       item.id === id ? { ...item, published: !item.published } : item
     );
+    // Get the current data
+    let currentData = data.filter((item) => item.id === id);
     setData(updatedData);
+
+    // TODO: Add condition (success publis/ unpublish from API) before calling alert code below
+    MySwal.fire({
+      html: (
+        <Success
+          message={`Successfuly ${currentData[0].published ? 'Unpublish' : 'Publish'} Banner with id = ${id}`} // TODO: change this message
+        />
+      ),
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handlePublishModal = (data) => {
+    if (data.published) {
+      MySwal.fire({
+        html: (
+          <Confirm
+            action={() => handleTogglePublished(data.id)}
+            desc="Are you sure want to unpublish this banner?"
+            publish={true}
+          />
+        ),
+        customClass: {
+          popup: 'rounded-3xl py-10',
+        },
+        showConfirmButton: false,
+      });
+    } else {
+      handleTogglePublished(data.id);
+    }
+  };
+  // HANDLE DELETE LOGIC
+  const handleDeletePromotion = (id) => {
+    const updatedData = data.filter((item) => item.id !== id);
+    setData(updatedData);
+    MySwal.fire({
+      html: <Success message="This banner was successfully deleted" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handleDeleteModal = (data) => {
+    MySwal.fire({
+      html: (
+        <Confirm
+          action={() => handleDeletePromotion(data.id)}
+          desc="Are you sure want to delete this banner?"
+        />
+      ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
+      showConfirmButton: false,
+    });
   };
 
   const handleChangePage = (direction) => {
@@ -282,7 +350,7 @@ const BannerList = () => {
                     className={`p-[2px] w-10 h-[22px] rounded-full  transition-all ${
                       item.published ? 'bg-primary' : 'bg-[#D2D2D2]'
                     }`}
-                    onClick={() => handleTogglePublished(item.id)}
+                    onClick={() => handlePublishModal(item)}
                   >
                     <div
                       className={` h-[18px] w-[18px] rounded-full bg-white transition-all ${
@@ -299,7 +367,7 @@ const BannerList = () => {
                     <Link to={'/dashboard/banners/edit/1'}>
                       <Pen />
                     </Link>
-                    <button>
+                    <button onClick={() => handleDeleteModal(item)}>
                       <Trash />
                     </button>
                   </div>

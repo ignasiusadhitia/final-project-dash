@@ -182,9 +182,7 @@ const OrderList = ({
                         >
                           <AcceptOrder />
                         </button>
-                        <button
-                          onClick={() => onShowConfirmationHandler(item.id)}
-                        >
+                        <button onClick={() => onShowConfirmationHandler(item)}>
                           <CancelOrder />
                         </button>
                       </>
