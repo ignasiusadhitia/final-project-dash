@@ -19,7 +19,6 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
-
 import 'ckeditor5/ckeditor5.css';
 import { AddButton, ArrowLeft, Delete, PlusButton } from '@icons';
 
@@ -98,31 +97,6 @@ const AddProduct = () => {
     setTempVariantNames([]);
     setIsModalOpen(false);
   };
-
-  // Add slider settings
-  const sliderSettings = {
-    dots: true,
-    className: "left",
-    infinite: false,
-    centerPadding: "10px",
-    slidesToShow: 4,
-    swipeToSlide: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        }
-      }
-    ]
-  };
-
 
   // Add slider settings
   const sliderSettings = {
