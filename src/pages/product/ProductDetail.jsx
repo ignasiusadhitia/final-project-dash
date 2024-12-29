@@ -85,7 +85,7 @@ const ProductDetail = () => {
             <li className="inline-flex items-center">
               <Link
                 className="inline-flex items-center text-red-500 hover:text-red-300 text-sm md:text-base"
-                to="/"
+                to="/dashboard"
               >
                 Home
               </Link>
