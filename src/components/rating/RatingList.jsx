@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { DatePicker } from 'antd';
 import { Link } from 'react-router-dom';
@@ -150,7 +150,29 @@ const RatingList = () => {
     setData(filteredData);
   };
 
+  // DATEPICKER
+  const [showPickDate, setShowPickDate] = useState(false);
+  const dateRef = useRef(null);
+  const togglePickDate = () => {
+    setShowPickDate(!showPickDate);
+  };
+  const handleClickOutside = (event) => {
+    if (dateRef.current && !dateRef.current.contains(event.target)) {
+      setShowPickDate(false);
+    }
+  };
+  useEffect(() => {
+    if (showPickDate) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPickDate]);
+  // END DATEPICKER
+
   const handleFilterByDate = (e) => {
+    setShowPickDate(false);
     if (!e) {
       setData(dummyData);
       return;
@@ -199,9 +221,18 @@ const RatingList = () => {
 
       <div className="my-4 flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
         <div className="w-full md:w-auto flex gap-5 items-center">
-          <div>
+          <div
+            ref={dateRef}
+            className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
+          >
+            <div
+              className="w-full cursor-pointer bg-white hover:border-surface-border text-type-text-light border rounded-lg border-surface-border px-4 py-2 hover:bg-black/5"
+              onClick={togglePickDate}
+            >
+              <Calendar />
+            </div>
             <DatePicker
-              className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
+              className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
               id="release-date"
               style={{
                 border: '1px solid #DBDCDE',

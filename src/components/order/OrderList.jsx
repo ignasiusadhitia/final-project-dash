@@ -88,7 +88,7 @@ const OrderList = ({
 
         <div>
           <button
-            className="flex justify-center items-center text-[12.64px] rounded border-[1px] border-primary text-primary px-[13.5px] py-2"
+            className="flex justify-center items-center text-[12.64px] rounded border-[1px] border-primary text-primary hover:bg-primary hover:text-white transition-colors px-[13.5px] py-2"
             onClick={onDownloadHandler}
           >
             Download all
@@ -182,9 +182,7 @@ const OrderList = ({
                         >
                           <AcceptOrder />
                         </button>
-                        <button
-                          onClick={() => onShowConfirmationHandler(item.id)}
-                        >
+                        <button onClick={() => onShowConfirmationHandler(item)}>
                           <CancelOrder />
                         </button>
                       </>
