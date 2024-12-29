@@ -133,18 +133,25 @@ const BannerList = () => {
     setData(updatedData);
 
     // TODO: Add condition (success publis/ unpublish from API) before calling alert code below
-    MySwal.fire({
-      html: (
-        <Success
-          message={`Successfuly ${currentData[0].published ? 'Unpublish' : 'Publish'} Banner with id = ${id}`} // TODO: change this message
-        />
-      ),
-      customClass: {
-        popup: 'rounded-3xl w-auto md:w-[720px]',
-      },
-      showConfirmButton: false,
-      timer: 1000,
-    });
+    if (currentData[0].published) {
+      MySwal.fire({
+        html: <Success message="This banner was successfully unpublished" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      MySwal.fire({
+        html: <Success message="This banner was successfully published" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
   };
   const handlePublishModal = (data) => {
     if (data.published) {
@@ -184,6 +191,8 @@ const BannerList = () => {
         <Confirm
           action={() => handleDeletePromotion(data.id)}
           desc="Are you sure want to delete this banner?"
+          publish={false}
+          title="Delete Banner?"
         />
       ),
       customClass: {

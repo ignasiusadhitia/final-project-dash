@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
-import { OrderDetails, OrderList, Confirm, Success } from '@components';
+import { OrderDetails, OrderList, Confirm } from '@components';
 
 const dummyData = [
   {
@@ -349,14 +349,7 @@ const Orders = () => {
 
   const handleCancelOrder = (id) => {
     handleUpdateOrderStatus(id, 'canceled');
-    MySwal.fire({
-      html: <Success message="This order was successfully canceled" />,
-      customClass: {
-        popup: 'rounded-3xl w-auto md:w-[720px]',
-      },
-      showConfirmButton: false,
-      timer: 1000,
-    });
+    Swal.close();
   };
 
   const handleTrackingNumberChange = (e) => {
@@ -379,7 +372,7 @@ const Orders = () => {
         />
       ),
       customClass: {
-        popup: 'rounded-3xl',
+        popup: 'rounded-lg',
       },
       showConfirmButton: false,
     });

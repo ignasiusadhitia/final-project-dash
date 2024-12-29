@@ -23,7 +23,7 @@ const OrderDetails = ({
   console.log(trackingNumber);
 
   return (
-    <div className="bg-white max-w-[592px] rounded-[10px] p-5 text-start">
+    <div className="bg-white max-w-[592px] rounded-[10px] text-start">
       <div className="flex justify-between items-center">
         <h1 className="font-['Nunito'] font-bold text-[18.4px]">
           Detail Order
@@ -86,7 +86,7 @@ const OrderDetails = ({
         <div className="flex flex-col text-[14.22px] mt-5">
           <label htmlFor="tracking_number">Tracking Number</label>
           <input
-            className="border-[1px] px-[13px] py-[15px] bg-surface-background rounded-lg mt-2"
+            className="border-[1px] px-[13px] py-[15px] bg-surface-background rounded-lg mt-2 outline-none"
             id="tracking_number"
             name="tracking_number"
             placeholder="Enter Tracking Number"

@@ -89,9 +89,7 @@ const Stock = () => {
     const newData = tableData.filter((item) => item.id !== data.id);
     setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success message={`Data with id:${data.id} successfully deleted`} />
-      ),
+      html: <Success message="This stock was successfully deleted" />,
       customClass: {
         popup: 'rounded-3xl w-auto md:w-[720px]',
       },

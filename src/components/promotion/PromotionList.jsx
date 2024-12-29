@@ -108,17 +108,11 @@ const PromotionList = () => {
     const updatedData = data.map((item) =>
       item.id === id ? { ...item, published: !item.published } : item
     );
-    // Get the current data
-    let currentData = data.filter((item) => item.id === id);
     setData(updatedData);
 
     // TODO: Add condition (success publis/ unpublish from API) before calling alert code below
     MySwal.fire({
-      html: (
-        <Success
-          message={`Successfuly ${currentData[0].published ? 'Unpublish' : 'Publish'} Promotion with id = ${id}`} // TODO: change this message
-        />
-      ),
+      html: <Success message="This promotion was successfully unpublished" />,
       customClass: {
         popup: 'rounded-3xl w-auto md:w-[720px]',
       },
@@ -164,6 +158,8 @@ const PromotionList = () => {
         <Confirm
           action={() => handleDeletePromotion(data.id)}
           desc="Are you sure want to delete this promotion?"
+          publish={false}
+          title="Delete Promotion?"
         />
       ),
       customClass: {

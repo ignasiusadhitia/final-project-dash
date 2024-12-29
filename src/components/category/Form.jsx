@@ -37,7 +37,7 @@ const Form = ({ data, action }) => {
           </label>
           <input
             required
-            className="border rounded-md py-3 px-4 text-sm bg-surface-background"
+            className="border rounded-md py-3 px-4 text-sm bg-surface-background outline-none"
             id="category-name"
             name="name"
             placeholder="Enter Category Name"

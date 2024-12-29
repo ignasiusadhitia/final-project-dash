@@ -50,7 +50,7 @@ const BannerForm = () => {
     // Handle form submission here
     if (id) {
       MySwal.fire({
-        html: <Success message="This banner was successfully edited" />,
+        html: <Success message="This banner was successfully updated" />,
         customClass: {
           popup: 'rounded-3xl w-auto md:w-[720px]',
         },

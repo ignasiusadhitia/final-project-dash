@@ -66,7 +66,7 @@ const FormStock = () => {
     if (id) {
       navigate(-1);
       MySwal.fire({
-        html: <Success message="This category was successfully edited" />,
+        html: <Success message="This stock was successfully updated" />,
         customClass: {
           popup: 'rounded-3xl w-auto md:w-[720px]',
         },
@@ -76,7 +76,7 @@ const FormStock = () => {
     } else {
       navigate(-1);
       MySwal.fire({
-        html: <Success message="This category was successfully added" />,
+        html: <Success message="This stock was successfully added" />,
         customClass: {
           popup: 'rounded-3xl w-auto md:w-[720px]',
         },

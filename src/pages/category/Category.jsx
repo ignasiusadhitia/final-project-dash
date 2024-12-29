@@ -71,6 +71,9 @@ const Category = () => {
     MySwal.fire({
       html: <FormCategory action={handleAddCategory} />,
       showConfirmButton: false,
+      customClass: {
+        popup: 'rounded-lg',
+      },
     });
   };
 
@@ -89,7 +92,7 @@ const Category = () => {
       tableData.map((item) => (item.id === data.id ? newData : item))
     );
     MySwal.fire({
-      html: <Success message="This category was successfully edited" />,
+      html: <Success message="This category was successfully updated" />,
       customClass: {
         popup: 'rounded-3xl w-auto md:w-[720px]',
       },
@@ -102,6 +105,9 @@ const Category = () => {
     MySwal.fire({
       html: <FormCategory action={handleEditCategory} data={data} />,
       showConfirmButton: false,
+      customClass: {
+        popup: 'rounded-lg',
+      },
     });
   };
 
@@ -110,9 +116,7 @@ const Category = () => {
     const newData = tableData.filter((item) => item.id !== data.id);
     setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success message={`Data with id:${data.id} successfully deleted`} />
-      ),
+      html: <Success message="This category was successfully deleted" />,
       customClass: {
         popup: 'rounded-3xl w-auto md:w-[720px]',
       },
@@ -161,11 +165,7 @@ const Category = () => {
     });
     setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success
-          message={`Successfuly Unpublish Category with id = ${data.id}`}
-        />
-      ),
+      html: <Success message="This category was successfully unpublished" />,
       customClass: {
         popup: 'rounded-3xl w-auto md:w-[720px]',
       },
@@ -197,11 +197,7 @@ const Category = () => {
       });
       setTableData(newData);
       MySwal.fire({
-        html: (
-          <Success
-            message={`Successfuly Publish Category with id = ${data.id}`}
-          />
-        ),
+        html: <Success message="This category was successfully published" />,
         customClass: {
           popup: 'rounded-3xl w-auto md:w-[720px]',
         },
