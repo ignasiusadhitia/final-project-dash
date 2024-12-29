@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from 'react';
-
+import { useDropzone } from 'react-dropzone';
+import { Link } from 'react-router-dom';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
   Essentials,
@@ -14,11 +19,6 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
-import { useDropzone } from 'react-dropzone';
-import { Link } from 'react-router-dom';
-
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-
 import 'ckeditor5/ckeditor5.css';
 import { AddButton, Delete, PlusButton } from '@icons';
 
@@ -30,16 +30,14 @@ const AddProduct = () => {
   const [variant, setVariant] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [photo, setPhoto] = useState(null);
-  const [variants, setVariants] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [variantName, setVariantName] = useState('');
   const [variantNames, setVariantNames] = useState([]);
-  const [variantValue, setVariantValue] = useState('');
   const [defaultImageIndex, setDefaultImageIndex] = useState(null);
-
+  const [tempVariantNames, setTempVariantNames] = useState([]);
   // Change the photo state to an array
   const [photos, setPhotos] = useState([]);
+  console.log(photos)
 
   // Update the onDrop callback
   const onDrop = useCallback((acceptedFiles) => {
@@ -55,7 +53,7 @@ const AddProduct = () => {
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png'],
     },
-    multiple: false,
+    multiple: true,
     onDrop,
   });
 
@@ -69,16 +67,17 @@ const AddProduct = () => {
       stock,
       price,
       description,
-      photo,
+      photos,
     });
   };
 
   const handleAddVariantName = () => {
     if (variantName.trim()) {
-      setVariantNames([...variantNames, variantName]);
+      setTempVariantNames([...tempVariantNames, variantName]);
       setVariantName('');
     }
   };
+
 
   const handleDeleteVariantName = (index) => {
     setVariantNames(variantNames.filter((_, i) => i !== index));
@@ -103,9 +102,34 @@ const AddProduct = () => {
     setIsModalOpen(false);
   };
 
+  // Add slider settings
+  const sliderSettings = {
+    dots: true,
+    className: "left",
+    infinite: false,
+    centerPadding: "10px",
+    slidesToShow: 4,
+    swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        }
+      }
+    ]
+  };
+
+
   return (
-    <div className="bg-gray-100 mx-auto my-10 p-4 md:p-8 lg:p-12 w-full">
-      <div className="container bg-white p-5 md:p-8 rounded-lg shadow-lg max-w-7xl mx-auto">
+    <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
+      <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Add Product
@@ -216,32 +240,48 @@ const AddProduct = () => {
               <label className="block text-sm md:text-base font-medium mb-1">
                 Product Variant
               </label>
-              <div className="relative">
-                <input
-                  readOnly
-                  className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
-                  type="text"
-                  value={variant}
-                  onClick={() => setIsModalOpen(true)}
-                />
-                <button
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
-                  type="button"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  <AddButton className="w-5 h-5 me-2" />
-                  Add New Product Variant
-                </button>
-              </div>
-              {variants.length > 0 && (
-                <div className="mt-2 space-y-1">
-                  {variants.map((variant, index) => (
-                    <div key={index} className="text-sm text-gray-600">
-                      {variant.name}: {variant.value}
-                    </div>
-                  ))}
+              {variantNames.length === 0 ? (
+                <div className="relative">
+                  <input
+                    className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                    type="text"
+                    value={variant}
+                    readOnly
+                    onClick={() => setIsModalOpen(true)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
+                  >
+                    <AddButton className="w-5 h-5 me-2" />
+                    Add New Product Variant
+                  </button>
                 </div>
-              )}
+              ) : (
+                <div>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <div className="grid grid-cols-2 gap-4">
+                        {variantNames.map((name, index) => (
+                          <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium">{name}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setIsModalOpen(true)}
+                        className="p-2 bg-red-100 rounded-full hover:bg-red-200"                      >
+                        <PlusButton className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>)}
             </div>
 
             {/* Add Modal */}
@@ -263,6 +303,7 @@ const AddProduct = () => {
                           onChange={(e) => setVariantName(e.target.value)}
                         />
                         <button
+                          type='button'
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                           onClick={() => handleAddVariantName}
                         >
@@ -273,28 +314,21 @@ const AddProduct = () => {
 
                     {/* Variant Names List */}
                     <div className="space-y-2">
-                      {variantNames.map((vName, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between bg-red-50 p-3 rounded"
-                        >
+                      {tempVariantNames.map((vName, index) => (
+                        <div key={index} className="flex items-center justify-between bg-red-50 p-3 rounded">
                           <span className="font-medium">{vName}</span>
                           <div className="flex gap-2">
                             <button
-                              className="p-1 hover:rounded-full hover:bg-red-200"
-                              onClick={() => handleAddVariantValue(vName)}
-                            >
-                              <PlusButton className="w-4 h-4 text-gray-500" />
-                            </button>
-                            <button
-                              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
+                              type="button"
                               onClick={() => handleDeleteVariantName(index)}
+                              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
                             >
                               <Delete className="w-4 h-4" />
                             </button>
                           </div>
                         </div>
                       ))}
+
                     </div>
 
                     <div className="flex justify-end gap-2">
@@ -410,53 +444,48 @@ const AddProduct = () => {
           </div>
           {/* Image Preview Section */}
           <div className="mt-4">
-            <div className="flex gap-4 mb-5">
+            <Slider {...sliderSettings}>
               {photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className="relative w-[200px] bg-gray-100 group rounded-lg"
-                >
-                  <div className="relative w-full h-[150px] rounded-lg p-4">
-                    <img
-                      alt={`Product preview ${index + 1}`}
-                      className="w-full h-full object-contain"
-                      src={URL.createObjectURL(photo)}
-                    />
-                    <button
-                      className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
-                      type="button"
-                      onClick={() => removePhoto(index)}
-                    >
-                      <Delete />
-                    </button>
-                    {defaultImageIndex === index && (
-                      <div
-                        className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
-                        style={{
-                          background:
-                            'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)',
-                        }}
+                <div key={index} className="px-2">
+                  <div className="relative w-[200px] bg-gray-100 group rounded-lg">
+                    <div className="relative w-full h-[150px] rounded-lg p-4">
+                      <img
+                        src={URL.createObjectURL(photo)}
+                        alt={`Product preview ${index + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                      <button
+                        onClick={() => removePhoto(index)}
+                        className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
+                        type="button"
                       >
-                        Default
-                      </div>
-                    )}
+                        <Delete />
+                      </button>
+                      {defaultImageIndex === index && (
+                        <div className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
+                          style={{ background: 'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)' }}>
+                          Default
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setDefaultImageIndex(index)}
+                      className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                      type="button"
+                    >
+                      Set as Default
+                    </button>
                   </div>
-                  <button
-                    className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                    type="button"
-                    onClick={() => setDefaultImageIndex(index)}
-                  >
-                    Set as Default
-                  </button>
                 </div>
               ))}
-            </div>
+            </Slider>
           </div>
+
 
           <div className="flex justify-end space-x-4">
             <Link
               className="border-2 border-red-500 hover:bg-re-400 text-black font-bold py-2 px-5  md:py-3 md:px-6 rounded text-sm md:text-base"
-              to="/product"
+              to="/dashboard/products"
             >
               Cancel
             </Link>

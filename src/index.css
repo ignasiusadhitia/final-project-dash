@@ -18,3 +18,8 @@
     }
   }
 }
+
+.swal2-icon svg {
+  background: none;
+  border: none;
+}
