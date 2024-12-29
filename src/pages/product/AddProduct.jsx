@@ -20,7 +20,7 @@ import {
   Font,
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
-import { AddButton, Delete, PlusButton } from '@icons';
+import { AddButton, ArrowLeft, Delete, PlusButton } from '@icons';
 
 const AddProduct = () => {
   const [productName, setProductName] = useState('');
@@ -130,7 +130,13 @@ const AddProduct = () => {
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
       <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <button 
+            onClick={() => window.history.back()} 
+            className="flex items-center text-gray-600 hover:text-gray-800"
+          >
+            <ArrowLeft className="w-6 h-6 mr-2" />
+          </button>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Add Product
           </h1>
