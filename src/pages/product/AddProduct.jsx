@@ -129,7 +129,7 @@ const AddProduct = () => {
 
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-8 lg:p-12 w-full">
-      <div className="container bg-white p-5 md:p-8 rounded-lg shadow-lg max-w-7xl mx-auto">
+      <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Add Product
