@@ -224,16 +224,16 @@ const Product = () => {
                   <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.name}
                   </td>
-                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.sku}
                   </td>
-                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.stock}
                   </td>
-                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.category}
                   </td>
-                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.price}
                   </td>
                   <td className="px-5 border-b border-gray-200">
