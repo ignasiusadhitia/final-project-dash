@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ const MySwal = withReactContent(Swal);
 
 import { Table, Card, Success, Confirm } from '@components';
 import {
-  Chevron,
   Pencil,
   Trash,
   Eyes,
@@ -22,8 +21,7 @@ const Stock = () => {
   const navigate = useNavigate();
 
   // TABLE PROPS
-  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
-  const tableData = [
+  const dummyData = [
     {
       id: 1,
       productName: 'Laptop HP',
@@ -49,28 +47,51 @@ const Stock = () => {
       quantity: 5,
     },
   ];
+  const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
+  const [tableData, setTableData] = useState(dummyData);
+  const totalStock = tableData.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const dataKey = ['productName', 'variant', 'quantity'];
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  const [sortConfig, setSortConfig] = useState({
+    key: 'name',
+    direction: 'ascending',
+  });
+  // Handle row change
+  const handleRowChange = (event) => {
+    setRowsPerPage(Number(event.target.value));
+  };
+  const sortData = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sortedData = [...tableData].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setTableData(sortedData);
+    setSortConfig({ key, direction });
+  };
   const sort = [
-    {
-      asc: () => alert('sort asc by name'),
-      desc: () => alert('sort desc by name'),
-    },
-    {
-      asc: () => alert('sort asc by varian'),
-      desc: () => alert('sort desc by varian'),
-    },
-    {
-      asc: () => alert('sort asc by quantity'),
-      desc: () => alert('sort desc by quantity'),
-    },
+    () => sortData('productName'),
+    () => sortData('variant'),
+    () => sortData('quantity'),
   ];
 
   const handleDelete = (data) => {
+    const newData = tableData.filter((item) => item.id !== data.id);
+    setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success message={`Data with id:${data.id} successfully deleted`} />
-      ),
+      html: <Success message="This stock was successfully deleted" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -87,7 +108,7 @@ const Stock = () => {
         />
       ),
       customClass: {
-        popup: 'rounded-3xl p-32',
+        popup: 'rounded-3xl py-10',
       },
       showConfirmButton: false,
     });
@@ -107,6 +128,25 @@ const Stock = () => {
       action: (data) => handleConfirmDelete(data),
     },
   ];
+
+  const [showPickDate, setShowPickDate] = useState(false);
+  const dateRef = useRef(null);
+  const togglePickDate = () => {
+    setShowPickDate(!showPickDate);
+  };
+  const handleClickOutside = (event) => {
+    if (dateRef.current && !dateRef.current.contains(event.target)) {
+      setShowPickDate(false);
+    }
+  };
+  useEffect(() => {
+    if (showPickDate) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPickDate]);
 
   return (
     <div className="w-full px-5 pt-12 overflow-hidden">
@@ -129,7 +169,7 @@ const Stock = () => {
             </p>
           </header>
           <button
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[123px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[123px] h-[32px]"
             onClick={() => navigate('/dashboard/stocks/add')}
           >
             Add New Stock
@@ -137,45 +177,59 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
-        <div className="grid gap-5 md:flex justify-between items-center">
-          <div className="grid md:flex flex-wrap gap-5">
-            <div>
-              <DatePicker
-                className="bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none"
-                id="release-date"
-                style={{
-                  border: '1px solid #DBDCDE',
-                  outline: 'none',
-                  boxShadow: 'none',
-                  background: 'white',
-                }}
-                suffixIcon={<Calendar />}
-                type="date"
-                // value={date}
-                // onChange={handleFilterByDate}
-              />
-            </div>
-            <div className="relative">
-              <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-              <select
-                className="w-[250px] h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-                defaultValue=""
-                id="filter"
-                name="filter"
+        <div className="flex flex-col gap-5 md:flex-row justify-between">
+          <div className="flex flex-wrap md:flex-nowrap lg:flex-row items-start lg:items-center gap-5 w-full">
+            <div className="flex gap-5 lg:w-auto w-full">
+              {/* DATE PICKER */}
+              <div
+                ref={dateRef}
+                className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
               >
-                <option disabled value="">
-                  Select Filter
-                </option>
-                <option value="name">Name</option>
-                <option value="release">Release</option>
-                <option value="published">Published</option>
-              </select>
+                <div
+                  className="w-full cursor-pointer bg-white hover:border-surface-border text-type-text-light border rounded-lg border-surface-border px-4 py-2 hover:bg-black/5"
+                  onClick={togglePickDate}
+                >
+                  <Calendar />
+                </div>
+                <DatePicker
+                  className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
+                  id="release-date"
+                  style={{
+                    border: '1px solid #DBDCDE',
+                    outline: 'none',
+                    boxShadow: 'none',
+                    background: 'white',
+                  }}
+                  suffixIcon={<Calendar />}
+                  type="date"
+                  // value={date}
+                  // onChange={handleFilterByDate}
+                  onChange={() => setShowPickDate(false)}
+                />
+              </div>
+              {/* SELECT FILTER */}
+              <div className="relative flex-grow md:flex-grow-0 md:w-[250px]">
+                <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+                <select
+                  className="w-full h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                  defaultValue=""
+                  id="filter"
+                  name="filter"
+                >
+                  <option disabled value="">
+                    Select Filter
+                  </option>
+                  <option value="name">Name</option>
+                  <option value="release">Release</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
             </div>
-
-            <div className="relative">
+            {/* SEARCH */}
+            <div className="relative w-full md:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input
-                className="bg-white w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
+                className="bg-white w-full md:w-[250px] placeholder:text-[#A1A9B8] border rounded-lg border-surface-border px-9 py-2 text-[14.22px] outline-none"
                 id="search"
                 name="search"
                 placeholder="Search"
@@ -185,8 +239,9 @@ const Stock = () => {
               />
             </div>
           </div>
+
           <div className="bg-[#EEE4FF] text-primary text-right rounded-md w-[93px] h-[44px] leading-none py-1 px-3 text-nowrap">
-            <p className="text-[21.8px] font-bold">120</p>
+            <p className="text-[21.8px] font-bold">{totalStock}</p>
             <p className="text-[14.4px]">Total Stock</p>
           </div>
         </div>
@@ -195,6 +250,7 @@ const Stock = () => {
         <div className="overflow-x-auto">
           <Table
             actions={actions}
+            dataKey={dataKey}
             sort={sort}
             tableData={tableData}
             tableHeader={tableHeader}
@@ -203,23 +259,72 @@ const Stock = () => {
 
         {/* PAGINATION */}
         <div className="flex flex-col items-center md:flex-row md:justify-between text-black/50 font-bold mt-5 text-sm px-5">
-          <p>1-20 of 27</p>
+          <p className="text-sm text-type-text-light font-medium">
+            {`${(currentPage - 1) * rowsPerPage + 1}-${Math.min(
+              currentPage * rowsPerPage,
+              tableData.length
+            )} of ${tableData.length}`}
+          </p>
           <div className="flex justify-between items-center">
             <div>
               <label htmlFor="rows">Rows per page:</label>
-              <select id="rows" name="rows">
+              <select
+                id="rows"
+                name="rows"
+                value={rowsPerPage}
+                onChange={handleRowChange}
+              >
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
             </div>
             <div className="flex items-center gap-1">
-              <button>
-                <Chevron className="rotate-180 border h-5 w-5 rounded-sm" />
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                    stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
-              <p>1/2</p>
-              <button>
-                <Chevron className="border h-5 w-5 rounded-sm" />
+              <p className="font-medium text-sm">
+                <span className="text-[#171C26]">{currentPage}</span>/
+                <span className="text-[#687182]">{totalPages}</span>
+              </p>
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                    stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </button>
             </div>
           </div>

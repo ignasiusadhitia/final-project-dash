@@ -3,11 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TableCell } from '@components';
-import { Chevron } from '@icons';
+import { ArrowSorting } from '@icons';
 
 const Table = ({
   tableHeader = [],
   tableData = [],
+  dataKey = [],
   actions = [],
   publish,
   sort = [],
@@ -19,21 +20,13 @@ const Table = ({
           {tableHeader.map((item, index) => (
             <th key={index} className="text-start px-4 py-6">
               <div className="flex items-center gap-1">
-                {item}
-                <div>
-                  {sort[index]?.asc && (
-                    <Chevron
-                      className="-rotate-90 cursor-pointer"
-                      onClick={() => sort[index].asc()}
-                    />
-                  )}
-                  {sort[index]?.desc && (
-                    <Chevron
-                      className="rotate-90 cursor-pointer"
-                      onClick={() => sort[index].desc()}
-                    />
-                  )}
-                </div>
+                <button
+                  className={`flex items-center gap-2 ${!sort[index] && 'cursor-default'}`}
+                  onClick={() => sort[index]()}
+                >
+                  {item}
+                  {sort[index] && <ArrowSorting />}
+                </button>
               </div>
             </th>
           ))}
@@ -42,22 +35,19 @@ const Table = ({
       <tbody>
         {tableData.map((item, index) => (
           <tr key={index}>
-            {Object.entries(item).map(
-              ([objectKey, objectValue], subIndex) =>
-                objectKey !== 'id' && (
-                  <td
-                    key={subIndex}
-                    className="border-b px-4 py-2 text-xs text-black/60"
-                  >
-                    <TableCell
-                      objectValue={objectValue}
-                      onPublish={() => publish(item)}
-                    />
-                  </td>
-                )
-            )}
+            {dataKey.map((itemKey, subIndex) => (
+              <td
+                key={subIndex}
+                className="border-b px-4 py-2 text-xs text-black/60"
+              >
+                <TableCell
+                  objectValue={item[itemKey]}
+                  onPublish={() => publish(item)}
+                />
+              </td>
+            ))}
             <td className="py-2 px-4 border-b">
-              <div className="flex gap-2 text-black/50">
+              <div className="flex gap-3 lg:gap-5 items-center text-black/50">
                 {actions.map((action, index) => (
                   <action.icon
                     key={index}
@@ -77,6 +67,7 @@ const Table = ({
 Table.propTypes = {
   tableHeader: PropTypes.array.isRequired,
   tableData: PropTypes.array.isRequired,
+  dataKey: PropTypes.array.isRequired,
   actions: PropTypes.array,
   publish: PropTypes.func,
   sort: PropTypes.array,

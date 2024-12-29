@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { LeftChevron, RightChevron, Delete, Details, Edit } from '@icons';
 
@@ -116,6 +117,7 @@ const initialProducts = [
 ];
 
 const Product = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState(initialProducts);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
@@ -130,6 +132,31 @@ const Product = () => {
     );
   };
 
+  // Replace the existing handleDelete function with this:
+  const handleDelete = (productId) => {
+    Swal.fire({
+      title: 'Delete Product?',
+      text: "Are you sure you want to delete this product?",
+      iconHtml: '<i class="w-20 h-20 text-red-500 rounded-full p-1" style="background-color: transparent; border: none;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></i>',
+      customClass:{
+        icon: 'border: 3px solid #EF4444'
+      },
+      showCancelButton: true, confirmButtonColor: '#EF4444', cancelButtonColor: '#6B7280',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProducts(products.filter((product) => product.id !== productId));
+        Swal.fire({
+          title: 'This product was successfully deleted!',
+          icon: 'success',
+          confirmButtonColor: '#EF4444'
+        });
+      }
+    });
+  };
+
+
+
   const totalItems = products.length;
   const totalPages = Math.ceil(totalItems / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -142,9 +169,11 @@ const Product = () => {
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-semibold">Product</h1>
 
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Add New Product
-          </button>
+          <Link to="add">
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              Add New Product
+            </button>
+          </Link>
         </div>
 
         <nav aria-label="Breadcrumb" className="flex mb-5">
@@ -192,22 +221,22 @@ const Product = () => {
             <tbody>
               {currentProducts.map((product, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.name}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.sku}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.stock}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.category}
                   </td>
-                  <td className="px-5 py-2 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.price}
                   </td>
-                  <td className="px-5 py-2 border-b border-gray-200">
+                  <td className="px-5 border-b border-gray-200">
                     <div className="flex justify-center items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input
@@ -216,26 +245,37 @@ const Product = () => {
                           type="checkbox"
                           onChange={() => handlePublishToggle(product.id)}
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                       </label>
                     </div>
                   </td>
+
                   <td className="px-5 py-2 border-b border-gray-200 flex justify-start items-center space-x-4">
-                    <button className="text-blue-500 hover:text-blue-700">
+                    <button
+                      className="text-blue-500 hover:text-blue-700"
+                      onClick={() => navigate(`${product.id}`)}
+                    >
                       <Details />
                     </button>
-                    <button className="text-blue-500 hover:text-blue-700">
+                    <button
+                      className="text-blue-500 hover:text-blue-700"
+                      onClick={() => navigate(`edit/${product.id}`)}
+                    >
                       <Edit />
                     </button>
-                    <button className="text-red-500 hover:text-red-700">
+                    <button
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleDelete(product.id)}
+                    >
                       <Delete />
                     </button>
                   </td>
+
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="flex justify-between items-center px-5 py-3 border-t">
+          <div className="flex justify-between items-center px-5 py-3 ">
             <div className="text-sm text-gray-700">
               {startIndex + 1}-{endIndex} of {totalItems}
             </div>
@@ -284,7 +324,7 @@ const Product = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 export default Product;
