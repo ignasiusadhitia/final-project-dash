@@ -221,7 +221,7 @@ const Product = () => {
             <tbody>
               {currentProducts.map((product, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
+                  <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.name}
                   </td>
                   <td className="px-5 border-b text-sm text-gray-400 whitespace-nowrap  border-gray-200">
