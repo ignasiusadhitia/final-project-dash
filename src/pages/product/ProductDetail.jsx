@@ -105,7 +105,7 @@ const ProductDetail = () => {
                 </svg>
                 <Link
                   className="text-red-500 hover:text-red-300 text-sm md:text-base"
-                  to="/product"
+                  to="/dashboard/products"
                 >
                   Product
                 </Link>
