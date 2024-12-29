@@ -198,7 +198,7 @@ const Product = () => {
             <li className="inline-flex items-center">
               <Link
                 className="inline-flex items-center text-red-500 hover:text-red-300"
-                to="/"
+                to="/dashboard"
               >
                 Home
               </Link>

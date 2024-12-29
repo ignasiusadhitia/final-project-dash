@@ -19,6 +19,7 @@ import {
   Font,
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
+import { ArrowLeft } from '@icons';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -74,12 +75,17 @@ const ProductDetail = () => {
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
       <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => window.history.back()}
+            className="flex items-center text-red-500 hover:text-red-300"
+          >
+            <ArrowLeft className="w-6 h-6 mr-2" />
+          </button>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-            Product Detail
+            Detail Product
           </h1>
         </div>
-
         <nav aria-label="Breadcrumb" className="flex mb-5">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">

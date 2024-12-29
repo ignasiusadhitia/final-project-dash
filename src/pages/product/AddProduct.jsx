@@ -147,7 +147,7 @@ const AddProduct = () => {
             <li className="inline-flex items-center">
               <Link
                 className="inline-flex items-center text-red-500 hover:text-red-300 text-sm md:text-base"
-                to="/"
+                to="/dashboard"
               >
                 Home
               </Link>
@@ -168,7 +168,7 @@ const AddProduct = () => {
                 </svg>
                 <Link
                   className="text-red-500 hover:text-red-300 text-sm md:text-base"
-                  to="/product"
+                  to="/dashboard/products"
                 >
                   Product
                 </Link>
