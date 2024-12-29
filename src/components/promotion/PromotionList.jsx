@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
+import { Confirm, Success } from '@components';
 import {
   ArrowDown,
-  Published,
-  NotPublished,
   ArrowRightSmall,
   Eyes,
   Pen,
   Trash,
   ArrowSorting,
-  ArrowLeft,
 } from '@icons';
 
 const dummyData = [
@@ -101,11 +103,70 @@ const PromotionList = () => {
     setSortConfig({ key, direction });
   };
 
+  // HANDLE PUBLISH LOGIC
   const handleTogglePublished = (id) => {
     const updatedData = data.map((item) =>
       item.id === id ? { ...item, published: !item.published } : item
     );
     setData(updatedData);
+
+    // TODO: Add condition (success publis/ unpublish from API) before calling alert code below
+    MySwal.fire({
+      html: <Success message="This promotion was successfully unpublished" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handlePublishModal = (data) => {
+    if (data.published) {
+      MySwal.fire({
+        html: (
+          <Confirm
+            action={() => handleTogglePublished(data.id)}
+            desc="Are you sure want to unpublish this promotion?"
+            publish={true}
+          />
+        ),
+        customClass: {
+          popup: 'rounded-3xl py-10',
+        },
+        showConfirmButton: false,
+      });
+    } else {
+      handleTogglePublished(data.id);
+    }
+  };
+  // HANDLE DELETE LOGIC
+  const handleDeletePromotion = (id) => {
+    const updatedData = data.filter((item) => item.id !== id);
+    setData(updatedData);
+    MySwal.fire({
+      html: <Success message="This promotion was successfully deleted" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handleDeleteModal = (data) => {
+    MySwal.fire({
+      html: (
+        <Confirm
+          action={() => handleDeletePromotion(data.id)}
+          desc="Are you sure want to delete this promotion?"
+          publish={false}
+          title="Delete Promotion?"
+        />
+      ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
+      showConfirmButton: false,
+    });
   };
 
   const handleChangePage = (direction) => {
@@ -150,7 +211,7 @@ const PromotionList = () => {
 
         <div>
           <Link
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[132px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[132px] h-[32px]"
             to={'/dashboard/promotions/add'}
           >
             Add New Promotion
@@ -266,13 +327,24 @@ const PromotionList = () => {
                   {item.description}
                 </td>
                 <td className="border-b-2 text-white">
-                  <span className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === "Active" ? "bg-[#198754]" : "bg-[#6C757D]"}`}>
+                  <span
+                    className={`text-sm px-4 py-2 rounded-full font-medium ${item.status === 'Active' ? 'bg-[#198754]' : 'bg-[#6C757D]'}`}
+                  >
                     {item.status}
                   </span>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-start">
-                  <button onClick={() => handleTogglePublished(item.id)}>
-                    {item.published ? <Published /> : <NotPublished />}
+                  <button
+                    className={`p-[2px] w-10 h-[22px] rounded-full  transition-all ${
+                      item.published ? 'bg-primary' : 'bg-[#D2D2D2]'
+                    }`}
+                    onClick={() => handlePublishModal(item)}
+                  >
+                    <div
+                      className={` h-[18px] w-[18px] rounded-full bg-white transition-all ${
+                        item.published && 'translate-x-full'
+                      }`}
+                    ></div>
                   </button>
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-center">
@@ -283,7 +355,7 @@ const PromotionList = () => {
                     <Link to={`/dashboard/promotions/edit/${item.id}`}>
                       <Pen />
                     </Link>
-                    <button onClick={() => handleDelete(item.id)}>
+                    <button onClick={() => handleDeleteModal(item)}>
                       <Trash />
                     </button>
                   </div>

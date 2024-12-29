@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { DatePicker } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -49,6 +49,10 @@ const Stock = () => {
   ];
   const tableHeader = ['Product Name', 'Varian Product', 'Quantity', 'Action'];
   const [tableData, setTableData] = useState(dummyData);
+  const totalStock = tableData.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
   const dataKey = ['productName', 'variant', 'quantity'];
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,12 +86,12 @@ const Stock = () => {
   ];
 
   const handleDelete = (data) => {
+    const newData = tableData.filter((item) => item.id !== data.id);
+    setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success message={`Data with id:${data.id} successfully deleted`} />
-      ),
+      html: <Success message="This stock was successfully deleted" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -104,7 +108,7 @@ const Stock = () => {
         />
       ),
       customClass: {
-        popup: 'rounded-3xl p-32',
+        popup: 'rounded-3xl py-10',
       },
       showConfirmButton: false,
     });
@@ -126,9 +130,23 @@ const Stock = () => {
   ];
 
   const [showPickDate, setShowPickDate] = useState(false);
+  const dateRef = useRef(null);
   const togglePickDate = () => {
     setShowPickDate(!showPickDate);
   };
+  const handleClickOutside = (event) => {
+    if (dateRef.current && !dateRef.current.contains(event.target)) {
+      setShowPickDate(false);
+    }
+  };
+  useEffect(() => {
+    if (showPickDate) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPickDate]);
 
   return (
     <div className="w-full px-5 pt-12 overflow-hidden">
@@ -151,7 +169,7 @@ const Stock = () => {
             </p>
           </header>
           <button
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[123px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[123px] h-[32px]"
             onClick={() => navigate('/dashboard/stocks/add')}
           >
             Add New Stock
@@ -159,50 +177,53 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
-        <div className="grid gap-5 md:flex justify-between">
-          <div className="flex flex-wrap lg:flex-row items-start lg:items-center gap-5">
-            {/* DATE PICKER */}
-            <div
-              className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
-            >
+        <div className="flex flex-col gap-5 md:flex-row justify-between">
+          <div className="flex flex-wrap md:flex-nowrap lg:flex-row items-start lg:items-center gap-5 w-full">
+            <div className="flex gap-5 lg:w-auto w-full">
+              {/* DATE PICKER */}
               <div
-                className="w-full cursor-pointer bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none hover:bg-black/5"
-                onClick={togglePickDate}
+                ref={dateRef}
+                className={`flex-shrink-0 relative ${!showPickDate && 'overflow-hidden'}`}
               >
-                <Calendar />
+                <div
+                  className="w-full cursor-pointer bg-white hover:border-surface-border text-type-text-light border rounded-lg border-surface-border px-4 py-2 hover:bg-black/5"
+                  onClick={togglePickDate}
+                >
+                  <Calendar />
+                </div>
+                <DatePicker
+                  className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
+                  id="release-date"
+                  style={{
+                    border: '1px solid #DBDCDE',
+                    outline: 'none',
+                    boxShadow: 'none',
+                    background: 'white',
+                  }}
+                  suffixIcon={<Calendar />}
+                  type="date"
+                  // value={date}
+                  // onChange={handleFilterByDate}
+                  onChange={() => setShowPickDate(false)}
+                />
               </div>
-              <DatePicker
-                className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
-                id="release-date"
-                style={{
-                  border: '1px solid #DBDCDE',
-                  outline: 'none',
-                  boxShadow: 'none',
-                  background: 'white',
-                }}
-                suffixIcon={<Calendar />}
-                type="date"
-                // value={date}
-                // onChange={handleFilterByDate}
-                onChange={togglePickDate}
-              />
-            </div>
-            {/* SELECT FILTER */}
-            <div className="relative flex-grow">
-              <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
-              <select
-                className="min-w-[250px] w-full h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
-                defaultValue=""
-                id="filter"
-                name="filter"
-              >
-                <option disabled value="">
-                  Select Filter
-                </option>
-                <option value="name">Name</option>
-                <option value="release">Release</option>
-                <option value="published">Published</option>
-              </select>
+              {/* SELECT FILTER */}
+              <div className="relative flex-grow md:flex-grow-0 md:w-[250px]">
+                <ArrowDown className="absolute right-3 top-1/2 -translate-y-1/2" />
+                <select
+                  className="w-full h-[40px] border text-sm font-medium text-type-text-light rounded-md focus:outline-none px-3 appearance-none"
+                  defaultValue=""
+                  id="filter"
+                  name="filter"
+                >
+                  <option disabled value="">
+                    Select Filter
+                  </option>
+                  <option value="name">Name</option>
+                  <option value="release">Release</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
             </div>
             {/* SEARCH */}
             <div className="relative w-full md:w-auto">
@@ -218,8 +239,9 @@ const Stock = () => {
               />
             </div>
           </div>
+
           <div className="bg-[#EEE4FF] text-primary text-right rounded-md w-[93px] h-[44px] leading-none py-1 px-3 text-nowrap">
-            <p className="text-[21.8px] font-bold">120</p>
+            <p className="text-[21.8px] font-bold">{totalStock}</p>
             <p className="text-[14.4px]">Total Stock</p>
           </div>
         </div>

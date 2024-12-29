@@ -7,6 +7,7 @@ import { Dropzone } from '@components';
 
 const Form = ({ data, action }) => {
   const [formData, setFormData] = useState({
+    id: data?.id || null,
     name: data?.name || '',
     image: data?.image || null,
     published: data?.published || false,
@@ -25,7 +26,10 @@ const Form = ({ data, action }) => {
       <h2 className="text-lg font-bold mb-10 self-start">
         {data?.id ? 'Edit Category' : 'Add Category'}
       </h2>
-      <form className="flex flex-col gap-5" onSubmit={action}>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={(e) => action(e, formData)}
+      >
         {/* CATEGORY NAME */}
         <div className="flex flex-col gap-2">
           <label className="text-sm self-start" htmlFor="category-name">
@@ -33,7 +37,7 @@ const Form = ({ data, action }) => {
           </label>
           <input
             required
-            className="border rounded-md py-3 px-4 text-sm bg-surface-background"
+            className="border rounded-md py-3 px-4 text-sm bg-surface-background outline-none"
             id="category-name"
             name="name"
             placeholder="Enter Category Name"
@@ -56,14 +60,14 @@ const Form = ({ data, action }) => {
         {/* FORM BUTTON */}
         <div className="self-end flex gap-2 mt-5 text-xs">
           <button
-            className="border px-5 py-2 rounded-md border-primary text-primary"
+            className="border px-5 py-2 rounded-md border-primary text-primary hover:bg-primary hover:text-white transition-colors"
             type="button"
             onClick={() => Swal.close()}
           >
             Cancel
           </button>
           <button
-            className="border px-5 py-1 rounded-md bg-primary text-white"
+            className="border px-5 py-1 rounded-md bg-primary hover:bg-primary-dark transition-colors text-white"
             type="submit"
           >
             {data?.id ? 'Save' : 'Add'}

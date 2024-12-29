@@ -49,12 +49,19 @@ const Category = () => {
   };
 
   // ADD CATEGORY
-  const handleAddCategory = (e) => {
+  const handleAddCategory = (e, data) => {
     e.preventDefault();
+    const newData = {
+      id: new Date().getTime(),
+      name: data.name,
+      image: data.image.name,
+      published: data.published || false,
+    };
+    setTableData([...tableData, newData]);
     MySwal.fire({
       html: <Success message="This category was successfully added" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -64,17 +71,30 @@ const Category = () => {
     MySwal.fire({
       html: <FormCategory action={handleAddCategory} />,
       showConfirmButton: false,
+      customClass: {
+        popup: 'rounded-lg',
+      },
     });
   };
 
   // TABLE ACTIONS (Edit & Delete)
   // Edit
-  const handleEditCategory = (e) => {
+  const handleEditCategory = (e, data) => {
     e.preventDefault();
+    console.log(data);
+    const newData = {
+      id: data.id,
+      name: data.name,
+      image: data.image.name || data.image,
+      published: data.published,
+    };
+    setTableData(
+      tableData.map((item) => (item.id === data.id ? newData : item))
+    );
     MySwal.fire({
-      html: <Success message="This category was successfully edited" />,
+      html: <Success message="This category was successfully updated" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -85,17 +105,20 @@ const Category = () => {
     MySwal.fire({
       html: <FormCategory action={handleEditCategory} data={data} />,
       showConfirmButton: false,
+      customClass: {
+        popup: 'rounded-lg',
+      },
     });
   };
 
   // Delete
   const handleDelete = (data) => {
+    const newData = tableData.filter((item) => item.id !== data.id);
+    setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success message={`Data with id:${data.id} successfully deleted`} />
-      ),
+      html: <Success message="This category was successfully deleted" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -112,6 +135,9 @@ const Category = () => {
           title="Delete Category?"
         />
       ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
       showConfirmButton: false,
     });
   };
@@ -131,15 +157,17 @@ const Category = () => {
   // PROPS PUBLISH CATEGORY (Publish or unpublish category function)
   const handleUnpublish = (data) => {
     // Pending: Process backend
-    // Sweet alert is called after backend process
+    const newData = tableData.map((item) => {
+      if (item.id === data.id) {
+        return { ...item, published: false };
+      }
+      return item;
+    });
+    setTableData(newData);
     MySwal.fire({
-      html: (
-        <Success
-          message={`Successfuly Unpublish Category with id = ${data.id}`}
-        />
-      ),
+      html: <Success message="This category was successfully unpublished" />,
       customClass: {
-        popup: 'rounded-md w-auto md:w-[720px]',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
       showConfirmButton: false,
       timer: 1000,
@@ -155,10 +183,27 @@ const Category = () => {
             publish={true}
           />
         ),
+        customClass: {
+          popup: 'rounded-3xl py-10',
+        },
         showConfirmButton: false,
       });
     } else {
-      alert(`Publish ${data.id}`);
+      const newData = tableData.map((item) => {
+        if (item.id === data.id) {
+          return { ...item, published: true };
+        }
+        return item;
+      });
+      setTableData(newData);
+      MySwal.fire({
+        html: <Success message="This category was successfully published" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
@@ -192,7 +237,8 @@ const Category = () => {
         <div className="flex justify-between mb-10 items-baseline">
           <header className="space-y-2">
             <h1 className="text-[25.63px] font-bold">Category</h1>
-            <p className="flex gap-1 items-center">
+            {/* BREADCRUMB */}
+            <p className="flex gap-2 items-center">
               <span
                 className="text-primary cursor-pointer text-xs"
                 onClick={() => navigate('/dashboard')}
@@ -204,7 +250,7 @@ const Category = () => {
             </p>
           </header>
           <button
-            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary w-[128px] h-[32px]"
+            className="flex justify-center items-center text-[12.64px] rounded-md text-white px-2 bg-primary hover:bg-primary-dark transition-colors w-[128px] h-[32px]"
             onClick={handleOpenAddCategory}
           >
             Add New Category

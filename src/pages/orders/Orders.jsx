@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-import { ConfirmationModal, OrderDetails, OrderList } from '@components';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
+
+import { OrderDetails, OrderList, Confirm } from '@components';
 
 const dummyData = [
   {
@@ -307,21 +312,21 @@ const dummyData = [
 
 const Orders = () => {
   const [orders, setOrders] = useState(dummyData);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [trackingNumber, setTrackingNumber] = useState('');
 
-  const handleShowConfirmation = (id) => {
-    setSelectedOrderId(id);
-    setShowConfirmation((prev) => !prev);
-  };
-
-  const handleShowOrderDetails = (id) => {
-    setShowOrderDetails((prev) => !prev);
-    const order = orders.find((order) => order.id === id);
-    setSelectedOrder(showOrderDetails ? null : order);
+  const handleShowConfirmation = (data) => {
+    MySwal.fire({
+      html: (
+        <Confirm
+          action={() => handleCancelOrder(data.id)}
+          desc="Are you sure want to decline this order?"
+        />
+      ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
+      showConfirmButton: false,
+    });
   };
 
   const handleUpdateOrderStatus = (id, newStatus) => {
@@ -333,7 +338,6 @@ const Orders = () => {
   };
 
   const handleChangeStatus = (id, currentStatus) => {
-    setShowOrderDetails((prev) => !prev);
     const nextStatus = { created: 'process', process: 'completed' }[
       currentStatus
     ];
@@ -345,7 +349,7 @@ const Orders = () => {
 
   const handleCancelOrder = (id) => {
     handleUpdateOrderStatus(id, 'canceled');
-    setShowConfirmation(false);
+    Swal.close();
   };
 
   const handleTrackingNumberChange = (e) => {
@@ -356,24 +360,27 @@ const Orders = () => {
     console.log('Downloded');
   };
 
-  return (
-    <main className="w-full p-5 flex justify-center items-start">
-      {showConfirmation && (
-        <ConfirmationModal
-          id={selectedOrderId}
-          onCancelOrderHandler={handleCancelOrder}
-          onShowConfirmationHandler={handleShowConfirmation}
-        />
-      )}
-      {showOrderDetails && (
+  const handleShowOrderDetails = (id) => {
+    const order = orders.find((order) => order.id === id);
+    MySwal.fire({
+      html: (
         <OrderDetails
-          order={selectedOrder}
+          order={order}
           trackingNumber={trackingNumber}
           onChangeStatusHandler={handleChangeStatus}
-          onShowOrderDetailsHandler={handleShowOrderDetails}
           onTrackingNumberChangeHandler={handleTrackingNumberChange}
         />
-      )}
+      ),
+      customClass: {
+        popup: 'rounded-lg',
+      },
+      showConfirmButton: false,
+    });
+  };
+  console.log(trackingNumber);
+
+  return (
+    <main className="w-full p-5 flex justify-center items-start">
       <OrderList
         orders={orders}
         onDownloadHandler={handleDownload}
