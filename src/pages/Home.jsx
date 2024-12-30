@@ -13,26 +13,10 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import {
-  useGetBestSellerProductQuery,
-  useGetEarningsQuery,
-  useGetRevenueQuery,
-  useGetSummaryQuery,
-} from '@store/features/dashSlice';
-
 import { Card, Summary } from '@components';
 import { Items, Next } from '@icons';
 
 const Home = () => {
-  const { data: bestSellerData } = useGetBestSellerProductQuery();
-  const { data: earningData } = useGetEarningsQuery();
-  const { data: revenueData } = useGetRevenueQuery();
-  const { data: summaryData } = useGetSummaryQuery();
-  console.log(bestSellerData);
-  console.log(earningData);
-  console.log(revenueData);
-  console.log(summaryData);
-
   const summaryDataDummy = {
     users: '35k',
     orders: '40',

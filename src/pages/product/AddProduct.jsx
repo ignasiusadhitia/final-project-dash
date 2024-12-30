@@ -1,10 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Link } from 'react-router-dom';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import {
   ClassicEditor,
   Essentials,
@@ -19,10 +14,24 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
+import { useDropzone } from 'react-dropzone';
+import { Link, useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import 'ckeditor5/ckeditor5.css';
+import { Success } from '@components';
 import { AddButton, Delete, PlusButton } from '@icons';
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   const [productName, setProductName] = useState('');
   const [sku, setSku] = useState('');
   const [stock, setStock] = useState('');
@@ -37,7 +46,7 @@ const AddProduct = () => {
   const [tempVariantNames, setTempVariantNames] = useState([]);
   // Change the photo state to an array
   const [photos, setPhotos] = useState([]);
-  console.log(photos)
+  console.log(photos);
 
   // Update the onDrop callback
   const onDrop = useCallback((acceptedFiles) => {
@@ -59,6 +68,15 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate('/dashboard/products');
+    MySwal.fire({
+      html: <Success message="This product was successfully added" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
     console.log({
       productName,
       category,
@@ -78,36 +96,35 @@ const AddProduct = () => {
     }
   };
 
-
   const handleDeleteVariantName = (index) => {
     setVariantNames(variantNames.filter((_, i) => i !== index));
   };
 
-  const handleAddVariantValue = (variantName) => {
-    // Handle adding values for specific variant name
-    console.log(`Add value for ${variantName}`);
-  };
+  // const handleAddVariantValue = (variantName) => {
+  //   // Handle adding values for specific variant name
+  //   console.log(`Add value for ${variantName}`);
+  // };
 
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariants([
-      ...variants,
+    setVariant([
+      ...variant,
       {
         name: variantName,
-        value: variantValue,
+        // value: variantValue,
       },
     ]);
     setVariantName('');
-    setVariantValue('');
+    // setVariantValue('');
     setIsModalOpen(false);
   };
 
   // Add slider settings
   const sliderSettings = {
     dots: true,
-    className: "left",
+    className: 'left',
     infinite: false,
-    centerPadding: "10px",
+    centerPadding: '10px',
     slidesToShow: 4,
     swipeToSlide: true,
     responsive: [
@@ -115,17 +132,16 @@ const AddProduct = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-        }
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-        }
-      }
-    ]
+        },
+      },
+    ],
   };
-
 
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
@@ -243,16 +259,16 @@ const AddProduct = () => {
               {variantNames.length === 0 ? (
                 <div className="relative">
                   <input
+                    readOnly
                     className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
                     type="text"
                     value={variant}
-                    readOnly
                     onClick={() => setIsModalOpen(true)}
                   />
                   <button
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
                   >
                     <AddButton className="w-5 h-5 me-2" />
                     Add New Product Variant
@@ -264,7 +280,10 @@ const AddProduct = () => {
                     <div className="flex-1">
                       <div className="grid grid-cols-2 gap-4">
                         {variantNames.map((name, index) => (
-                          <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                          <div
+                            key={index}
+                            className="bg-gray-100 p-4 rounded-lg"
+                          >
                             <div className="flex items-center justify-between">
                               <span className="font-medium">{name}</span>
                             </div>
@@ -274,14 +293,16 @@ const AddProduct = () => {
                     </div>
                     <div>
                       <button
+                        className="p-2 bg-red-100 rounded-full hover:bg-red-200"
                         type="button"
                         onClick={() => setIsModalOpen(true)}
-                        className="p-2 bg-red-100 rounded-full hover:bg-red-200"                      >
+                      >
                         <PlusButton className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
-                </div>)}
+                </div>
+              )}
             </div>
 
             {/* Add Modal */}
@@ -303,8 +324,8 @@ const AddProduct = () => {
                           onChange={(e) => setVariantName(e.target.value)}
                         />
                         <button
-                          type='button'
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
+                          type="button"
                           onClick={() => handleAddVariantName}
                         >
                           <PlusButton className="w-6 h-6 " />
@@ -315,20 +336,22 @@ const AddProduct = () => {
                     {/* Variant Names List */}
                     <div className="space-y-2">
                       {tempVariantNames.map((vName, index) => (
-                        <div key={index} className="flex items-center justify-between bg-red-50 p-3 rounded">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between bg-red-50 p-3 rounded"
+                        >
                           <span className="font-medium">{vName}</span>
                           <div className="flex gap-2">
                             <button
+                              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
                               type="button"
                               onClick={() => handleDeleteVariantName(index)}
-                              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200"
                             >
                               <Delete className="w-4 h-4" />
                             </button>
                           </div>
                         </div>
                       ))}
-
                     </div>
 
                     <div className="flex justify-end gap-2">
@@ -450,28 +473,33 @@ const AddProduct = () => {
                   <div className="relative w-[200px] bg-gray-100 group rounded-lg">
                     <div className="relative w-full h-[150px] rounded-lg p-4">
                       <img
-                        src={URL.createObjectURL(photo)}
                         alt={`Product preview ${index + 1}`}
                         className="w-full h-full object-contain"
+                        src={URL.createObjectURL(photo)}
                       />
                       <button
-                        onClick={() => removePhoto(index)}
                         className="absolute top-2 right-2 bg-white text-white rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-red-600 transition-colors"
                         type="button"
+                        onClick={() => removePhoto(index)}
                       >
                         <Delete />
                       </button>
                       {defaultImageIndex === index && (
-                        <div className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
-                          style={{ background: 'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)' }}>
+                        <div
+                          className="absolute top-2 left-2 h-[25px] w-[50px] p-1 text-center text-xs text-white rounded-lg"
+                          style={{
+                            background:
+                              'linear-gradient(90deg, #C2A1FD 0%, #9154FD 100%)',
+                          }}
+                        >
                           Default
                         </div>
                       )}
                     </div>
                     <button
-                      onClick={() => setDefaultImageIndex(index)}
                       className="w-full h-[41px] rounded-b-lg bg-black text-white py-1 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       type="button"
+                      onClick={() => setDefaultImageIndex(index)}
                     >
                       Set as Default
                     </button>
@@ -481,16 +509,15 @@ const AddProduct = () => {
             </Slider>
           </div>
 
-
           <div className="flex justify-end space-x-4">
             <Link
-              className="border-2 border-red-500 hover:bg-re-400 text-black font-bold py-2 px-5  md:py-3 md:px-6 rounded text-sm md:text-base"
+              className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border border-primary text-primary hover:bg-primary hover:text-white transition-colors`}
               to="/dashboard/products"
             >
               Cancel
             </Link>
             <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded text-sm md:text-base"
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
               type="submit"
             >
               Add Product
