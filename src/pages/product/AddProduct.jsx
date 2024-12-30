@@ -79,12 +79,11 @@ const AddProduct = () => {
   };
 
 
-  // Ubah fungsi handleDeleteVariantName
   const handleDeleteVariantName = (index) => {
     setTempVariantNames(tempVariantNames.filter((_, i) => i !== index));
     setVariantNames(variantNames.filter((_, i) => i !== index));
   };
-  
+
 
 
   // Add this function to handle adding variants
@@ -119,11 +118,11 @@ const AddProduct = () => {
     ]
   };
 
-useEffect(() => {
-  if (isModalOpen) {
-    setTempVariantNames(variantNames);
-  }
-}, [isModalOpen]);
+  useEffect(() => {
+    if (isModalOpen) {
+      setTempVariantNames(variantNames);
+    }
+  }, [isModalOpen]);
 
 
 
