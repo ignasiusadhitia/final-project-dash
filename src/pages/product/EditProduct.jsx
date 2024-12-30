@@ -28,7 +28,14 @@ import 'ckeditor5/ckeditor5.css';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import { Success } from '@components';
-import { AddButton, Delete, PlusButton } from '@icons';
+import {
+  AddButton,
+  Delete,
+  PlusButton,
+  ArrowLeft,
+  ArrowRightSmall,
+  ArrowDownGray,
+} from '@icons';
 
 const EditProduct = () => {
   const navigate = useNavigate();
@@ -163,40 +170,31 @@ const EditProduct = () => {
   };
 
   return (
-    <div className="bg-gray-100 mx-auto my-10 p-4 md:p-8 lg:p-12 w-full">
-      <div className="container bg-white p-5 md:p-8 rounded-lg shadow-lg max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-            Edit Product
-          </h1>
+    <div className="w-full p-5 flex justify-center items-start">
+      <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
+        <div className="flex items-center gap-4">
+          <Link to="/dashboard/products">
+            <ArrowLeft />
+          </Link>
+          <h1 className="text-lg font-medium">Edit Product</h1>
         </div>
 
-        <nav aria-label="Breadcrumb" className="flex mb-5">
+        <nav aria-label="Breadcrumb" className="flex mt-2 mb-5">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
               <Link
-                className="inline-flex items-center text-red-500 hover:text-red-300 text-sm md:text-base"
-                to="/"
+                className="inline-flex items-center text-primary text-xs"
+                to="/dashboard"
               >
                 Home
               </Link>
             </li>
             <li>
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
+                <ArrowRightSmall />
                 <Link
-                  className="text-red-500 hover:text-red-300 text-sm md:text-base"
-                  to="/product"
+                  className="text-primary text-xs font-normal"
+                  to="/dashboard/products"
                 >
                   Product
                 </Link>
@@ -204,18 +202,8 @@ const EditProduct = () => {
             </li>
             <li aria-current="page">
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="ml-1 text-red-500 md:ml-2 text-sm md:text-base">
+                <ArrowRightSmall />
+                <span className="text-primary text-xs font-normal">
                   Edit Product
                 </span>
               </div>
@@ -224,67 +212,69 @@ const EditProduct = () => {
         </nav>
 
         {/* Form content identical to AddProduct.jsx but with pre-filled values */}
-        <form className="max-w-4xl mx-auto" onSubmit={handleSubmit}>
+        <form className="pt-6 border-t" onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Product Name
-              </label>
+              <label className="block text-[14.22px] mb-5">Product Name</label>
               <input
                 required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0"
                 placeholder="Enter Product Name"
                 type="text"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
               />
             </div>
+
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Category
               </label>
-              <select
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option disabled value="">
-                  Enter Product Category
-                </option>
-                <option value="electronics">Electronics</option>
-                <option value="clothing">Clothing</option>
-                <option value="accessories">Accessories</option>
-              </select>
+              <div className="relative w-full">
+                <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
+                <select
+                  required
+                  className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option disabled value="">
+                    Enter Product Category
+                  </option>
+                  <option value="electronics">Electronics</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+              </div>
             </div>
+
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                SKU Product
-              </label>
+              <label className="block text-[14.22px] mb-5">SKU Product</label>
               <input
                 required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter SKU Product"
                 type="text"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
               />
             </div>
+
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Variant
               </label>
               {variantNames.length === 0 ? (
                 <div className="relative">
                   <input
                     readOnly
-                    className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                    className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                     type="text"
                     value={variant}
                     onClick={() => setIsModalOpen(true)}
                   />
                   <button
-                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-primary hover:text-primary-dark"
                     type="button"
                     onClick={() => setIsModalOpen(true)}
                   >
@@ -300,7 +290,7 @@ const EditProduct = () => {
                         {variantNames.map((name, index) => (
                           <div
                             key={index}
-                            className="bg-gray-100 p-4 rounded-lg"
+                            className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                           >
                             <div className="flex items-center justify-between">
                               <span className="font-medium">{name}</span>
@@ -394,12 +384,10 @@ const EditProduct = () => {
             )}
 
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Initial Stock
-              </label>
+              <label className="block text-[14.22px] mb-5">Initial Stock</label>
               <input
                 required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Initial Stock"
                 type="number"
                 value={stock}
@@ -407,12 +395,10 @@ const EditProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Price
-              </label>
+              <label className="block text-[14.22px] mb-5">Price</label>
               <input
                 required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Price"
                 type="number"
                 value={price}
@@ -421,9 +407,7 @@ const EditProduct = () => {
             </div>
           </div>
           <div className="mb-4 col-span-2">
-            <label className="block text-sm md:text-base font-medium mb-1">
-              Description
-            </label>
+            <label className="block text-[14.22px] mb-5">Description</label>
             <CKEditor
               config={{
                 licenseKey: 'GPL',
@@ -529,13 +513,13 @@ const EditProduct = () => {
 
           <div className="flex justify-end space-x-4">
             <Link
-              className="border-2 border-red-500 hover:bg-red-400 text-black font-bold py-2 px-5 md:py-3 md:px-6 rounded text-sm md:text-base"
+              className="flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
               to="/dashboard/products"
             >
               Cancel
             </Link>
             <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded text-sm md:text-base"
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
               type="submit"
             >
               Save
