@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 
 import { DatePicker } from 'antd';
 import { useDropzone } from 'react-dropzone';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
+import { Success } from '@components';
 import {
   ArrowLeft,
   ArrowRightSmall,
@@ -15,6 +20,7 @@ import {
 } from '@icons';
 
 const BannerForm = () => {
+  const navigate = useNavigate();
   const location = useLocation().pathname.split('/');
   const page = location[location.length - 2];
   const { id } = useParams();
@@ -36,6 +42,31 @@ const BannerForm = () => {
     setUploadedFiles(
       uploadedFiles.filter((item) => item.lastModified !== lastModified)
     );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(-1);
+    // Handle form submission here
+    if (id) {
+      MySwal.fire({
+        html: <Success message="This banner was successfully updated" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      MySwal.fire({
+        html: <Success message="This banner was successfully added" />,
+        customClass: {
+          popup: 'rounded-3xl w-auto md:w-[720px]',
+        },
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
   };
 
   const isDetailPage = page === 'detail';
@@ -76,7 +107,7 @@ const BannerForm = () => {
       </div>
 
       <div className="py-6 flex flex-col gap-6 border-t border-surface-border">
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="name">
               Banner Name
@@ -111,7 +142,7 @@ const BannerForm = () => {
           </div>
         </div>
 
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="end-date">
               End Date
@@ -146,7 +177,7 @@ const BannerForm = () => {
           </div>
         </div>
 
-        <div className="flex w-full gap-12">
+        <div className="flex flex-col md:flex-row w-full gap-6 md:gap-12">
           <div className="flex flex-col gap-5 w-full">
             <label className="text-[14.22px]" htmlFor="type">
               Banner Type
@@ -216,19 +247,22 @@ const BannerForm = () => {
       </div>
 
       <div className="flex justify-end">
-        <div className="flex gap-5">
+        <form className="flex gap-5" onSubmit={handleSubmit}>
           <Link
-            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary'}`}
+            className={`flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border ${isDetailPage ? 'bg-type-text-light text-white' : 'border-primary text-primary hover:bg-primary transition-colors hover:text-white'}`}
             to="/dashboard/banners"
           >
             {isDetailPage ? 'Close' : 'Cancle'}
           </Link>
           {!isDetailPage && (
-            <button className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white">
+            <button
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
+              type="submit"
+            >
               {id ? 'Save' : 'Add Banner'}
             </button>
           )}
-        </div>
+        </form>
       </div>
     </div>
   );
