@@ -93,8 +93,6 @@ const AddProduct = () => {
   const handleAddVariant = () => {
     setVariantNames([...variantNames, ...tempVariantNames]);
     setTempVariantNames([]);
-    setVariantNames([...variantNames, ...tempVariantNames]);
-    setTempVariantNames([]);
     setIsModalOpen(false);
   };
 
@@ -312,6 +310,7 @@ const AddProduct = () => {
                         />
                         <button
                           type='button'
+                          onClick={handleAddVariantName}
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                         >
                           <PlusButton className="w-6 h-6 " />
