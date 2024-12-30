@@ -102,7 +102,7 @@ const PromotionForm = () => {
     } else {
       const newPromotion = {
         ...formData,
-        id: 100,
+        id: Math.random().toString(36).substring(2, 9),
         startDate: formData.startDate.format('DD/MM/YYYY'),
         endDate: formData.endDate.format('DD/MM/YYYY'),
       };
@@ -168,6 +168,7 @@ const PromotionForm = () => {
             <div className="relative w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
+                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="promotionType"
@@ -190,6 +191,7 @@ const PromotionForm = () => {
                 Voucher Code
               </label>
               <input
+                required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
                 disabled={isDetailPage}
                 id="voucherCode"
@@ -207,6 +209,7 @@ const PromotionForm = () => {
               Promotion Name
             </label>
             <input
+              required
               className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="promotionName"
@@ -226,6 +229,7 @@ const PromotionForm = () => {
             <div className="relative z-0 w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
+                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="product"
@@ -267,6 +271,7 @@ const PromotionForm = () => {
               Start Date
             </label>
             <DatePicker
+              required
               className="bg-surface-background hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="startDate"
@@ -290,6 +295,7 @@ const PromotionForm = () => {
               End Date
             </label>
             <DatePicker
+              required
               className="bg-surface-background hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="endDate"
@@ -315,6 +321,7 @@ const PromotionForm = () => {
             <div className="relative w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
+                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="discount"
@@ -337,6 +344,7 @@ const PromotionForm = () => {
               Promotion Usage Limit
             </label>
             <input
+              required
               className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="promotionLimit"
@@ -352,6 +360,7 @@ const PromotionForm = () => {
             <div className="flex flex-col justify-center gap-5 w-full col-span-2">
               <label className="flex items-center gap-3 text-base text-[#101010]">
                 <input
+                  required
                   checked={formData.showVoucherCode}
                   className="w-5 h-5 border-none outline-none ring-none appearance-none checked:appearance-auto rounded border-surface-border bg-[#E6E6E6] focus:ring-0"
                   disabled={isDetailPage}
