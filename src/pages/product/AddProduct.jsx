@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
@@ -79,28 +79,21 @@ const AddProduct = () => {
   };
 
 
+  // Ubah fungsi handleDeleteVariantName
   const handleDeleteVariantName = (index) => {
+    setTempVariantNames(tempVariantNames.filter((_, i) => i !== index));
     setVariantNames(variantNames.filter((_, i) => i !== index));
   };
+  
 
-  const handleAddVariantValue = (variantName) => {
-    // Handle adding values for specific variant name
-    console.log(`Add value for ${variantName}`);
-  };
 
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariants([
-      ...variants,
-      {
-        name: variantName,
-        value: variantValue,
-      },
-    ]);
-    setVariantName('');
-    setVariantValue('');
+    setVariantNames([...variantNames, ...tempVariantNames]);
+    setTempVariantNames([]);
     setIsModalOpen(false);
   };
+
 
   // Add slider settings
   const sliderSettings = {
@@ -126,13 +119,20 @@ const AddProduct = () => {
     ]
   };
 
+useEffect(() => {
+  if (isModalOpen) {
+    setTempVariantNames(variantNames);
+  }
+}, [isModalOpen]);
+
+
 
   return (
     <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
       <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
         <div className="flex items-center gap-3 mb-4">
-          <button 
-            onClick={() => window.history.back()} 
+          <button
+            onClick={() => window.history.back()}
             className="flex items-center text-gray-600 hover:text-gray-800"
           >
             <ArrowLeft className="w-6 h-6 mr-2" />
@@ -311,7 +311,7 @@ const AddProduct = () => {
                         <button
                           type='button'
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
-                          onClick={() => handleAddVariantName}
+                          onClick={handleAddVariantName}
                         >
                           <PlusButton className="w-6 h-6 " />
                         </button>
@@ -346,12 +346,14 @@ const AddProduct = () => {
                         Cancel
                       </button>
                       <button
-                        className="bg-red-500 text-white px-4 py-2 rounded-md"
+                        className={`bg-red-500 text-white px-4 py-2 rounded-md ${tempVariantNames.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-600'}`}
                         type="button"
                         onClick={handleAddVariant}
+                        disabled={tempVariantNames.length === 0}
                       >
                         Add Variant
                       </button>
+
                     </div>
                   </div>
                 </div>
@@ -433,9 +435,8 @@ const AddProduct = () => {
             </label>
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${
-                isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
-              }`}
+              className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${isDragActive ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                }`}
             >
               <input {...getInputProps()} multiple />
               <div>
