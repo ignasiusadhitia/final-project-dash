@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import {
   ClassicEditor,
   Essentials,
@@ -18,7 +14,15 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
+import { Link, useParams } from 'react-router-dom';
+import Slider from 'react-slick';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import 'ckeditor5/ckeditor5.css';
+import { ArrowLeft, ArrowRightSmall } from '@icons';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -30,29 +34,29 @@ const ProductDetail = () => {
     price: '',
     description: '',
     variantNames: [],
-    photos: []
+    photos: [],
   });
 
   useEffect(() => {
     // Simulate fetching product data
     const mockProduct = {
-      productName: "Test Product",
-      sku: "SKU123",
+      productName: 'Test Product',
+      sku: 'SKU123',
       stock: 100,
-      category: "electronics",
+      category: 'electronics',
       price: 999,
-      description: "<p>Product description</p>",
-      variantNames: ["Size", "Color"],
-      photos: []
+      description: '<p>Product description</p>',
+      variantNames: ['Size', 'Color'],
+      photos: [],
     };
     setProductData(mockProduct);
   }, [id]);
 
   const sliderSettings = {
     dots: true,
-    className: "center",
+    className: 'center',
     infinite: false,
-    centerPadding: "10px",
+    centerPadding: '10px',
     slidesToShow: 4,
     swipeToSlide: true,
     responsive: [
@@ -60,31 +64,32 @@ const ProductDetail = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-        }
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-        }
-      }
-    ]
+        },
+      },
+    ],
   };
 
   return (
-    <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
-      <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-            Product Detail
-          </h1>
+    <div className="w-full p-5 flex justify-center items-start">
+      <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
+        <div className="flex items-center gap-4">
+          <Link to="/dashboard/products">
+            <ArrowLeft />
+          </Link>
+          <h1 className="text-lg font-medium">Product Detail</h1>
         </div>
 
-        <nav aria-label="Breadcrumb" className="flex mb-5">
+        <nav aria-label="Breadcrumb" className="flex mt-2 mb-5">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
               <Link
-                className="inline-flex items-center text-red-500 hover:text-red-300 text-sm md:text-base"
+                className="inline-flex items-center text-primary text-xs"
                 to="/dashboard"
               >
                 Home
@@ -92,19 +97,9 @@ const ProductDetail = () => {
             </li>
             <li>
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
+                <ArrowRightSmall />
                 <Link
-                  className="text-red-500 hover:text-red-300 text-sm md:text-base"
+                  className="text-primary text-xs font-normal"
                   to="/dashboard/products"
                 >
                   Product
@@ -113,18 +108,8 @@ const ProductDetail = () => {
             </li>
             <li aria-current="page">
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="ml-1 text-red-500 md:ml-2 text-sm md:text-base">
+                <ArrowRightSmall />
+                <span className="text-primary text-xs font-normal">
                   Product Detail
                 </span>
               </div>
@@ -132,80 +117,70 @@ const ProductDetail = () => {
           </ol>
         </nav>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="pt-6 border-t">
           <div className="grid md:grid-cols-2 gap-6">
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Product Name
-              </label>
+              <label className="block text-[14.22px] mb-5">Product Name</label>
               <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100 cursor-not-allowed"
-                value={productData.productName}
                 disabled
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0 cursor-not-allowed"
+                value={productData.productName}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Category
               </label>
               <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100 cursor-not-allowed"
+                disabled
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0 cursor-not-allowed"
                 value={productData.category}
-                disabled
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                SKU Product
-              </label>
+              <label className="block text-[14.22px] mb-5">SKU Product</label>
               <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100 cursor-not-allowed"
-                value={productData.sku}
                 disabled
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0 cursor-not-allowed"
+                value={productData.sku}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Variant
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {productData.variantNames.map((name, index) => (
-                  <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                  <div
+                    key={index}
+                    className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
+                  >
                     <span className="font-medium">{name}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Initial Stock
-              </label>
+              <label className="block text-[14.22px] mb-5">Initial Stock</label>
               <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100 cursor-not-allowed"
-                value={productData.stock}
                 disabled
+                className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full cursor-not-allowed"
+                value={productData.stock}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Price
-              </label>
+              <label className="block text-[14.22px] mb-5">Price</label>
               <input
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100 cursor-not-allowed"
-                value={productData.price}
                 disabled
+                className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full cursor-not-allowed"
+                value={productData.price}
               />
             </div>
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm md:text-base font-medium mb-1">
-              Description
-            </label>
+            <label className="block text-[14.22px] mb-5">Description</label>
             <CKEditor
-              editor={ClassicEditor}
-              data={productData.description}
-              disabled={true}
               config={{
                 licenseKey: 'GPL',
                 plugins: [
@@ -234,12 +209,15 @@ const ProductDetail = () => {
                 ],
                 shouldNotGroupWhenFull: true,
               }}
+              data={productData.description}
+              disabled={true}
+              editor={ClassicEditor}
             />
           </div>
 
           {productData.photos.length > 0 && (
             <div className="mt-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Photos
               </label>
               <Slider {...sliderSettings}>
@@ -248,9 +226,9 @@ const ProductDetail = () => {
                     <div className="relative w-[200px] bg-gray-100 rounded-lg">
                       <div className="relative w-full h-[150px] rounded-lg p-4">
                         <img
-                          src={photo.url}
                           alt={`Product ${index + 1}`}
                           className="w-full h-full object-contain"
+                          src={photo.url}
                         />
                       </div>
                     </div>
@@ -262,8 +240,8 @@ const ProductDetail = () => {
 
           <div className="flex justify-end mt-8">
             <Link
+              className="flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border bg-type-text-light text-white transition-colors"
               to="/dashboard/products"
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded text-sm md:text-base"
             >
               Back
             </Link>
