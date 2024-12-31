@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
+// SWAL
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
-import { LeftChevron, RightChevron, Delete, Details, Edit } from '@icons';
+import { Confirm, Success } from '@components';
+import { Trash, Eyes, Pen, ArrowRightSmall, ArrowSorting } from '@icons';
 
 const initialProducts = [
   {
@@ -122,6 +126,7 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
+  // Publish Modal
   const handlePublishToggle = (productId) => {
     setProducts(
       products.map((product) =>
@@ -130,32 +135,81 @@ const Product = () => {
           : product
       )
     );
+    MySwal.fire({
+      html: <Success message="This product was successfully unpublished" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+  const handlePublishModal = (data) => {
+    if (data.published) {
+      MySwal.fire({
+        html: (
+          <Confirm
+            action={() => handlePublishToggle(data.id)}
+            desc="Are you sure want to unpublish this product?"
+            publish={true}
+          />
+        ),
+        customClass: {
+          popup: 'rounded-3xl py-10',
+        },
+        showConfirmButton: false,
+      });
+    } else {
+      handlePublishToggle(data.id);
+    }
   };
 
   // Replace the existing handleDelete function with this:
   const handleDelete = (productId) => {
-    Swal.fire({
-      title: 'Delete Product?',
-      text: 'Are you sure you want to delete this product?',
-      iconHtml:
-        '<i class="w-20 h-20 text-red-500 rounded-full p-1" style="background-color: transparent; border: none;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></i>',
+    setProducts(products.filter((product) => product.id !== productId));
+    MySwal.fire({
+      html: <Success message="This product was successfully deleted" />,
       customClass: {
-        icon: 'border: 3px solid #EF4444',
+        popup: 'rounded-3xl w-auto md:w-[720px]',
       },
-      showCancelButton: true,
-      confirmButtonColor: '#EF4444',
-      cancelButtonColor: '#6B7280',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setProducts(products.filter((product) => product.id !== productId));
-        Swal.fire({
-          title: 'This product was successfully deleted!',
-          icon: 'success',
-          confirmButtonColor: '#EF4444',
-        });
-      }
+      showConfirmButton: false,
+      timer: 1000,
     });
+  };
+  const handleDeleteModal = (data) => {
+    MySwal.fire({
+      html: (
+        <Confirm
+          action={() => handleDelete(data.id)}
+          desc="Are you sure want to delete this product?"
+          publish={false}
+          title="Delete Product?"
+        />
+      ),
+      customClass: {
+        popup: 'rounded-3xl py-10',
+      },
+      showConfirmButton: false,
+    });
+  };
+
+  // Sorting product
+  const [sortConfig, setSortConfig] = useState({
+    key: 'name',
+    direction: 'ascending',
+  });
+  const sortData = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sortedData = [...products].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setProducts(sortedData);
+    setSortConfig({ key, direction });
   };
 
   const totalItems = products.length;
@@ -165,13 +219,12 @@ const Product = () => {
   const currentProducts = products.slice(startIndex, endIndex);
 
   return (
-    <div className="bg-gray-100 mx-auto my-10 p-4">
-      <div className="container bg-white p-5 rounded-lg shadow-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-semibold">Product</h1>
-
+    <div className="w-full p-5 flex justify-center items-start">
+      <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
+        <div className="flex justify-between items-center mb-2">
+          <h1 className="text-[25.63px] font-bold">Product</h1>
           <Link to="add">
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            <button className="bg-primary hover:bg-red-dark text-white px-2 w-[132px] h-[32px] rounded-md text-[12.64px]">
               Add New Product
             </button>
           </Link>
@@ -181,47 +234,81 @@ const Product = () => {
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
               <Link
-                className="inline-flex items-center text-red-500 hover:text-red-300"
-                to="/"
+                className="inline-flex items-center text-primary text-xs"
+                to="/dashboard"
               >
                 Home
               </Link>
             </li>
             <li aria-current="page">
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="ml-1 text-red-500 md:ml-2">Product</span>
+                <ArrowRightSmall />
+                <span className="ml-1 text-primary text-xs md:ml-2">
+                  Product
+                </span>
               </div>
             </li>
           </ol>
         </nav>
+
         <div className="overflow-x-auto">
           <table className="min-w-full leading-normal">
             <thead>
               <tr className="text-left mb-20 text-sm">
-                <th className="px-5 py-3 whitespace-nowrap">Product Name</th>
-                <th className="px-5 py-3 whitespace-nowrap">SKU Product</th>
-                <th className="px-5 py-3 whitespace-nowrap">Stock Product</th>
-                <th className="px-5 py-3 whitespace-nowrap">Category</th>
-                <th className="px-5 py-3 whitespace-nowrap">Price</th>
-                <th className="px-5 py-3 whitespace-nowrap">Published</th>
-                <th className="px-5 py-3 whitespace-nowrap">Action</th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('name')}
+                  >
+                    Product Name <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('sku')}
+                  >
+                    SKU Product <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('stock')}
+                  >
+                    Stock Product <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('category')}
+                  >
+                    Category <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('price')}
+                  >
+                    Price <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => sortData('published')}
+                  >
+                    Published <ArrowSorting />
+                  </button>
+                </th>
+                <th className="px-4 py-2 text-start">Action</th>
               </tr>
             </thead>
             <tbody>
               {currentProducts.map((product, index) => (
-                <tr key={index} className="hover:bg-gray-50">
+                <tr key={index}>
                   <td className="border-b px-4 py-2 text-xs text-black/60">
                     {product.name}
                   </td>
@@ -238,86 +325,109 @@ const Product = () => {
                     {product.price}
                   </td>
                   <td className="px-5 border-b border-gray-200">
-                    <div className="flex justify-center items-center">
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          checked={product.published}
-                          className="sr-only peer"
-                          type="checkbox"
-                          onChange={() => handlePublishToggle(product.id)}
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
-                      </label>
-                    </div>
+                    <button
+                      className={`p-[2px] w-10 h-[22px] rounded-full  transition-all ${
+                        product.published ? 'bg-primary' : 'bg-[#D2D2D2]'
+                      }`}
+                      onClick={() => handlePublishModal(product)}
+                    >
+                      <div
+                        className={` h-[18px] w-[18px] rounded-full bg-white transition-all ${
+                          product.published && 'translate-x-full'
+                        }`}
+                      ></div>
+                    </button>
                   </td>
 
-                  <td className="px-5 py-2 border-b border-gray-200 flex justify-start items-center space-x-4">
-                    <button
-                      className="text-blue-500 hover:text-blue-700"
-                      onClick={() => navigate(`${product.id}`)}
-                    >
-                      <Details />
-                    </button>
-                    <button
-                      className="text-blue-500 hover:text-blue-700"
-                      onClick={() => navigate(`edit/${product.id}`)}
-                    >
-                      <Edit />
-                    </button>
-                    <button
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      <Delete />
-                    </button>
+                  <td className="px-5 py-2 border-b border-gray-200 text-type-text-light">
+                    <div className="flex justify-start items-center space-x-3 lg:space-x-5">
+                      <button onClick={() => navigate(`${product.id}`)}>
+                        <Eyes />
+                      </button>
+                      <button onClick={() => navigate(`edit/${product.id}`)}>
+                        <Pen />
+                      </button>
+                      <button onClick={() => handleDeleteModal(product)}>
+                        <Trash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="flex justify-between items-center px-5 py-3 ">
-            <div className="text-sm text-gray-700">
-              {startIndex + 1}-{endIndex} of {totalItems}
+        </div>
+
+        <div className="flex flex-col lg:flex-row items-center justify-between mt-4 py-4">
+          <div className="text-sm text-type-text-light font-medium">
+            {startIndex + 1}-{endIndex} of {totalItems}
+          </div>
+          <div className="flex justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-type-text-light">
+                Rows per page:
+              </span>
+              <select
+                className="text-type-text-light px-1"
+                value={rowsPerPage}
+                onChange={(e) => {
+                  setRowsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center me-4">
-                <span className="mr-2 text-sm text-gray-700">
-                  Rows per page:
-                </span>
-                <select
-                  className="border rounded px-2 py-1"
-                  value={rowsPerPage}
-                  onChange={(e) => {
-                    setRowsPerPage(Number(e.target.value));
-                    setCurrentPage(1);
-                  }}
+            <div className="flex items-center space-x-2">
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={20}>20</option>
-                </select>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  className={`px-2 py-1 rounded-lg border ${currentPage === 1 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
-                  disabled={currentPage === 1}
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  <path
+                    d="M9.5 11.5938L6.5 8.59375L9.5 5.59375"
+                    stroke={currentPage === 1 ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </button>
+              <span className="text-sm text-[#171C26]">
+                {currentPage}/{totalPages}
+              </span>
+              <button
+                className="p-1 px-2 rounded-lg border"
+                disabled={currentPage === totalPages}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+              >
+                <svg
+                  fill="none"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <LeftChevron className="w-4 h-4" />
-                </button>
-                <span className="text-sm text-gray-700">
-                  {currentPage}/{totalPages}
-                </span>
-                <button
-                  className={`px-2 py-1 rounded-lg border ${currentPage === totalPages ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
-                  disabled={currentPage === totalPages}
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                >
-                  <RightChevron className="w-4 h-4" />
-                </button>
-              </div>
+                  <path
+                    d="M6.5 11.5938L9.5 8.59375L6.5 5.59375"
+                    stroke={currentPage === totalPages ? '#A1A9B8' : '#464F60'}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

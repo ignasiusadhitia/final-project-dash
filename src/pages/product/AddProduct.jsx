@@ -1,13 +1,5 @@
 import React, { useState, useCallback } from 'react';
 
-import { useDropzone } from 'react-dropzone';
-import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-
 import {
   ClassicEditor,
   Essentials,
@@ -22,11 +14,31 @@ import {
   Alignment,
   Font,
 } from 'ckeditor5';
+import { useDropzone } from 'react-dropzone';
+import { Link, useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+// SWAL
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import 'ckeditor5/ckeditor5.css';
-import { AddButton, Delete, PlusButton } from '@icons';
+import { Success } from '@components';
+import {
+  AddButton,
+  Delete,
+  PlusButton,
+  ArrowLeft,
+  ArrowRightSmall,
+  ArrowDownGray,
+} from '@icons';
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   const [productName, setProductName] = useState('');
   const [sku, setSku] = useState('');
   const [stock, setStock] = useState('');
@@ -63,6 +75,15 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate('/dashboard/products');
+    MySwal.fire({
+      html: <Success message="This product was successfully added" />,
+      customClass: {
+        popup: 'rounded-3xl w-auto md:w-[720px]',
+      },
+      showConfirmButton: false,
+      timer: 1000,
+    });
     console.log({
       productName,
       category,
@@ -83,34 +104,23 @@ const AddProduct = () => {
   };
 
   const handleDeleteVariantName = (index) => {
+    setTempVariantNames(tempVariantNames.filter((_, i) => i !== index));
     setVariantNames(variantNames.filter((_, i) => i !== index));
-  };
-
-  const handleAddVariantValue = (variantName) => {
-    // Handle adding values for specific variant name
-    console.log(`Add value for ${variantName}`);
   };
 
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariants([
-      ...variants,
-      {
-        name: variantName,
-        value: variantValue,
-      },
-    ]);
-    setVariantName('');
-    setVariantValue('');
+    setVariantNames([...variantNames, ...tempVariantNames]);
+    setTempVariantNames([]);
     setIsModalOpen(false);
   };
 
   // Add slider settings
   const sliderSettings = {
-    dots: true,
+    dots: false,
     className: 'left',
     infinite: false,
-    centerPadding: '10px',
+    centerPadding: '0px',
     slidesToShow: 4,
     swipeToSlide: true,
     responsive: [
@@ -130,41 +140,31 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="bg-gray-100 mx-auto my-10 p-4 md:p-5 w-full">
-      <div className="bg-white p-5 md:p-8 rounded-lg shadow-lg mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-            Add Product
-          </h1>
+    <div className="w-full p-5 flex justify-center items-start overflow-hidden">
+      <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
+        <div className="flex items-center gap-4">
+          <Link to="/dashboard/products">
+            <ArrowLeft />
+          </Link>
+          <h1 className="text-lg font-medium">Add Product</h1>
         </div>
 
-        <nav aria-label="Breadcrumb" className="flex mb-5">
+        <nav aria-label="Breadcrumb" className="flex mt-2 mb-5">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
               <Link
-                className="inline-flex items-center text-red-500 hover:text-red-300 text-sm md:text-base"
-                to="/"
+                className="inline-flex items-center text-primary text-xs"
+                to="/dashboard"
               >
                 Home
               </Link>
             </li>
             <li>
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
+                <ArrowRightSmall />
                 <Link
-                  className="text-red-500 hover:text-red-300 text-sm md:text-base"
-                  to="/product"
+                  className="text-primary text-xs font-normal"
+                  to="/dashboard/products"
                 >
                   Product
                 </Link>
@@ -172,19 +172,8 @@ const AddProduct = () => {
             </li>
             <li aria-current="page">
               <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="ml-1 text-red-500 md:ml-2 text-sm md:text-base">
+                <ArrowRightSmall />
+                <span className="text-primary text-xs font-normal">
                   Add Product
                 </span>
               </div>
@@ -192,15 +181,13 @@ const AddProduct = () => {
           </ol>
         </nav>
 
-        <form className="max-w-4xl mx-auto" onSubmit={handleSubmit}>
+        <form className="pt-6 border-t" onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Product Name
-              </label>
+              <label className="block text-[14.22px] mb-5">Product Name</label>
               <input
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                // required
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0"
                 placeholder="Enter Product Name"
                 type="text"
                 value={productName}
@@ -208,51 +195,54 @@ const AddProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Category
               </label>
-              <select
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option disabled value="">
-                  Enter Product Category
-                </option>
-                <option value="electronics">Electronics</option>
-                <option value="clothing">Clothing</option>
-                <option value="accessories">Accessories</option>
-              </select>
+              <div className="relative w-full">
+                <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
+                <select
+                  // required
+                  className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option disabled value="">
+                    Enter Product Category
+                  </option>
+                  <option value="electronics">Electronics</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+              </div>
             </div>
+
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                SKU Product
-              </label>
+              <label className="block text-[14.22px] mb-5">SKU Product</label>
               <input
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                // required
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter SKU Product"
                 type="text"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
               />
             </div>
+
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
+              <label className="block text-[14.22px] mb-5">
                 Product Variant
               </label>
               {variantNames.length === 0 ? (
                 <div className="relative">
                   <input
                     readOnly
-                    className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                    className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                     type="text"
                     value={variant}
                     onClick={() => setIsModalOpen(true)}
                   />
                   <button
-                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-red-500 hover:text-red-600"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 text-primary hover:text-primary-dark"
                     type="button"
                     onClick={() => setIsModalOpen(true)}
                   >
@@ -268,7 +258,7 @@ const AddProduct = () => {
                         {variantNames.map((name, index) => (
                           <div
                             key={index}
-                            className="bg-gray-100 p-4 rounded-lg"
+                            className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                           >
                             <div className="flex items-center justify-between">
                               <span className="font-medium">{name}</span>
@@ -312,7 +302,7 @@ const AddProduct = () => {
                         <button
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                           type="button"
-                          onClick={() => handleAddVariantName}
+                          onClick={handleAddVariantName}
                         >
                           <PlusButton className="w-6 h-6 " />
                         </button>
@@ -362,12 +352,10 @@ const AddProduct = () => {
             )}
 
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Initial Stock
-              </label>
+              <label className="block text-[14.22px] mb-5">Initial Stock</label>
               <input
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                // required
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Initial Stock"
                 type="number"
                 value={stock}
@@ -375,12 +363,10 @@ const AddProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm md:text-base font-medium mb-1">
-                Price
-              </label>
+              <label className="block text-[14.22px] mb-5">Price</label>
               <input
-                required
-                className="border rounded-md w-full p-2 md:p-3 bg-gray-100"
+                // required
+                className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Price"
                 type="number"
                 value={price}
@@ -389,9 +375,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="mb-4 col-span-2">
-            <label className="block text-sm md:text-base font-medium mb-1">
-              Description
-            </label>
+            <label className="block text-[14.22px] mb-5">Description</label>
             <CKEditor
               config={{
                 licenseKey: 'GPL',
@@ -431,9 +415,7 @@ const AddProduct = () => {
 
           {/* product photo */}
           <div className="mb-4 w-1/2 bg-gray-100 p-5 rounded-lg">
-            <label className="block text-sm md:text-base font-medium mb-1">
-              Product Photo
-            </label>
+            <label className="block text-[14.22px] mb-5">Product Photo</label>
             <div
               {...getRootProps()}
               className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${
@@ -452,7 +434,7 @@ const AddProduct = () => {
             </div>
           </div>
           {/* Image Preview Section */}
-          <div className="mt-4">
+          <div className="my-4">
             <Slider {...sliderSettings}>
               {photos.map((photo, index) => (
                 <div key={index} className="px-2">
@@ -497,13 +479,13 @@ const AddProduct = () => {
 
           <div className="flex justify-end space-x-4">
             <Link
-              className="border-2 border-red-500 hover:bg-re-400 text-black font-bold py-2 px-5  md:py-3 md:px-6 rounded text-sm md:text-base"
+              className="flex justify-center items-center rounded-lg w-[100px] text-[12.64px] h-8 border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
               to="/dashboard/products"
             >
               Cancel
             </Link>
             <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded text-sm md:text-base"
+              className="rounded-lg w-[100px] h-8 bg-primary text-[12.64px] text-white hover:bg-primary-dark transition-colors"
               type="submit"
             >
               Add Product
