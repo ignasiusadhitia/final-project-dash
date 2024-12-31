@@ -168,11 +168,11 @@ const PromotionForm = () => {
             <div className="relative w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
-                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="promotionType"
                 name="promotionType"
+                required={!id}
                 value={formData.promotionType}
                 onChange={handleChange}
               >
@@ -191,12 +191,12 @@ const PromotionForm = () => {
                 Voucher Code
               </label>
               <input
-                required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
                 disabled={isDetailPage}
                 id="voucherCode"
                 name="voucherCode"
                 placeholder="Enter Voucher Code"
+                required={!id}
                 type="text"
                 value={formData.voucherCode}
                 onChange={handleChange}
@@ -209,12 +209,12 @@ const PromotionForm = () => {
               Promotion Name
             </label>
             <input
-              required
               className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="promotionName"
               name="promotionName"
               placeholder="Enter Promotion Name"
+              required={!id}
               type="text"
               value={formData.promotionName}
               onChange={handleChange}
@@ -229,11 +229,11 @@ const PromotionForm = () => {
             <div className="relative z-0 w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
-                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="product"
                 name="product"
+                required={!id}
                 value={formData.product}
                 onChange={handleChange}
               >
@@ -271,12 +271,12 @@ const PromotionForm = () => {
               Start Date
             </label>
             <DatePicker
-              required
               className="bg-surface-background hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="startDate"
               name="startDate"
               placeholder="Select Start Date"
+              required={!id}
               style={{
                 border: '1px solid #DBDCDE',
                 outline: 'none',
@@ -295,12 +295,12 @@ const PromotionForm = () => {
               End Date
             </label>
             <DatePicker
-              required
               className="bg-surface-background hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="endDate"
               name="endDate"
               placeholder="Select End Date"
+              required={!id}
               style={{
                 border: '1px solid #DBDCDE',
                 outline: 'none',
@@ -321,11 +321,11 @@ const PromotionForm = () => {
             <div className="relative w-full">
               <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
               <select
-                required
                 className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                 disabled={isDetailPage}
                 id="discount"
                 name="discount"
+                required={!id}
                 value={formData.discount}
                 onChange={handleChange}
               >
@@ -344,12 +344,12 @@ const PromotionForm = () => {
               Promotion Usage Limit
             </label>
             <input
-              required
               className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none"
               disabled={isDetailPage}
               id="promotionLimit"
               name="promotionLimit"
               placeholder="Promotion Usage Limit"
+              required={!id}
               type="text"
               value={formData.promotionLimit}
               onChange={handleChange}
@@ -360,12 +360,12 @@ const PromotionForm = () => {
             <div className="flex flex-col justify-center gap-5 w-full col-span-2">
               <label className="flex items-center gap-3 text-base text-[#101010]">
                 <input
-                  required
                   checked={formData.showVoucherCode}
                   className="w-5 h-5 border-none outline-none ring-none appearance-none checked:appearance-auto rounded border-surface-border bg-[#E6E6E6] focus:ring-0"
                   disabled={isDetailPage}
                   id="show-voucher-checkbox"
                   name="showVoucherCode"
+                  required={!id}
                   type="checkbox"
                   onChange={handleChange}
                 />
