@@ -48,11 +48,11 @@ const EditProduct = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [photos, setPhotos] = useState([]);
-  // const [variants, setVariants] = useState([]);
+  const [variants, setVariants] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [variantName, setVariantName] = useState('');
   const [variantNames, setVariantNames] = useState([]);
-  // const [variantValue, setVariantValue] = useState('');
+  const [variantValue, setVariantValue] = useState('');
   const [defaultImageIndex, setDefaultImageIndex] = useState(null);
   const [tempVariantNames, setTempVariantNames] = useState([]);
 
@@ -147,7 +147,7 @@ const EditProduct = () => {
   };
 
   const sliderSettings = {
-    dots: true,
+    dots: false,
     className: 'center',
     infinite: false,
     centerPadding: '10px',
@@ -170,7 +170,7 @@ const EditProduct = () => {
   };
 
   return (
-    <div className="w-full p-5 flex justify-center items-start">
+    <div className="w-full p-5 flex justify-center items-start overflow-hidden">
       <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
         <div className="flex items-center gap-4">
           <Link to="/dashboard/products">
@@ -468,7 +468,7 @@ const EditProduct = () => {
             </div>
           </div>
           {/* Image Preview Section */}
-          <div className="mt-4">
+          <div className="my-4">
             <Slider {...sliderSettings}>
               {photos.map((photo, index) => (
                 <div key={index} className="px-2">

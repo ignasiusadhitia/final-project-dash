@@ -104,25 +104,14 @@ const AddProduct = () => {
   };
 
   const handleDeleteVariantName = (index) => {
+    setTempVariantNames(tempVariantNames.filter((_, i) => i !== index));
     setVariantNames(variantNames.filter((_, i) => i !== index));
   };
 
-  // const handleAddVariantValue = (variantName) => {
-  //   // Handle adding values for specific variant name
-  //   console.log(`Add value for ${variantName}`);
-  // };
-
   // Add this function to handle adding variants
   const handleAddVariant = () => {
-    setVariant([
-      ...variant,
-      {
-        name: variantName,
-        // value: variantValue,
-      },
-    ]);
-    setVariantName('');
-    // setVariantValue('');
+    setVariantNames([...variantNames, ...tempVariantNames]);
+    setTempVariantNames([]);
     setIsModalOpen(false);
   };
 
@@ -131,7 +120,7 @@ const AddProduct = () => {
     dots: false,
     className: 'left',
     infinite: false,
-    centerPadding: '10px',
+    centerPadding: '0px',
     slidesToShow: 4,
     swipeToSlide: true,
     responsive: [
@@ -151,7 +140,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="w-full p-5 flex justify-center items-start">
+    <div className="w-full p-5 flex justify-center items-start overflow-hidden">
       <div className="w-full mt-7 bg-[#FFFFFF] px-6 py-4 rounded-3xl">
         <div className="flex items-center gap-4">
           <Link to="/dashboard/products">
@@ -197,7 +186,7 @@ const AddProduct = () => {
             <div className="mb-4">
               <label className="block text-[14.22px] mb-5">Product Name</label>
               <input
-                required
+                // required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full mt-0"
                 placeholder="Enter Product Name"
                 type="text"
@@ -212,7 +201,7 @@ const AddProduct = () => {
               <div className="relative w-full">
                 <ArrowDownGray className="absolute right-4 top-1/2 -translate-y-1/2" />
                 <select
-                  required
+                  // required
                   className="bg-surface-background text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none appearance-none w-full"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -230,7 +219,7 @@ const AddProduct = () => {
             <div className="mb-4">
               <label className="block text-[14.22px] mb-5">SKU Product</label>
               <input
-                required
+                // required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter SKU Product"
                 type="text"
@@ -313,7 +302,7 @@ const AddProduct = () => {
                         <button
                           className="ml-2 p-2 bg-red-100 rounded-full hover:bg-red-200"
                           type="button"
-                          onClick={() => handleAddVariantName}
+                          onClick={handleAddVariantName}
                         >
                           <PlusButton className="w-6 h-6 " />
                         </button>
@@ -365,7 +354,7 @@ const AddProduct = () => {
             <div className="mb-4">
               <label className="block text-[14.22px] mb-5">Initial Stock</label>
               <input
-                required
+                // required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Initial Stock"
                 type="number"
@@ -376,7 +365,7 @@ const AddProduct = () => {
             <div className="mb-4">
               <label className="block text-[14.22px] mb-5">Price</label>
               <input
-                required
+                // required
                 className="bg-surface-background placeholder:text-type-text-light text-type-text-light border rounded-lg border-surface-border px-4 py-3 text-[14.22px] outline-none w-full"
                 placeholder="Enter Price"
                 type="number"
@@ -426,9 +415,7 @@ const AddProduct = () => {
 
           {/* product photo */}
           <div className="mb-4 w-1/2 bg-gray-100 p-5 rounded-lg">
-            <label className="block text-sm md:text-base font-medium mb-1">
-              Product Photo
-            </label>
+            <label className="block text-[14.22px] mb-5">Product Photo</label>
             <div
               {...getRootProps()}
               className={`border-2 border-dashed border-red-500 rounded-md p-4 text-center cursor-pointer ${
@@ -447,7 +434,7 @@ const AddProduct = () => {
             </div>
           </div>
           {/* Image Preview Section */}
-          <div className="mt-4">
+          <div className="my-4">
             <Slider {...sliderSettings}>
               {photos.map((photo, index) => (
                 <div key={index} className="px-2">
