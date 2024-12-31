@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // SWAL
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
+
+import { setPromotion } from '@store/features/promotionSlice';
 
 import { Confirm, Success } from '@components';
 import {
@@ -16,71 +19,10 @@ import {
   ArrowSorting,
 } from '@icons';
 
-const dummyData = [
-  {
-    id: 1,
-    promotionName: 'Promo Akhir Tahun',
-    startDate: '02/11/2024',
-    endDate: '11/11/2024',
-    promotionType: 'Direct Discount',
-    description: 'Potongan 20% dengan pembelian di atas 100rb',
-    status: 'Active',
-    published: true,
-  },
-  {
-    id: 2,
-    promotionName: 'Cuci Gudang',
-    startDate: '01/11/2024',
-    endDate: '10/11/2024',
-    promotionType: 'Voucher Code',
-    description: 'Potongan 30% dengan pembelian di atas 100rb',
-    status: 'Active',
-    published: false,
-  },
-  {
-    id: 3,
-    promotionName: 'Spesial Kemerdekaan',
-    startDate: '29/10/2024',
-    endDate: '09/11/2024',
-    promotionType: 'Direct Discount',
-    description: 'Potongan 10% dengan pembelian di atas 100rb',
-    status: 'Inactive',
-    published: false,
-  },
-  {
-    id: 4,
-    promotionName: 'Hari Kartini',
-    startDate: '21/10/2024',
-    endDate: '30/10/2024',
-    promotionType: 'Direct Discount',
-    description: 'Potongan 15% dengan pembelian di atas 100rb',
-    status: 'Inactive',
-    published: false,
-  },
-  {
-    id: 5,
-    promotionName: 'Flash Sale Akhir Tahun',
-    startDate: '15/12/2024',
-    endDate: '31/12/2024',
-    promotionType: 'Flash Sale',
-    description: 'Potongan hingga 50% untuk semua produk',
-    status: 'Active',
-    published: true,
-  },
-  {
-    id: 6,
-    promotionName: 'Bonus Akhir Pekan',
-    startDate: '08/12/2024',
-    endDate: '10/12/2024',
-    promotionType: 'Bonus Reward',
-    description: 'Dapatkan bonus poin hingga 200 untuk pembelian minimal 100rb',
-    status: 'Active',
-    published: false,
-  },
-];
-
 const PromotionList = () => {
-  const [data, setData] = useState(dummyData);
+  const dispatch = useDispatch();
+  const { promotions } = useSelector((state) => state.promotion);
+  const [data, setData] = useState(promotions);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({
@@ -102,6 +44,10 @@ const PromotionList = () => {
     setData(sortedData);
     setSortConfig({ key, direction });
   };
+
+  useEffect(() => {
+    dispatch(setPromotion(''));
+  }, []);
 
   // HANDLE PUBLISH LOGIC
   const handleTogglePublished = (id) => {
@@ -349,10 +295,16 @@ const PromotionList = () => {
                 </td>
                 <td className="text-xs font-medium px-4 py-3 border-b-2 text-type-text-light text-center">
                   <div className="flex gap-3 lg:gap-5 items-center">
-                    <Link to={`/dashboard/promotions/detail/${item.id}`}>
+                    <Link
+                      to={`/dashboard/promotions/detail/${item.id}`}
+                      // onClick={() => dispatch(selectPromotion(item))}
+                    >
                       <Eyes />
                     </Link>
-                    <Link to={`/dashboard/promotions/edit/${item.id}`}>
+                    <Link
+                      to={`/dashboard/promotions/edit/${item.id}`}
+                      // onClick={() => dispatch(selectPromotion(item))}
+                    >
                       <Pen />
                     </Link>
                     <button onClick={() => handleDeleteModal(item)}>

@@ -9,6 +9,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './features/authSlice';
 import { categoryApi } from './features/categorySlice';
 import { dashApi } from './features/dashSlice';
+import promotionReducer from './features/promotionSlice';
 
 const encryptor = encryptTransform({
   secretKey: import.meta.env.VITE_ENCRYPT_KEY,
@@ -19,6 +20,7 @@ const encryptor = encryptTransform({
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  promotion: promotionReducer,
   [dashApi.reducerPath]: dashApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
 });
