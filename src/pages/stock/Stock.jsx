@@ -177,6 +177,7 @@ const Stock = () => {
         </div>
 
         {/* FILTER AND SEARCH */}
+
         <div className="flex flex-col gap-5 md:flex-row justify-between">
           <div className="flex flex-wrap md:flex-nowrap lg:flex-row items-start lg:items-center gap-5 w-full">
             <div className="flex gap-5 lg:w-auto w-full">
@@ -191,6 +192,7 @@ const Stock = () => {
                 >
                   <Calendar />
                 </div>
+
                 <DatePicker
                   className={`${!showPickDate && 'opacity-0'} w-60 transition-all absolute -bottom-12 bg-white hover:border-surface-border active-border-surface-border focus-border-surface-border focus:ring-0 text-type-text-light border rounded-lg border-surface-border px-4 py-2 text-[14.22px] outline-none z-10`}
                   id="release-date"
