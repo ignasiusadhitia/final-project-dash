@@ -409,8 +409,7 @@ const Product = () => {
                 className="p-1 px-2 rounded-lg border"
                 disabled={currentPage === totalPages}
                 onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
               >
                 <svg
                   fill="none"
