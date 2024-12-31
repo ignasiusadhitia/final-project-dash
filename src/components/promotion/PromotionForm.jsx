@@ -102,7 +102,7 @@ const PromotionForm = () => {
     } else {
       const newPromotion = {
         ...formData,
-        id: 100,
+        id: Math.random().toString(36).substring(2, 9),
         startDate: formData.startDate.format('DD/MM/YYYY'),
         endDate: formData.endDate.format('DD/MM/YYYY'),
       };
@@ -172,6 +172,7 @@ const PromotionForm = () => {
                 disabled={isDetailPage}
                 id="promotionType"
                 name="promotionType"
+                required={!id}
                 value={formData.promotionType}
                 onChange={handleChange}
               >
@@ -195,6 +196,7 @@ const PromotionForm = () => {
                 id="voucherCode"
                 name="voucherCode"
                 placeholder="Enter Voucher Code"
+                required={!id}
                 type="text"
                 value={formData.voucherCode}
                 onChange={handleChange}
@@ -212,6 +214,7 @@ const PromotionForm = () => {
               id="promotionName"
               name="promotionName"
               placeholder="Enter Promotion Name"
+              required={!id}
               type="text"
               value={formData.promotionName}
               onChange={handleChange}
@@ -230,6 +233,7 @@ const PromotionForm = () => {
                 disabled={isDetailPage}
                 id="product"
                 name="product"
+                required={!id}
                 value={formData.product}
                 onChange={handleChange}
               >
@@ -272,6 +276,7 @@ const PromotionForm = () => {
               id="startDate"
               name="startDate"
               placeholder="Select Start Date"
+              required={!id}
               style={{
                 border: '1px solid #DBDCDE',
                 outline: 'none',
@@ -295,6 +300,7 @@ const PromotionForm = () => {
               id="endDate"
               name="endDate"
               placeholder="Select End Date"
+              required={!id}
               style={{
                 border: '1px solid #DBDCDE',
                 outline: 'none',
@@ -319,6 +325,7 @@ const PromotionForm = () => {
                 disabled={isDetailPage}
                 id="discount"
                 name="discount"
+                required={!id}
                 value={formData.discount}
                 onChange={handleChange}
               >
@@ -342,6 +349,7 @@ const PromotionForm = () => {
               id="promotionLimit"
               name="promotionLimit"
               placeholder="Promotion Usage Limit"
+              required={!id}
               type="text"
               value={formData.promotionLimit}
               onChange={handleChange}
@@ -357,6 +365,7 @@ const PromotionForm = () => {
                   disabled={isDetailPage}
                   id="show-voucher-checkbox"
                   name="showVoucherCode"
+                  required={!id}
                   type="checkbox"
                   onChange={handleChange}
                 />
